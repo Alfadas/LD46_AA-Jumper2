@@ -29,4 +29,25 @@ public class Airship : MonoBehaviour
     {
         
     }
+
+    void OnDrawGizmosSelected()
+    {
+        Renderer rend = gameObject.GetComponent<MeshRenderer>();
+        // A sphere that fully encloses the bounding box.
+        Vector3 center = rend.bounds.center;
+        float radius = rend.bounds.extents.magnitude;
+
+        
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(center, radius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(center, rend.bounds.extents.x);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(center, rend.bounds.extents.y);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(center, rend.bounds.extents.z);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(center, rend.bounds.extents * 2);
+    }
 }
