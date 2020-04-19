@@ -4299,8 +4299,8 @@ MonoBehaviour:
   valuePerWave: 1
   maxClassBuildupFactor: 0.9
   enemyModels:
+  - {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e, type: 3}
   - {fileID: 4616447376057133032, guid: 0b54ba806c84417478ff1e35b8dcee93, type: 3}
-  - {fileID: 6312900260728104789, guid: 729044b5327a2bd409690bebb3f91b9a, type: 3}
   - {fileID: 2620053775211204652, guid: ab7624d663473034abe04cdda1825371, type: 3}
   cost: 010000000200000003000000
 --- !u!4 &864569540
