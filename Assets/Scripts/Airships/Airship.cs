@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Airship : MonoBehaviour
 {
-    [SerializeField] int speed = 1;
+    public int maxSpeed = 1;
+    [HideInInspector] public int speed;
     [SerializeField] int maxHealth = 100;
     [SerializeField] int killPoint = -500;
     int health;
@@ -12,6 +13,7 @@ public class Airship : MonoBehaviour
 
     private void Start()
     {
+        speed = maxSpeed;
         health = maxHealth;
     }
     // Update is called once per frame
