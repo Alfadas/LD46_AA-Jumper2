@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 movement = Vector3.zero;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
+	private bool mouseVisible = false;
 
 	private void Start()
 		{
@@ -29,37 +30,40 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 		{
-		Cursor.lockState = CursorLockMode.Locked;
-
-		// Rotation
-		Vector3 rotation = transform.rotation.eulerAngles;
-
-		if(head != null)
+		if(!mouseVisible)
 			{
-			rotation.x = head.transform.rotation.eulerAngles.x;
-			}
+			Cursor.lockState = CursorLockMode.Locked;
 
-		rotation.x += -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-		rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-		rotation.z = 0.0f;
+			// Rotation
+			Vector3 rotation = transform.rotation.eulerAngles;
 
-		if(rotation.x < 180 && rotation.x > maxLookDown)
-			{
-			rotation.x = maxLookDown;
-			}
-		else if(rotation.x > 180 && rotation.x < maxLookUp)
-			{
-			rotation.x = maxLookUp;
-			}
+			if(head != null)
+				{
+				rotation.x = head.transform.rotation.eulerAngles.x;
+				}
 
-		if(head != null)
-			{
-			head.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
-			transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
-			}
-		else
-			{
-			transform.rotation = Quaternion.Euler(rotation);
+			rotation.x += -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+			rotation.y += Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
+			rotation.z = 0.0f;
+
+			if(rotation.x < 180 && rotation.x > maxLookDown)
+				{
+				rotation.x = maxLookDown;
+				}
+			else if(rotation.x > 180 && rotation.x < maxLookUp)
+				{
+				rotation.x = maxLookUp;
+				}
+
+			if(head != null)
+				{
+				head.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
+				transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
+				}
+			else
+				{
+				transform.rotation = Quaternion.Euler(rotation);
+				}
 			}
 
 		// Movement
@@ -113,5 +117,10 @@ public class PlayerController : MonoBehaviour
 	private bool isGrounded()
 		{
 		return Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, distanceToGround + 0.04f);
+		}
+
+	public void setMouseVisible(bool mouseVisible)
+		{
+		this.mouseVisible = mouseVisible;
 		}
 	}
