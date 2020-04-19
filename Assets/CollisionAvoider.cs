@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class CollisionAvoider : MonoBehaviour
 {
-    Airship airship;
-    Airship collidingAirship;
+    [SerializeField] Airship airship;
+    [SerializeField] Airship collidingAirship;
     // Start is called before the first frame update
     void Start()
     {
         airship = GetComponentInParent<Airship>();
+        StartCoroutine(CheckSpeed());
     }
 
     IEnumerator CheckSpeed()
@@ -20,7 +21,11 @@ public class CollisionAvoider : MonoBehaviour
             {
                 CorrectSpeed();
             }
-            yield return new WaitForSeconds(1);
+            else
+            {
+                airship.speed = airship.maxSpeed;
+            }
+            yield return new WaitForSeconds(2);
         }
     }
 
@@ -39,7 +44,7 @@ public class CollisionAvoider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Airship newCollidingAirship = other.gameObject.GetComponentInParent<Airship>();
-        if(collidingAirship != null)
+        if (newCollidingAirship != null)
         {
             collidingAirship = newCollidingAirship;
             CorrectSpeed();
