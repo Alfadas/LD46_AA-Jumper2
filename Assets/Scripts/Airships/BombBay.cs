@@ -6,6 +6,7 @@ public class BombBay : MonoBehaviour
 {
     [SerializeField] Bomb bombPrefab;
     [SerializeField] int bombDropPoint = -200;
+    [SerializeField] int bombSpawnDistance = 2;
     bool droped = false;
 
     private void Update()
@@ -18,6 +19,6 @@ public class BombBay : MonoBehaviour
     public void DropBomb()
     {
         droped = true;
-        Instantiate(bombPrefab, new Vector3(transform.position.x, transform.position.y - 3, transform.position.z), Quaternion.identity);
+        Instantiate(bombPrefab, new Vector3(transform.position.x, transform.position.y - bombSpawnDistance, transform.position.z), Quaternion.identity);
     }
 }
