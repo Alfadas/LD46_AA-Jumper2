@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] int maxHight = 100;
     [SerializeField] int lanes = 3;
     [SerializeField] int laneHight = 30;
-    [SerializeField] float laneMidDif = 0.2f;
+    [SerializeField] int laneMidDif = 3;
     [SerializeField] int widthPadding = 5;
     [SerializeField] int spawnInterval = 10;
     [SerializeField] float QFunktionA = 0.07f; //stretching and compression of the funktion to determine the width 
@@ -18,12 +19,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float maxClassBuildupFactor = 0.9f;
     [SerializeField] GameObject[] enemyModels;
     [SerializeField] int[] cost;
+    Lane[] laneArray;
+    bool spawning = false;
     int currentValue;
     int wave = 0;
 
     private void Start()
     {
         currentValue = startValue;
+        laneArray = gameObject.GetComponentsInChildren<Lane>();
         StartCoroutine(SpawnCycle());
     }
     IEnumerator SpawnCycle()
@@ -35,6 +39,7 @@ public class SpawnManager : MonoBehaviour
                 wave++;
                 Debug.Log("Wave " + wave + " started, value:" + currentValue);
                 StartCoroutine(SpawnEnemies(CreateSpawnList(currentValue)));
+                yield return new WaitWhile(() => spawning == true);
                 currentValue += valuePerWave;
                 yield return new WaitForSeconds(spawnInterval);
             }
@@ -63,49 +68,38 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemies(List<int> enemies)
     {
+        spawning = true;
+        Debug.Log("start Spawning");
         foreach (int enemy in enemies)
         {
-            GameObject newEnemy = Instantiate(enemyModels[enemy], enemyList.transform.position, Quaternion.identity, enemyList.transform);
-            MeshRenderer newEnemyRenderer = newEnemy.GetComponent<MeshRenderer>();
-            Vector3 newPosition = GetPosition();
-            bool placeFound = false;
-            int counter = 0;
-            do
+            Lane lane = null;
+            while(lane == null)
             {
-                foreach (MeshRenderer otherEnemyRenderer in enemyList.GetEnemies())
+                List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
+                while (freeLanes.Count > 0 && lane == null)
                 {
-                    Debug.Log(newEnemyRenderer.bounds.extents.x + otherEnemyRenderer.bounds.extents.x);
-                    Debug.Log(newEnemyRenderer.bounds.extents.y + otherEnemyRenderer.bounds.extents.y);
-                    Debug.Log(newEnemyRenderer.bounds.extents.z + otherEnemyRenderer.bounds.extents.z);
-                    newPosition = GetPosition();
-                    if (newEnemyRenderer.bounds.extents.x + otherEnemyRenderer.bounds.extents.x > Mathf.Abs(newPosition.x - otherEnemyRenderer.bounds.center.x)
-                        || newEnemyRenderer.bounds.extents.y + otherEnemyRenderer.bounds.extents.y > Mathf.Abs(newPosition.y - otherEnemyRenderer.bounds.center.y)
-                        || newEnemyRenderer.bounds.extents.z + otherEnemyRenderer.bounds.extents.z > Mathf.Abs(newPosition.z - otherEnemyRenderer.bounds.center.z))
-                    {
-                        Debug.LogWarning("spawnpoint to close: " + newPosition);
-                        break;
-                    }
-                    placeFound = true;
+                    lane = freeLanes[Random.Range(0, freeLanes.Count)];
+                    freeLanes.Remove(lane);
                 }
-                counter++;
-            } while (!placeFound && counter < 100);
-            Debug.Log("spawnpoint to found: " + newPosition);
-            newEnemy.transform.position = newPosition;
+                if(lane == null)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
+            }
+            GameObject newEnemy = Instantiate(enemyModels[enemy], GetPosition(lane), Quaternion.identity, enemyList.transform);
+            MeshRenderer newEnemyRenderer = newEnemy.GetComponent<MeshRenderer>();
+            lane.SetAirship(newEnemyRenderer);
             enemyList.AddEnemy(newEnemyRenderer);
             yield return new WaitForSeconds(0.1f);
         }
+        spawning = false;
     }
-    Vector3 GetPosition()
+
+    Vector3 GetPosition(Lane lane)
     {
-        int lane = Random.Range(1, lanes + 1);
-        float hight = lane * laneHight + laneHight * Random.Range(0.5f - laneMidDif, 0.5f + laneMidDif);
-        float widthMax = QFunktionA * Mathf.Pow(hight, 2);
-        float width = 0;
-        if (widthMax > widthPadding)
-        {
-            widthMax -= widthPadding;
-            width = Random.Range(-widthMax, widthMax);
-        }
+
+        float hight = lane.transform.position.y + Random.Range(-laneMidDif, laneMidDif);
+        float width = lane.transform.position.x + Random.Range(-laneMidDif, laneMidDif);
 
         return new Vector3(width, hight, transform.position.z);
     }
