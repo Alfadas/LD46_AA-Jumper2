@@ -5,15 +5,14 @@ using UnityEngine;
 public class Airship : MonoBehaviour
 {
     [SerializeField] int speed = 1;
-    [SerializeField] int health = 100;
+    [SerializeField] int maxHealth = 100;
+    int health;
     private int notWaiting = 1;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        health = maxHealth;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -25,11 +24,17 @@ public class Airship : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-speed * Time.deltaTime * notWaiting));
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void GetDamage(int damage)
     {
-        
+        health -= damage;
+        if (health <= 0)
+        {
+            DestroyShip();
+        }
     }
 
+    private void DestroyShip()
     {
+        Object.Destroy(gameObject, 0.2f);
     }
 }
