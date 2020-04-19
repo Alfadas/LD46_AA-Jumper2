@@ -8,13 +8,22 @@ public class Airship : MonoBehaviour
     [HideInInspector] public int speed;
     [SerializeField] int maxHealth = 100;
     [SerializeField] int killPoint = -500;
+    [SerializeField] int metal = 5;
     int health;
     private int notWaiting = 1;
+    MetalManager metallManager;
+    EnemyList enemyList;
 
     private void Start()
     {
         speed = maxSpeed;
         health = maxHealth;
+    }
+
+    public void SetManagingObjects(MetalManager metallManager, EnemyList enemyList)
+    {
+        this.metallManager = metallManager;
+        this.enemyList = enemyList;
     }
     // Update is called once per frame
     void Update()
@@ -22,7 +31,7 @@ public class Airship : MonoBehaviour
         Move();
         if (transform.position.z < killPoint)
         {
-            DestroyShip();
+            DestroyShip(false);
         }
     }
 
@@ -36,12 +45,17 @@ public class Airship : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            DestroyShip();
+            DestroyShip(true);
         }
     }
 
-    private void DestroyShip()
+    private void DestroyShip(bool kill)
     {
+        if (kill)
+        {
+            metallManager.AddMetalAndScore(metal);
+        }
+        enemyList.RemoveEnemy(this);
         Object.Destroy(gameObject, 0.2f);
     }
 }
