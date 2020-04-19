@@ -87,7 +87,7 @@ public class SpawnManager : MonoBehaviour
                 }
             }
             GameObject newEnemy = Instantiate(enemyModels[enemy], GetPosition(lane), Quaternion.identity, enemyList.transform);
-            MeshRenderer newEnemyRenderer = newEnemy.GetComponent<MeshRenderer>();
+            Airship newEnemyRenderer = newEnemy.GetComponent<Airship>();
             lane.SetAirship(newEnemyRenderer);
             enemyList.AddEnemy(newEnemyRenderer);
             yield return new WaitForSeconds(0.1f);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-    [SerializeField] MeshRenderer newAirship;
+    [SerializeField] Airship newAirship;
     [SerializeField] int minDistance;
 
     public bool HasAirship
@@ -14,7 +14,7 @@ public class Lane : MonoBehaviour
             return newAirship != null;
         }
     }
-    public void SetAirship(MeshRenderer airship)
+    public void SetAirship(Airship airship)
     {
         newAirship = airship;
     }

@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class EnemyList : MonoBehaviour
 {
-    [SerializeField] List<MeshRenderer> enemies;
+    [SerializeField] List<Airship> enemies;
     private void Start()
     {
-        enemies = new List<MeshRenderer>();
+        enemies = new List<Airship>();
     }
 
-    public void AddEnemy(MeshRenderer enemie)
+    public void AddEnemy(Airship enemie)
     {
         enemies.Add(enemie);
     }
 
-    public void RemoveEnemy(MeshRenderer enemie)
+    public void RemoveEnemy(Airship enemie)
     {
         enemies.Remove(enemie);
     }
 
-    public List<MeshRenderer> GetEnemies()
+    public List<Airship> GetEnemies()
     {
         return enemies;
     }
