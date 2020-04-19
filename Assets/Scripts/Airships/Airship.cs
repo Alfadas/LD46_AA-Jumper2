@@ -6,6 +6,7 @@ public class Airship : MonoBehaviour
 {
     [SerializeField] int speed = 1;
     [SerializeField] int maxHealth = 100;
+    [SerializeField] int killPoint = -500;
     int health;
     private int notWaiting = 1;
 
@@ -17,6 +18,10 @@ public class Airship : MonoBehaviour
     void Update()
     {
         Move();
+        if (transform.position.z < killPoint)
+        {
+            DestroyShip();
+        }
     }
 
     void Move()
