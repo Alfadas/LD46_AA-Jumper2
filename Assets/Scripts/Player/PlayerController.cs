@@ -91,14 +91,14 @@ public class PlayerController : MonoBehaviour
 				{
 				lastJump = Time.time;
 				jumpCharge = 0.0f;
-				rigidbody.AddForce(transform.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
+				rigidbody.AddForce(Vector3.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
 				}
 			else
 				{
 				if(jumpCharge < jumpTime)
 					{
 					jumpCharge += Time.deltaTime;
-					rigidbody.AddForce(transform.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
+					rigidbody.AddForce(Vector3.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
 					}
 				}
 			}
