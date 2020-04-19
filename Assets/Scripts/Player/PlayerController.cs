@@ -65,6 +65,10 @@ public class PlayerController : MonoBehaviour
 				transform.rotation = Quaternion.Euler(rotation);
 				}
 			}
+		else
+			{
+			Cursor.lockState = CursorLockMode.None;
+			}
 
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
