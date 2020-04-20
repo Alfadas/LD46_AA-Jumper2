@@ -1,19 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private Vector3 aimPosition = Vector3.zero;
     [SerializeField] private Vector3 muzzle = Vector3.zero;
     [Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
-    [SerializeField] private float spread = 50;
+    [SerializeField] private float spread = 50.0f;
     [SerializeField] private int roundsPerMinute = 600;
     [SerializeField] private int magazineCapacity = 1;
-    [SerializeField] private float reloadTime = 2;
+    [SerializeField] private float reloadTime = 2.0f;
     [SerializeField] private float muzzleVelocity = 40.0f;
     [SerializeField] private GameObject bulletPrefab = null;
     [SerializeField] private AudioClip fireSound = null;
+    [SerializeField] private Text bulletCounter = null;
     private Vector3 hipPosition = Vector3.zero;
     private AudioSource audioSource = null;
     private float timePerRound = 1.0f;
@@ -26,6 +28,7 @@ public class WeaponController : MonoBehaviour
         timePerRound = 1.0f / (roundsPerMinute / 60.0f);
         hipPosition = transform.localPosition;
         audioSource = gameObject.GetComponent<AudioSource>();
+        bulletCounter = GameObject.Find("BulletCounter").GetComponent<Text>();
         }
 
     private void Update()
@@ -65,6 +68,26 @@ public class WeaponController : MonoBehaviour
         if(Input.GetButtonUp("Fire2"))
             {
             transform.localPosition = hipPosition;
+            }
+
+        // Update Bullet Counter
+        if(reloadStarted < 0)
+            {
+            bulletCounter.text = shotCount + "/" + magazineCapacity;
+            bulletCounter.alignment = TextAnchor.LowerRight;
+            }
+        else
+            {
+            string text = "Reloading ";
+
+            int dotcount = (int) (((Time.time - reloadStarted) / reloadTime) / 0.25f);
+            for(int i = 0; i < dotcount; ++i)
+                {
+                text += ".";
+                }
+
+            bulletCounter.text = text;
+            bulletCounter.alignment = TextAnchor.LowerLeft;
             }
         }
 }
