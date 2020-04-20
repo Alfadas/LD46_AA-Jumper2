@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 	{
 	[SerializeField] private float movementSpeed = 20.0f;
+    [SerializeField] private float sprintMulti = 2f;
 	[SerializeField] private float rotationSpeed = 400.0f;
 	[Tooltip("Maximum look down Angle, Front is 0/360 Degrees, straight down 90/360 Degrees")]
 	[SerializeField] private float maxLookDown = 90.0f;
@@ -75,14 +76,23 @@ public class PlayerController : MonoBehaviour
 		if(grounded)
 			{
 			// Movement
-			movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime);
-			}
+            if (Input.GetButton("Sprint"))
+            {
+                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * sprintMulti * movementSpeed * Time.deltaTime);
+            }
+            else
+            {
+                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime);
+            }
+            }
 		else
 			{
 			// Jump Movement
 			movement *= 1.0f - (rigidbody.drag * Time.deltaTime);
 			}
-		transform.Translate(movement, Space.World);
+
+        rigidbody.velocity = new Vector3(movement.x, rigidbody.velocity.y, movement.z);
+        //transform.Translate(movement, Space.World);
 
 		// Jumping
 		if(Input.GetButton("Jump"))

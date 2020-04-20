@@ -29,6 +29,7 @@ public class WeaponController : MonoBehaviour
     private float reloadStarted = 0.0f;
     private Text bulletCounter = null;
     private AudioSource audioSource = null;
+    public bool shootingBlocked = false;
 
     private void Start()
         {
@@ -52,7 +53,7 @@ public class WeaponController : MonoBehaviour
             shotCount = magazineCapacity;
             }
 
-        if(Input.GetButton("Fire1") && (Time.time - lastShot) >= timePerRound && shotCount > 0)
+        if(Input.GetButton("Fire1") && !shootingBlocked && (Time.time - lastShot) >= timePerRound && shotCount > 0)
             {
             lastShot = Time.time;
 
@@ -104,4 +105,8 @@ public class WeaponController : MonoBehaviour
             bulletCounter.alignment = TextAnchor.LowerLeft;
             }
         }
+    public void BlockShooting(bool stop)
+    {
+        shootingBlocked = stop;
+    }
 }
