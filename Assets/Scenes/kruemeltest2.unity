@@ -454,7 +454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  health: 0
 --- !u!65 &77784747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2878,16 +2877,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 481758545447935620, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-        type: 3}
-      propertyPath: distanceToGround
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 481758545447935620, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-        type: 3}
-      propertyPath: jumpTime
-      value: 0.2
-      objectReference: {fileID: 0}
+    - target: {fileID: 1238721549, guid: 7e7e6efe37d28eb448e437ad7dd99ff6, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 693216954}
+    - target: {fileID: 1238721549, guid: 7e7e6efe37d28eb448e437ad7dd99ff6, type: 3}
+      propertyPath: buildingUi
+      value: 
+      objectReference: {fileID: 1834968599}
     - target: {fileID: 481758545447935621, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
         type: 3}
       propertyPath: m_Name
@@ -2947,16 +2944,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 481758546384068900, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.005
-      objectReference: {fileID: 0}
-    - target: {fileID: 481758546384068900, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.861
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e7e6efe37d28eb448e437ad7dd99ff6, type: 3}
@@ -4568,13 +4555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyList: {fileID: 1813139920}
   active: 1
-  maxHight: 100
-  lanes: 3
-  laneHight: 30
   laneMidDif: 3
-  widthPadding: 5
   spawnInterval: 20
-  QFunktionA: 0.07
   startValue: 3
   valuePerWave: 1
   maxClassBuildupFactor: 0.9
@@ -4583,6 +4565,7 @@ MonoBehaviour:
   - {fileID: 4616447376057133032, guid: 0b54ba806c84417478ff1e35b8dcee93, type: 3}
   - {fileID: 2620053775211204652, guid: ab7624d663473034abe04cdda1825371, type: 3}
   cost: 010000000200000003000000
+  metalManager: {fileID: 0}
 --- !u!4 &864569540
 Transform:
   m_ObjectHideFlags: 0
@@ -6274,27 +6257,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1205851643}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1238721544 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 481758546384068901, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-    type: 3}
-  m_PrefabInstance: {fileID: 451290498}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1238721549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238721544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57a30b754d641747ada3dccdd35b7f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 693216954}
-  buildingUi: {fileID: 1834968599}
-  playerController: {fileID: 2142821374}
 --- !u!1001 &1251349382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11277,18 +11239,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2139135287}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2142821374 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 481758545447935620, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
-    type: 3}
-  m_PrefabInstance: {fileID: 451290498}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22002e6467628284da4f82fefa91a15b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3435844703878612222
 PrefabInstance:
   m_ObjectHideFlags: 0
