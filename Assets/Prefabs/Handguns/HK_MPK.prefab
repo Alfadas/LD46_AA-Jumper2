@@ -147,10 +147,11 @@ MonoBehaviour:
   roundsPerMinute: 550
   magazineCapacity: 32
   reloadTime: 2
-  muzzleVelocity: 200
+  muzzleVelocity: 120
   bulletPrefab: {fileID: 6748685144120150169, guid: 90c9401a743b45a48bf949a144fc1969,
     type: 3}
   fireSound: {fileID: 8300000, guid: 59e746f4a8fa0274ea1e27d9284cad49, type: 3}
+  bulletCounter: {fileID: 0}
 --- !u!1 &8328569595354219213
 GameObject:
   m_ObjectHideFlags: 0
