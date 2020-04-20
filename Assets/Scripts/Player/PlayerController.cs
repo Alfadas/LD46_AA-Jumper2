@@ -75,20 +75,12 @@ public class PlayerController : MonoBehaviour
 		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
         if (grounded)
         {
-            // Movement
-            if (Input.GetButton("Sprint"))
-            {
-                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical") * sprintMulti);
-            }
-            else
-            {
-                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-            }
+            movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             if (movement.sqrMagnitude > 1)
             {
                 movement = Vector3.Normalize(movement);
             }
-            movement *= movementSpeed * Time.deltaTime;
+            movement *= movementSpeed * Time.deltaTime * sprintMulti;
         }
         else
         {
