@@ -125,13 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22002e6467628284da4f82fefa91a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1700
+  movementSpeed: 1500
   sprintMulti: 2
   rotationSpeed: 400
   maxLookDown: 90
   maxLookUp: 270
   jumpStrength: 7000
-  distanceToGround: 0.5
   jumpTime: 0.2
   head: {fileID: 0}
 --- !u!1 &7346026783906299257
@@ -279,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
       propertyPath: aimPosition.y
-      value: 0.95
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
       propertyPath: aimPosition.z
