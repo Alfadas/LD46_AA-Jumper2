@@ -11,8 +11,8 @@ public class Airship : MonoBehaviour
     [SerializeField] int metal = 5;
     int health;
     private int notWaiting = 1;
-    MetalManager metallManager;
-    EnemyList enemyList;
+    [SerializeField] MetalManager metallManager;
+    [SerializeField] EnemyList enemyList;
 
     private void Start()
     {
