@@ -12,14 +12,12 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Maximum look up Angle, Front is 0/360 Degrees, straight up 270/360 Degrees")]
 	[SerializeField] private float maxLookUp = 270.0f;
 	[SerializeField] private float jumpStrength = 40.0f;
-	[Tooltip("The Height of the GameObjects Pivot Point above the Ground")]
-	[SerializeField] private float distanceToGround = 0.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
 	[SerializeField] private float jumpTime = 0.2f;
 	[SerializeField] private GameObject head = null;
-	private bool grounded = false;
 	private Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
+	private float groundDistance = 0.0f;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
 	private bool mouseVisible = false;
@@ -27,6 +25,7 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 		{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
+		updateGroundDistance();
 		}
 
 	private void Update()
@@ -73,18 +72,24 @@ public class PlayerController : MonoBehaviour
 
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
+		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
 		if(grounded)
 			{
-			// Movement
+            // Movement
             if (Input.GetButton("Sprint"))
             {
-                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * sprintMulti * movementSpeed * Time.deltaTime);
+                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical") * sprintMulti);
             }
             else
             {
-                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal") * movementSpeed * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * movementSpeed * Time.deltaTime);
+                movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             }
-            }
+            if (movement.sqrMagnitude > 1)
+				{
+				movement = Vector3.Normalize(movement);
+				}
+			movement *= movementSpeed * Time.deltaTime;
+			}
 		else
 			{
 			// Jump Movement
@@ -118,19 +123,15 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-	private void OnCollisionStay(Collision collision)
+	public void updateGroundDistance()
 		{
-		grounded = isGrounded();
-		}
-
-	private void OnCollisionExit(Collision collision)
-		{
-		grounded = isGrounded();
-		}
-
-	private bool isGrounded()
-		{
-		return Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, distanceToGround + 0.04f);
+		MeshRenderer[] meshes = gameObject.GetComponentsInChildren<MeshRenderer>();
+		float miny = transform.position.y;
+		foreach(MeshRenderer mesh in meshes)
+			{
+			miny = Mathf.Min(mesh.bounds.center.y - mesh.bounds.extents.y, miny);
+			}
+		groundDistance = transform.position.y - miny;
 		}
 
 	public void setMouseVisible(bool mouseVisible)
