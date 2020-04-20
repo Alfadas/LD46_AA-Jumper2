@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28502727, g: 0.37139478, b: 0.49601263, a: 1}
+  m_IndirectSpecularColor: {r: 0.28085274, g: 0.36602777, b: 0.49832973, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -533,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77784745}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -202}
+  m_LocalPosition: {x: -7.3, y: 0, z: -202}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9194,7 +9194,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630345402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.55, y: -0.63, z: -218.6}
+  m_LocalPosition: {x: -0.55, y: 0.04, z: -218.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1995066483}
@@ -10405,7 +10405,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turrets:
-  - {fileID: 0}
+  - {fileID: 5188321172045232528, guid: cad4b56a19316514cb83cd16bfd6ea4c, type: 3}
+  - {fileID: 5292961713254209816, guid: a871b45804972ca47ba41b8074a48c42, type: 3}
+  - {fileID: 8461986820283126094, guid: f72ac64d238580246a0d8b3520ca9b1f, type: 3}
+  - {fileID: 390723164812501243, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
   turretPanel: {fileID: 4420779449764149830, guid: fcbd6788c400c294697b2173732ee10d,
     type: 3}
   turretPanelWidth: 200
@@ -11089,8 +11092,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995066482}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09159999, y: 0.93, z: -0.15785705}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalPosition: {x: -0.09159999, y: 0.84, z: -0.15785705}
+  m_LocalScale: {x: 10, y: 0.25, z: 10}
   m_Children: []
   m_Father: {fileID: 1630345403}
   m_RootOrder: 0
@@ -11870,7 +11873,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
+  m_Intensity: 2.33
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.802082
@@ -11926,13 +11929,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138677391}
-  m_LocalRotation: {x: 0.6962638, y: 0.4051044, z: 0.12335884, w: 0.5795601}
+  m_LocalRotation: {x: 0.6904708, y: 0.15247962, z: -0.15247962, w: 0.6904708}
   m_LocalPosition: {x: 0.24, y: 3, z: 4.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45.000004, y: 114.906006, z: 90.00001}
+  m_LocalEulerAnglesHint: {x: 90, y: 114.906006, z: 90.00001}
 --- !u!1001 &2139135287
 PrefabInstance:
   m_ObjectHideFlags: 0

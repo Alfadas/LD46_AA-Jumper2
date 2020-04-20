@@ -2738,7 +2738,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turrets:
-  - {fileID: 5924672719872641914, guid: b6e40e739809ae14585d3957cea9aae3, type: 3}
+  - {fileID: 5188321172045232528, guid: cad4b56a19316514cb83cd16bfd6ea4c, type: 3}
+  - {fileID: 5292961713254209816, guid: a871b45804972ca47ba41b8074a48c42, type: 3}
+  - {fileID: 8461986820283126094, guid: f72ac64d238580246a0d8b3520ca9b1f, type: 3}
+  - {fileID: 390723164812501243, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
   turretPanel: {fileID: 4420779449764149830, guid: fcbd6788c400c294697b2173732ee10d,
     type: 3}
   turretPanelWidth: 200
