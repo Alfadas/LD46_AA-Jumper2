@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -93,6 +94,6 @@ public class TutorialManager : MonoBehaviour
 
     public void BackToMenu()
     {
-
+        SceneManager.LoadScene(0);
     }
 }

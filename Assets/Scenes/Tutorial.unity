@@ -5193,11 +5193,6 @@ PrefabInstance:
       propertyPath: buildingUi
       value: 
       objectReference: {fileID: 1273751588}
-    - target: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: aimPosition.y
-      value: 1.01
-      objectReference: {fileID: 0}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5252,11 +5247,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7346026782969594584, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: movementSpeed
-      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 7346026782969594585, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
