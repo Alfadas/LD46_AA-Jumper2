@@ -3066,6 +3066,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 481758545447935620, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
+        type: 3}
+      propertyPath: movementSpeed
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 481758545447935621, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
         type: 3}
       propertyPath: m_Name
@@ -4755,6 +4760,7 @@ MonoBehaviour:
   spawnInterval: 20
   startValue: 3
   valuePerWave: 1
+  valueDiviation: 0.1
   maxClassBuildupFactor: 0.9
   enemyModels:
   - {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e, type: 3}

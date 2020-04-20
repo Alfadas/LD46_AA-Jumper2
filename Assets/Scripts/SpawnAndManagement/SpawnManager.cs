@@ -34,8 +34,8 @@ public class SpawnManager : MonoBehaviour
             if (active)
             {
                 wave++;
-                Debug.Log("Wave " + wave + " started, value:" + currentValue);
                 int nextWaveValue = currentValue + Mathf.RoundToInt(currentValue * Random.Range(-valueDiviation, valueDiviation));
+                Debug.Log("Wave " + wave + " started, value:" + nextWaveValue);
                 StartCoroutine(SpawnEnemies(CreateSpawnList(nextWaveValue)));
                 yield return new WaitWhile(() => spawning == true);
                 currentValue += valuePerWave;

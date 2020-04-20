@@ -8,22 +8,27 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] GameObject text;
     [SerializeField] BuildingPanelBuilder buildingUi;
     [SerializeField] PlayerController playerController;
+    [SerializeField] WeaponController weaponController;
     BuildingBase buildingBase;
 
     private void Update()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward, out hit, 2))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 2))
         {
             buildingBase = hit.collider.gameObject.GetComponent<BuildingBase>();
-            if ( buildingBase != null && !buildingBase.IsFilled && !buildingUi.isActiveAndEnabled)
+            if (buildingBase != null && !buildingBase.IsFilled)
             {
-                text.SetActive(true);
-                if (Input.GetButton("Interact"))
+                if (!buildingUi.isActiveAndEnabled)
                 {
-                    buildingUi.gameObject.SetActive(true);
-                    buildingUi.SetupTurretPanels(this);
-                    playerController.setMouseVisible(true);
+                    text.SetActive(true);
+                    if (Input.GetButton("Interact"))
+                    {
+                        buildingUi.gameObject.SetActive(true);
+                        buildingUi.SetupTurretPanels(this);
+                        playerController.setMouseVisible(true);
+                        weaponController.BlockShooting(true);
+                    }
                 }
             }
             else
@@ -35,6 +40,13 @@ public class BuildingManager : MonoBehaviour
         {
             text.SetActive(false);
         }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (buildingUi.isActiveAndEnabled)
+            {
+                QuitBuildingMenu();
+            }
+        }
     }
 
     public void QuitBuildingMenu(Turret turret = null)
@@ -45,5 +57,6 @@ public class BuildingManager : MonoBehaviour
         }
         buildingUi.gameObject.SetActive(false);
         playerController.setMouseVisible(false);
+        weaponController.BlockShooting(false);
     }
 }
