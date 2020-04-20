@@ -53,6 +53,11 @@ public class Turret : Building
         return cost;
     }
 
+    public float GetMeterSpread()
+    {
+        return spread * 0.01f;
+    }
+
     private void Start()
     {
         enemyList = FindObjectOfType<EnemyList>();

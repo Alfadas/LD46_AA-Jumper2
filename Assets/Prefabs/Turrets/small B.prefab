@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3907702288452539011}
   - component: {fileID: 1652217798346977191}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: small B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3907702288452539037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -103.58, y: 134.585, z: 746.873}
-  m_LocalScale: {x: 0.26084, y: 0.26084, z: 0.80257857}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFlightTime: 6
   scanAheadDistance: 10
-  damage: 10
+  damage: 12
   explosionSize: 1
   explosionDuration: 0.2
   explosionColor: {fileID: 2100000, guid: 891f9db6764097a409adcb347a400e17, type: 2}
