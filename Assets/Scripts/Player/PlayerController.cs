@@ -81,13 +81,9 @@ public class PlayerController : MonoBehaviour
 				movement = Vector3.Normalize(movement);
 				}
 			movement *= movementSpeed * Time.deltaTime;
+
+			rigidbody.velocity = new Vector3(movement.x, rigidbody.velocity.y, movement.z);
 			}
-		else
-			{
-			// Jump Movement
-			movement *= 1.0f - (rigidbody.drag * Time.deltaTime);
-			}
-		transform.Translate(movement, Space.World);
 
 		// Jumping
 		if(Input.GetButton("Jump"))
