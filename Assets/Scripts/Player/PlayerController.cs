@@ -73,23 +73,22 @@ public class PlayerController : MonoBehaviour
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
 		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
-        if (grounded)
-        {
-            movement = transform.rotation * new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-            if (movement.sqrMagnitude > 1)
-            {
-                movement = Vector3.Normalize(movement);
-            }
+		if(grounded)
+			{
+			// Movement
+			movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
+			if(movement.sqrMagnitude > 1)
+				{
+				movement = Vector3.Normalize(movement);
+				}
             movement *= movementSpeed * Time.deltaTime * sprintMulti;
         }
-        else
-        {
-            // Jump Movement
-            movement *= 1.0f - (rigidbody.drag * Time.deltaTime);
-        }
-
-        rigidbody.velocity = new Vector3(movement.x, rigidbody.velocity.y, movement.z);
-        //transform.Translate(movement, Space.World);
+		else
+			{
+			// Jump Movement
+			movement *= 1.0f - (rigidbody.drag * Time.deltaTime);
+			}
+		transform.Translate(movement, Space.World);
 
 		// Jumping
 		if(Input.GetButton("Jump"))
