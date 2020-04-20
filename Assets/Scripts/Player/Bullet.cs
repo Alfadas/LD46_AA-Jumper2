@@ -57,10 +57,8 @@ public class Bullet : MonoBehaviour
                 originalScale = transform.localScale;
                 impactTime = Time.time;
                 }
-            else
-                {
-                lastPosition = transform.position;
-                }
+           
+            lastPosition = transform.position;
             }
         }
 
