@@ -73,7 +73,8 @@ public class PlayerController : MonoBehaviour
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
 		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
-		if(grounded)
+        //if (grounded)
+        if (true)
 			{
 			// Movement
 			movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
