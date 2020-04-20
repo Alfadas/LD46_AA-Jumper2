@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour
         if((transform.position - lastPosition).magnitude > scanAheadDistance)
             {
             RaycastHit hit;
-            if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance))
+            if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance) && !hit.collider.isTrigger)
                 {
                 Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
 
