@@ -347,12 +347,12 @@ GameObject:
   - component: {fileID: 1397077911102090288}
   - component: {fileID: 1397077911102090291}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ExitPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1397077911102090290
 RectTransform:
   m_ObjectHideFlags: 0
