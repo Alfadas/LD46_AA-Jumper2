@@ -22,7 +22,7 @@ public class PlayerLife : MonoBehaviour
         {
             Respawn();
         }
-        if (transform.position.y < 0)
+        if (transform.position.y < -50)
         {
             Respawn();
         }
