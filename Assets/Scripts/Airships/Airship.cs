@@ -56,6 +56,6 @@ public class Airship : MonoBehaviour
             metallManager.AddMetalAndScore(metal);
         }
         enemyList.RemoveEnemy(this);
-        Object.Destroy(gameObject, 0.2f);
+        Object.Destroy(gameObject, 0.1f);
     }
 }
