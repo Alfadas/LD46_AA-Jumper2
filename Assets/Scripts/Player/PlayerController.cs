@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 	{
-	[SerializeField] private float movementSpeed = 20.0f;
-    [SerializeField] private float sprintMulti = 2f;
-	[SerializeField] private float rotationSpeed = 400.0f;
 	[Tooltip("Maximum look down Angle, Front is 0/360 Degrees, straight down 90/360 Degrees")]
 	[SerializeField] private float maxLookDown = 90.0f;
 	[Tooltip("Maximum look up Angle, Front is 0/360 Degrees, straight up 270/360 Degrees")]
 	[SerializeField] private float maxLookUp = 270.0f;
+	[SerializeField] private float rotationSpeed = 400.0f;
+	[SerializeField] private float movementSpeed = 20.0f;
+	[Tooltip("Factor by which Sprinting is faster than walking")]
+    [SerializeField] private float sprintFactor = 2.0f;
 	[SerializeField] private float jumpStrength = 40.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
 	[SerializeField] private float jumpTime = 0.2f;
 	[SerializeField] private GameObject head = null;
+	[SerializeField] private Collider feet = null;
 	private Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
-	private float groundDistance = 0.0f;
+	List<ContactPoint> contactList = null;
+	bool grounded = false;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
 	private bool mouseVisible = false;
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 		{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
-		updateGroundDistance();
+		contactList = new List<ContactPoint>(4);
 		}
 
 	private void Update()
@@ -57,12 +60,12 @@ public class PlayerController : MonoBehaviour
 
 			if(head != null)
 				{
-				head.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
-				transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
+				head.transform.localRotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
+				transform.localRotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
 				}
 			else
 				{
-				transform.rotation = Quaternion.Euler(rotation);
+				transform.localRotation = Quaternion.Euler(rotation);
 				}
 			}
 		else
@@ -72,9 +75,7 @@ public class PlayerController : MonoBehaviour
 
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
-		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
-        //if (grounded)
-        if (true)
+        if (grounded)
 			{
 			// Movement
 			movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
@@ -82,14 +83,11 @@ public class PlayerController : MonoBehaviour
 				{
 				movement = Vector3.Normalize(movement);
 				}
-            if (Input.GetButton("Sprint"))
-            {
-                movement *= movementSpeed * Time.deltaTime * sprintMulti;
-            }
-            else
-            {
-                movement *= movementSpeed * Time.deltaTime;
-            }
+			movement *= movementSpeed * Time.deltaTime;
+            if (Input.GetButton("Sprint") && Vector3.Angle(transform.forward, movement) <= 45.0f)
+				{
+                movement *= sprintFactor;
+				}
             rigidbody.velocity = rigidbody.velocity = new Vector3(movement.x, rigidbody.velocity.y, movement.z);
         }
 
@@ -117,15 +115,39 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-	public void updateGroundDistance()
+	private void OnCollisionEnter(Collision collision)
 		{
-		MeshRenderer[] meshes = gameObject.GetComponentsInChildren<MeshRenderer>();
-		float miny = transform.position.y;
-		foreach(MeshRenderer mesh in meshes)
+		if(collision.GetContacts(contactList) > 0)
 			{
-			miny = Mathf.Min(mesh.bounds.center.y - mesh.bounds.extents.y, miny);
+			foreach(ContactPoint contact in contactList)
+				{
+				if(contact.thisCollider.Equals(feet) || contact.otherCollider.Equals(feet))
+					{
+					grounded = true;
+					break;
+					}
+				}
 			}
-		groundDistance = transform.position.y - miny;
+		}
+
+	private void OnCollisionStay(Collision collision)
+		{
+		if(collision.GetContacts(contactList) > 0)
+			{
+			foreach(ContactPoint contact in contactList)
+				{
+				if(contact.thisCollider.Equals(feet) || contact.otherCollider.Equals(feet))
+					{
+					grounded = true;
+					break;
+					}
+				}
+			}
+		}
+
+	private void OnCollisionExit(Collision collision)
+		{
+		grounded = false;
 		}
 
 	public void setMouseVisible(bool mouseVisible)

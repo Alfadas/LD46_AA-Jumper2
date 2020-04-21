@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 481758545447935622}
   - component: {fileID: 481758545447935623}
   - component: {fileID: 481758545447935620}
+  - component: {fileID: 2016118204917445962}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -124,13 +125,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22002e6467628284da4f82fefa91a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2000
-  rotationSpeed: 400
   maxLookDown: 90
   maxLookUp: 270
+  rotationSpeed: 400
+  movementSpeed: 2000
+  sprintFactor: 2
   jumpStrength: 40
   jumpTime: 0.2
   head: {fileID: 0}
+  feet: {fileID: 2016118204917445962}
+--- !u!65 &2016118204917445962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481758545447935621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.2, z: 0.8}
+  m_Center: {x: 0, y: -0.4, z: 0}
 --- !u!1 &481758546384068901
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +279,7 @@ MonoBehaviour:
   text: {fileID: 0}
   buildingUi: {fileID: 0}
   playerController: {fileID: 481758545447935620}
+  weaponController: {fileID: 0}
 --- !u!114 &1238721549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +295,4 @@ MonoBehaviour:
   text: {fileID: 0}
   buildingUi: {fileID: 0}
   playerController: {fileID: 481758545447935620}
+  weaponController: {fileID: 0}
