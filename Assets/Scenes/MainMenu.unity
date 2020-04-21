@@ -1343,6 +1343,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4368452007946506378, guid: dca531fba31947b4b81687151f746b3e,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
+      objectReference: {fileID: 0}
     - target: {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e,
         type: 3}
       propertyPath: m_Name
@@ -2842,6 +2847,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadnought
       objectReference: {fileID: 0}
+    - target: {fileID: 7633964663029468469, guid: c4a579d21934dca4da9007814f990d60,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4a579d21934dca4da9007814f990d60, type: 3}
 --- !u!1 &653260035
@@ -3359,7 +3369,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -20
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 390723164812501243, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
 --- !u!1001 &868746636
 PrefabInstance:
@@ -3502,6 +3513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4368452007946506378, guid: dca531fba31947b4b81687151f746b3e,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
       objectReference: {fileID: 0}
     - target: {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e,
         type: 3}
@@ -3848,6 +3864,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dreadnought (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7633964663029468469, guid: c4a579d21934dca4da9007814f990d60,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4a579d21934dca4da9007814f990d60, type: 3}
 --- !u!1001 &1042934804
@@ -4096,6 +4117,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmallShip (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616447376057133045, guid: 0b54ba806c84417478ff1e35b8dcee93,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
       objectReference: {fileID: 0}
     - target: {fileID: 4616447376057133047, guid: 0b54ba806c84417478ff1e35b8dcee93,
         type: 3}
@@ -5246,6 +5272,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmallShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616447376057133045, guid: 0b54ba806c84417478ff1e35b8dcee93,
+        type: 3}
+      propertyPath: killPoint
+      value: -10000
       objectReference: {fileID: 0}
     - target: {fileID: 4616447376057133047, guid: 0b54ba806c84417478ff1e35b8dcee93,
         type: 3}
