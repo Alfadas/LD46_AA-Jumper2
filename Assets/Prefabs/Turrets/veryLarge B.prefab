@@ -126,6 +126,6 @@ MonoBehaviour:
   maxFlightTime: 6
   scanAheadDistance: 10
   damage: 200
-  explosionSize: 1
-  explosionDuration: 0.2
-  explosionColor: {fileID: 2100000, guid: 891f9db6764097a409adcb347a400e17, type: 2}
+  explosionSize: 10
+  explosionDuration: 0.5
+  explosionColor: {fileID: 2100000, guid: bf584f4a734267e47baa1a7f88008678, type: 2}
