@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
 	[SerializeField] private float jumpTime = 0.2f;
 	[SerializeField] private GameObject head = null;
+	[SerializeField] private Collider feet = null;
 	private Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
-	private float groundDistance = 0.0f;
+	List<ContactPoint> contactList = null;
+	bool grounded = false;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
 	private bool mouseVisible = false;
@@ -26,7 +28,7 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 		{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
-		updateGroundDistance();
+		contactList = new List<ContactPoint>(4);
 		}
 
 	private void Update()
@@ -58,12 +60,12 @@ public class PlayerController : MonoBehaviour
 
 			if(head != null)
 				{
-				head.transform.rotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
-				transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
+				head.transform.localRotation = Quaternion.Euler(new Vector3(rotation.x, 0.0f, 0.0f));
+				transform.localRotation = Quaternion.Euler(new Vector3(0.0f, rotation.y, 0.0f));
 				}
 			else
 				{
-				transform.rotation = Quaternion.Euler(rotation);
+				transform.localRotation = Quaternion.Euler(rotation);
 				}
 			}
 		else
@@ -73,7 +75,6 @@ public class PlayerController : MonoBehaviour
 
 		// Movement
 		// Movement is only possible when having Ground Contact, else the last Input is applied again
-		bool grounded = Physics.Raycast(transform.position + Vector3.up * 0.02f, Vector3.down, groundDistance + 0.04f);
         if (grounded)
 			{
 			// Movement
@@ -114,15 +115,39 @@ public class PlayerController : MonoBehaviour
 			}
 		}
 
-	public void updateGroundDistance()
+	private void OnCollisionEnter(Collision collision)
 		{
-		MeshRenderer[] meshes = gameObject.GetComponentsInChildren<MeshRenderer>();
-		float miny = transform.position.y;
-		foreach(MeshRenderer mesh in meshes)
+		if(collision.GetContacts(contactList) > 0)
 			{
-			miny = Mathf.Min(mesh.bounds.center.y - mesh.bounds.extents.y, miny);
+			foreach(ContactPoint contact in contactList)
+				{
+				if(contact.thisCollider.Equals(feet) || contact.otherCollider.Equals(feet))
+					{
+					grounded = true;
+					break;
+					}
+				}
 			}
-		groundDistance = transform.position.y - miny;
+		}
+
+	private void OnCollisionStay(Collision collision)
+		{
+		if(collision.GetContacts(contactList) > 0)
+			{
+			foreach(ContactPoint contact in contactList)
+				{
+				if(contact.thisCollider.Equals(feet) || contact.otherCollider.Equals(feet))
+					{
+					grounded = true;
+					break;
+					}
+				}
+			}
+		}
+
+	private void OnCollisionExit(Collision collision)
+		{
+		grounded = false;
 		}
 
 	public void setMouseVisible(bool mouseVisible)
