@@ -300,4 +300,4 @@ MonoBehaviour:
   - {fileID: 390723164812501243, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
   turretPanel: {fileID: 1614747933336595651, guid: d65d00a2169f144488805022a0aad71f,
     type: 3}
-  turretPanelWidth: 260
+  turretPanelWidth: 400

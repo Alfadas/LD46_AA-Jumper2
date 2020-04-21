@@ -89,10 +89,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 21
+  m_Radius: 16
   m_Height: 58
   m_Direction: 1
-  m_Center: {x: 0, y: 28, z: 0}
+  m_Center: {x: 0, y: 29, z: 0}
 --- !u!1 &5412427728218253992
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   sprintFactor: 2
   jumpStrength: 7000
   jumpTime: 0.2
-  head: {fileID: 2740481441117143981}
+  head: {fileID: 0}
   feet: {fileID: 1053153110}
 --- !u!114 &823876015
 MonoBehaviour:
@@ -587,12 +587,6 @@ GameObject:
 --- !u!4 &3608012503803683301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1619146111924587482, guid: a791c82f22177a044bdc76b0b48bb877,
-    type: 3}
-  m_PrefabInstance: {fileID: 2624015900106992191}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2740481441117143981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 171776526076619154, guid: a791c82f22177a044bdc76b0b48bb877,
     type: 3}
   m_PrefabInstance: {fileID: 2624015900106992191}
   m_PrefabAsset: {fileID: 0}

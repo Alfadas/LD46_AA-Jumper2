@@ -14,7 +14,7 @@ public class BuildingManager : MonoBehaviour
     private void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 2))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 5))
         {
             buildingBase = hit.collider.gameObject.GetComponent<BuildingBase>();
             if (buildingBase != null && !buildingBase.IsFilled)
@@ -55,6 +55,7 @@ public class BuildingManager : MonoBehaviour
         {
             buildingBase.PlaceTurret(turret);
         }
+        buildingUi.ClearList();
         buildingUi.gameObject.SetActive(false);
         playerController.setMouseVisible(false);
         weaponController.BlockShooting(false);

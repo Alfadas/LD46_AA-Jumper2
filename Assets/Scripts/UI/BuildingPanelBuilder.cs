@@ -7,13 +7,13 @@ public class BuildingPanelBuilder : MonoBehaviour
     [SerializeField] Turret[] turrets;
     [SerializeField] TurretPanel turretPanel;
     [SerializeField] int turretPanelWidth = 200;
-    List<TurretPanel> turretPanels;
+    List<TurretPanel> turretPanels = new List<TurretPanel>();
     BuildingManager buildingManager;
 
     public void SetupTurretPanels(BuildingManager buildingManager)
     {
         this.buildingManager = buildingManager;
-        turretPanels = new List<TurretPanel>();
+        ClearList();
         int counter = -2;
         foreach (Turret turret in turrets)
         {
@@ -28,15 +28,21 @@ public class BuildingPanelBuilder : MonoBehaviour
 
     public void CloseBuildingMenu()
     {
+        ClearList();
         buildingManager.QuitBuildingMenu();
+    }
+
+    public void ClearList()
+    {
+        for (int i = turretPanels.Count - 1; i >= 0; i--)
+        {
+            Object.Destroy(turretPanels[i].gameObject);
+        }
+        turretPanels.Clear();
     }
 
     private void OnDisable()
     {
-        for(int i = turretPanels.Count -1; i >= 0; i--)
-        {
-            Object.Destroy(turretPanels[i]);
-        }
-        turretPanels.Clear();
+        ClearList();
     }
 }
