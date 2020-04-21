@@ -112,7 +112,7 @@ public class Turret : Building
     }
     void SearchNearestTarget(Airship[] enemies)
     {
-        float shortestDistance = Mathf.Infinity;
+        float shortestDistance = range;
         Airship nearestEnemy = null;
         foreach (Airship enemy in enemies)
         {
