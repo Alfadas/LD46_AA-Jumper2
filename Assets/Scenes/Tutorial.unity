@@ -4378,21 +4378,6 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 2045041021}
-    - target: {fileID: 3608012503803683301, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608012503803683301, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3608012503803683301, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: text
@@ -4457,11 +4442,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7346026782969594584, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: head
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7346026782969594585, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
