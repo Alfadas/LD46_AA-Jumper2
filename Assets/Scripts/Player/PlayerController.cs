@@ -127,16 +127,16 @@ public class PlayerController : MonoBehaviour
 		{
 		if(groundingState == PLAYER_FLOATING || groundingState == PLAYER_TOUCHING)
 			{
-			Debug.Log("Bef Clear " + contactList.Count);
+			//Debug.Log("Bef Clear " + contactList.Count);
 			contactList.Clear();
-			Debug.Log("Aft Clear " + contactList.Count);
+			//Debug.Log("Aft Clear " + contactList.Count);
 			if(collision.GetContacts(contactList) > 0)
 				{
-				Debug.Log("Bef Gen " + contactList.Count);
+				//Debug.Log("Bef Gen " + contactList.Count);
 				foreach(ContactPoint contact in contactList)
 					{
-					Debug.Log("Collider:");
-					Debug.Log(contact.thisCollider + " " + contact.otherCollider + " " + contact.point);
+					//Debug.Log("Collider:");
+					//Debug.Log(contact.thisCollider + " " + contact.otherCollider + " " + contact.point);
 					if(contact.otherCollider != null && contact.otherCollider.gameObject != null && contact.thisCollider != null	 // Check every Instance cz of Unity Bugs *sigh*
 						&& !contact.otherCollider.gameObject.Equals(gameObject))
 						{

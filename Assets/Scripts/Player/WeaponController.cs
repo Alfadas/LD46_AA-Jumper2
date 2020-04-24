@@ -65,7 +65,6 @@ public class WeaponController : MonoBehaviour
 
             transform.localRotation *= Quaternion.AngleAxis(verticalRecoil * Random.Range(0.5f, 1.0f), Vector3.left);
             transform.localRotation *= Quaternion.AngleAxis(horizontalRecoil * Random.Range(-1.0f, 1.0f), Vector3.up);
-            Debug.Log(horizontalRecoil * Random.Range(-1.0f, 1.0f));
 
             audioSource.clip = fireSound;
             audioSource.Play();
