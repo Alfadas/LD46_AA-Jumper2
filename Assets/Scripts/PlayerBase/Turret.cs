@@ -74,6 +74,7 @@ public class Turret : Building
 
 
             Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - targetingLead) - transform.position;
+            Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - targetingLead) - turretGuns.position;
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             //qRotation = Quaternion.Euler(0f, turretBase.rotation.y + 90, turretGuns.localRotation.z);
             qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
@@ -100,7 +101,7 @@ public class Turret : Building
             }
             else
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, target.transform.position);
+                float distanceToEnemy = Vector3.Distance(turretGuns.position, target.transform.position);
                 if (distanceToEnemy > range)
                 {
                     SearchNearestTarget(enemies);
@@ -116,8 +117,8 @@ public class Turret : Building
         Airship nearestEnemy = null;
         foreach (Airship enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy <= range && distanceToEnemy < shortestDistance && transform.position.y <= enemy.transform.position.y)
+            float distanceToEnemy = Vector3.Distance(turretGuns.position, enemy.transform.position);
+            if (distanceToEnemy <= range && distanceToEnemy < shortestDistance && turretGuns.position.y <= enemy.transform.position.y)
             {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = enemy;
