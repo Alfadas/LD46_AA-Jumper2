@@ -14,6 +14,13 @@ public class Airship : MonoBehaviour
     [SerializeField] MetalManager metallManager;
     [SerializeField] EnemyList enemyList;
 
+    public Vector3 SpeedVector
+    {
+        get
+        {
+            return new Vector3(0, 0, -speed);
+        }
+    }
 
     public int Speed
     {
