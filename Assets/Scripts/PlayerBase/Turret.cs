@@ -18,6 +18,7 @@ public class Turret : Building
     [SerializeField] Transform turretGuns;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject shell;
+    Vector3 gravity = new Vector3(0, 9.81f, 0);
     EnemyList enemyList;
     Airship target;
     Quaternion qRotation;
@@ -72,7 +73,8 @@ public class Turret : Building
         {
             Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
             float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.SpeedVector);
-            Vector3 targetLead = target.transform.position + target.SpeedVector * t;
+            float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
+            Vector3 targetLead = target.transform.position + target.SpeedVector * t + 0.5f * gravity * Mathf.Pow(timeGravity,2);
             Vector3 dir = targetLead - turretGuns.position;
 
             Quaternion lookRotation = Quaternion.LookRotation(dir);
