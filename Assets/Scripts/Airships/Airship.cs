@@ -5,14 +5,28 @@ using UnityEngine;
 public class Airship : MonoBehaviour
 {
     public int maxSpeed = 1;
-    [HideInInspector] public int speed;
     [SerializeField] int maxHealth = 100;
     [SerializeField] int killPoint = -500;
     [SerializeField] int metal = 5;
+    int speed;
     int health;
     private int notWaiting = 1;
     [SerializeField] MetalManager metallManager;
     [SerializeField] EnemyList enemyList;
+
+
+    public int Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = value;
+        }
+    }
+
 
     private void Start()
     {

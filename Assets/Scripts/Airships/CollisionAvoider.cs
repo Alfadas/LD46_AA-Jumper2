@@ -23,7 +23,7 @@ public class CollisionAvoider : MonoBehaviour
             }
             else
             {
-                airship.speed = airship.maxSpeed;
+                airship.Speed = airship.maxSpeed;
             }
             yield return new WaitForSeconds(2);
         }
@@ -31,13 +31,13 @@ public class CollisionAvoider : MonoBehaviour
 
     private void CorrectSpeed()
     {
-        if (collidingAirship.speed <= airship.maxSpeed)
+        if (collidingAirship.Speed <= airship.maxSpeed)
         {
-            airship.speed = collidingAirship.speed;
+            airship.Speed = collidingAirship.Speed;
         }
         else
         {
-            airship.speed = airship.maxSpeed;
+            airship.Speed = airship.maxSpeed;
         }
     }
 
