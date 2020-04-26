@@ -70,11 +70,11 @@ public class Turret : Building
         
         if (target != null)
         {
-            float targetingLead = (-Vector3.Distance(target.transform.position, transform.position) * target.speed) / (target.speed - muzzleVelocity);
+            Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
+            float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.SpeedVector);
+            Vector3 targetLead = target.transform.position + target.SpeedVector * t;
+            Vector3 dir = targetLead - turretGuns.position;
 
-
-            Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - targetingLead) - transform.position;
-            Vector3 dir = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z - targetingLead) - turretGuns.position;
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             //qRotation = Quaternion.Euler(0f, turretBase.rotation.y + 90, turretGuns.localRotation.z);
             qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
@@ -140,4 +140,55 @@ public class Turret : Building
         bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
     }
 
+    //first-order intercept using relative target position
+    public static float FirstOrderInterceptTime
+    (
+        float shotSpeed,
+        Vector3 targetRelativePosition,
+        Vector3 targetRelativeVelocity
+    )
+    {
+        float velocitySquared = targetRelativeVelocity.sqrMagnitude;
+        if (velocitySquared < 0.001f)
+            return 0f;
+
+        float a = velocitySquared - shotSpeed * shotSpeed;
+
+        //handle similar velocities
+        if (Mathf.Abs(a) < 0.001f)
+        {
+            float t = -targetRelativePosition.sqrMagnitude /
+            (
+                2f * Vector3.Dot
+                (
+                    targetRelativeVelocity,
+                    targetRelativePosition
+                )
+            );
+            return Mathf.Max(t, 0f); //don't shoot back in time
+        }
+
+        float b = 2f * Vector3.Dot(targetRelativeVelocity, targetRelativePosition);
+        float c = targetRelativePosition.sqrMagnitude;
+        float determinant = b * b - 4f * a * c;
+
+        if (determinant > 0f)
+        { //determinant > 0; two intercept paths (most common)
+            float t1 = (-b + Mathf.Sqrt(determinant)) / (2f * a),
+                    t2 = (-b - Mathf.Sqrt(determinant)) / (2f * a);
+            if (t1 > 0f)
+            {
+                if (t2 > 0f)
+                    return Mathf.Min(t1, t2); //both are positive
+                else
+                    return t1; //only t1 is positive
+            }
+            else
+                return Mathf.Max(t2, 0f); //don't shoot back in time
+        }
+        else if (determinant < 0f) //determinant < 0; no intercept path
+            return 0f;
+        else //determinant = 0; one intercept path, pretty much never happens
+            return Mathf.Max(-b / (2f * a), 0f); //don't shoot back in time
+    }
 }
