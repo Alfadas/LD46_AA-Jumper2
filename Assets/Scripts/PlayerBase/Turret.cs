@@ -86,7 +86,10 @@ public class Turret : Building
 
             if (fireCountdown <= 0f)
             {
-                Shoot();
+                if (CheckShootingPath())
+                {
+                    Shoot();
+                }
             }
         }
     }
@@ -132,6 +135,20 @@ public class Turret : Building
         else
         {
             target = null;
+        }
+    }
+    private bool CheckShootingPath()
+    {
+        float targetDistance = Vector3.Distance(target.transform.position, firePoint.position);
+        RaycastHit hit;
+        bool hasHit = Physics.Raycast(firePoint.position, firePoint.transform.forward, out hit, targetDistance);
+        if (!hasHit || (hasHit && hit.collider.gameObject.GetComponent<HitCollector>() != null))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     void Shoot()
