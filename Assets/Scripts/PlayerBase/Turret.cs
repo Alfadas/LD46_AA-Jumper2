@@ -87,7 +87,6 @@ public class Turret : Building
             if (fireCountdown <= 0f)
             {
                 Shoot();
-                fireCountdown = 1f / fireRate;
             }
         }
     }
@@ -140,6 +139,7 @@ public class Turret : Building
         GameObject bullet = Instantiate(shell, firePoint.position, firePoint.rotation);
         Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
         bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
+        fireCountdown = 1f / fireRate;
     }
 
     //first-order intercept using relative target position
