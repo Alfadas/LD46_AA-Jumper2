@@ -23,6 +23,8 @@ public class Turret : Building
     Airship target;
     Quaternion qRotation;
     float fireCountdown = 0f;
+    bool targetHidden = false;
+    int changeTargetIfHiddenTime = 3;
 
     public string GetName()
     {
@@ -88,11 +90,44 @@ public class Turret : Building
             {
                 if (CheckShootingPath())
                 {
+                    targetHidden = false;
                     Shoot();
+                }
+                else
+                {
+                    Vector3 realLookRotation = lookRotation.eulerAngles;
+                    if (Quaternion.Angle(turretGuns.localRotation, Quaternion.Euler(realLookRotation.x, 0f, 0f)) <= 0.01f
+                    && Quaternion.Angle(turretBase.rotation, Quaternion.Euler(0f, realLookRotation.y, 0f)) <= 0.01f)
+                    {
+                        if (!targetHidden)
+                        {
+                            targetHidden = true;
+                            StartCoroutine(ChangeTarget(target));
+                        }
+                        
+                    }
+                    else
+                    {
+                        targetHidden = false;
+                    }
                 }
             }
         }
     }
+
+    IEnumerator ChangeTarget(Airship oldTarget)
+    {
+        yield return new WaitForSeconds(changeTargetIfHiddenTime);
+        if(target == oldTarget && targetHidden)
+        {
+            List<Airship> enemies = enemyList.GetEnemies().GetRange(0, enemyList.GetEnemies().Count);
+            enemies.Remove(oldTarget);
+            targetHidden = false;
+            SearchNearestTarget(enemies.ToArray());
+        }
+    }
+
+    
 
     IEnumerator UpdateTarget()
     {
