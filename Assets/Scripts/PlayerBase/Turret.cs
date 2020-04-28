@@ -18,7 +18,7 @@ public class Turret : Building
     [SerializeField] Transform turretGuns;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject shell;
-    Vector3 gravity = new Vector3(0, 9.81f, 0);
+    Vector3 gravity = new Vector3(0, 10f, 0);
     EnemyList enemyList;
     Airship target;
     Quaternion qRotation;
