@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 	{
-	private const int PLAYER_GROUNDED = 0;
-	private const int PLAYER_TOUCHING = 1;
-	private const int PLAYER_FLOATING = 2;
-
 	[Tooltip("Maximum look down Angle, Front is 0/360 Degrees, straight down 90/360 Degrees")]
 	[SerializeField] private float maxLookDown = 90.0f;
 	[Tooltip("Maximum look up Angle, Front is 0/360 Degrees, straight up 270/360 Degrees")]
@@ -22,11 +18,11 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private GameObject head = null;
 	[SerializeField] private Collider feet = null;
 	[Tooltip("Float Array of Length 3 with Factors applied to Movement when Character is grounded, touches something or is completely in Air")]
-	[SerializeField] private float[] movementFactors = {1.0f, 0.02f, 0.002f};
+	[SerializeField] private float floatingMovementFactor = 0.002f;
 	private Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
 	private List<ContactPoint> contactList = null;
-	private int groundingState = PLAYER_FLOATING;
+	private bool grounded = false;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
 	private bool mouseVisible = false;
@@ -34,7 +30,7 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 		{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
-		contactList = new List<ContactPoint>(4);
+		contactList = new List<ContactPoint>(64);
 		}
 
 	private void Update()
@@ -78,12 +74,7 @@ public class PlayerController : MonoBehaviour
 			{
 			Cursor.lockState = CursorLockMode.None;
 			}
-
-		
-		// TODO: Remove
-		// Check for Ground Contact
-		//Debug.Log(groundingState);
-
+				
 		// Movement
 		movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
 		if(movement.sqrMagnitude > 1)
@@ -96,12 +87,12 @@ public class PlayerController : MonoBehaviour
             movement *= sprintFactor;
 			}
 		// Apply Movement
-		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), movementFactors[groundingState]);
+		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), grounded ? 1.0f : floatingMovementFactor);
 				
         // Jumping
         if (Input.GetButton("Jump"))
 			{
-			if((Time.time - lastJump) >= jumpTime && groundingState == PLAYER_GROUNDED)
+			if((Time.time - lastJump) >= jumpTime && grounded)
 				{
 				lastJump = Time.time;
 				jumpCharge = 0.0f;
@@ -125,33 +116,17 @@ public class PlayerController : MonoBehaviour
 	// Only get grounded, when you stay longer than 1 Frame on a Collider
 	private void OnCollisionStay(Collision collision)
 		{
-		if(groundingState == PLAYER_FLOATING || groundingState == PLAYER_TOUCHING)
+		if(!grounded)
 			{
-			//Debug.Log("Bef Clear " + contactList.Count);
-			contactList.Clear();
-			//Debug.Log("Aft Clear " + contactList.Count);
-			if(collision.GetContacts(contactList) > 0)
+			int contactCount = collision.GetContacts(contactList);
+			for(int i = 0; i < contactCount; ++i)
 				{
-				//Debug.Log("Bef Gen " + contactList.Count);
-				foreach(ContactPoint contact in contactList)
+				if(!contactList[i].otherCollider.gameObject.Equals(gameObject))
 					{
-					//Debug.Log("Collider:");
-					//Debug.Log(contact.thisCollider + " " + contact.otherCollider + " " + contact.point);
-					if(contact.otherCollider != null && contact.otherCollider.gameObject != null && contact.thisCollider != null	 // Check every Instance cz of Unity Bugs *sigh*
-						&& !contact.otherCollider.gameObject.Equals(gameObject))
+					if(contactList[i].thisCollider.Equals(feet))
 						{
-						//Debug.Log(contact.thisCollider + " collides with " + contact.otherCollider);
-						if(contact.thisCollider.Equals(feet))
-							{
-							//Debug.Log("Seems Grounded");
-							groundingState = PLAYER_GROUNDED;
-							break;
-							}
-						else
-							{
-							//Debug.Log("Seems Touching");
-							groundingState = PLAYER_TOUCHING;
-							}
+						grounded = true;
+						break;
 						}
 					}
 				}
@@ -160,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnCollisionExit(Collision collision)
 		{
-		groundingState = PLAYER_FLOATING;
+		grounded = false;
 		}
 
 	public void setMouseVisible(bool mouseVisible)
