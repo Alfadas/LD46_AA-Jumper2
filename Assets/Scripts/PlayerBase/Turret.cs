@@ -25,6 +25,7 @@ public class Turret : Building
     float fireCountdown = 0f;
     bool targetHidden = false;
     int changeTargetIfHiddenTime = 3;
+    int maxGesRotationDiff = 10;
 
     public string GetName()
     {
@@ -88,27 +89,32 @@ public class Turret : Building
 
             if (fireCountdown <= 0f)
             {
-                if (CheckShootingPath())
+                Vector3 realLookRotation = lookRotation.eulerAngles;
+                float rotationDiff = Quaternion.Angle(turretGuns.localRotation, Quaternion.Euler(realLookRotation.x, 0f, 0f)) +
+                                     Quaternion.Angle(turretBase.rotation, Quaternion.Euler(0f, realLookRotation.y, 0f));
+                if (rotationDiff <= maxGesRotationDiff) // if it is near the ideal fire alignment
                 {
-                    targetHidden = false;
-                    Shoot();
-                }
-                else
-                {
-                    Vector3 realLookRotation = lookRotation.eulerAngles;
-                    if (Quaternion.Angle(turretGuns.localRotation, Quaternion.Euler(realLookRotation.x, 0f, 0f)) <= 0.01f
-                    && Quaternion.Angle(turretBase.rotation, Quaternion.Euler(0f, realLookRotation.y, 0f)) <= 0.01f)
+                    if (CheckShootingPath())
                     {
-                        if (!targetHidden)
-                        {
-                            targetHidden = true;
-                            StartCoroutine(ChangeTarget(target));
-                        }
-                        
+                        targetHidden = false;
+                        Shoot();
                     }
                     else
                     {
-                        targetHidden = false;
+
+                        if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
+                        {
+                            if (!targetHidden)
+                            {
+                                targetHidden = true;
+                                StartCoroutine(ChangeTarget(target));
+                            }
+
+                        }
+                        else
+                        {
+                            targetHidden = false;
+                        }
                     }
                 }
             }
