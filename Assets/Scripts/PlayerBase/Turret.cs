@@ -14,6 +14,7 @@ public class Turret : Building
     [SerializeField] int turnSpeed;
     [Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
     [SerializeField] int spread;
+    [SerializeField] int autoSpreadMulti = 4;
     [SerializeField] Transform turretBase;
     [SerializeField] Transform turretGuns;
     [SerializeField] Transform firePoint;
@@ -59,7 +60,7 @@ public class Turret : Building
 
     public float GetMeterSpread()
     {
-        return spread * 0.01f;
+        return spread * 0.01f * autoSpreadMulti;
     }
 
     private void Start()
@@ -195,7 +196,7 @@ public class Turret : Building
     void Shoot()
     {
         GameObject bullet = Instantiate(shell, firePoint.position, firePoint.rotation);
-        Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
+        Vector3 deviation = (Random.insideUnitSphere * spread * autoSpreadMulti) / 10000.0f;
         bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
         fireCountdown = 1f / fireRate;
     }
