@@ -4,29 +4,45 @@ using UnityEngine;
 
 public class Turret : Building
 {
+    readonly Vector3 gravity = new Vector3(0, 10f, 0);
+    const int maxTotalRotationDiff = 10;
+    const int changeTargetIfHiddenTime = 3;
+
+    [Header("General")]
+    [Tooltip("Displayed name")]
     [SerializeField] string turretName;
-    [SerializeField] float fireRate;
+    [Tooltip("Purchase metal cost")]
+    [SerializeField] int cost;
+    [Tooltip("Size in m")]
     [SerializeField] int size;
+    [SerializeField] int turnSpeed;
+
+    [Header("Shooting")]
+    [Tooltip("Fire rate per second")]
+    [SerializeField] float fireRate;
+    [Tooltip("Only displayed damage per second, no real damage property")]
     [SerializeField] int damage;
     [SerializeField] float muzzleVelocity;
     [SerializeField] int range;
-    [SerializeField] int cost;
-    [SerializeField] int turnSpeed;
     [Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
     [SerializeField] int spread;
+    [Tooltip("Spread multiplicator if turret fires automaticaly")]
     [SerializeField] int autoSpreadMulti = 4;
-    [SerializeField] Transform turretBase;
-    [SerializeField] Transform turretGuns;
-    [SerializeField] Transform firePoint;
     [SerializeField] GameObject shell;
-    Vector3 gravity = new Vector3(0, 10f, 0);
+
+    [Header("Parts")]
+    [Tooltip("Part to rotate on y-axis (parent of gun)")]
+    [SerializeField] Transform turretBase;
+    [Tooltip("Part to rotate on local x-axis")]
+    [SerializeField] Transform turretGuns;
+    [Tooltip("Bullet start point")]
+    [SerializeField] Transform firePoint;
+
+    float fireCountdown = 0f;
+    bool targetHidden = false;
     EnemyList enemyList;
     Airship target;
     Quaternion qRotation;
-    float fireCountdown = 0f;
-    bool targetHidden = false;
-    int changeTargetIfHiddenTime = 3;
-    int maxGesRotationDiff = 10;
 
     public string GetName()
     {
@@ -58,7 +74,7 @@ public class Turret : Building
         return cost;
     }
 
-    public float GetMeterSpread()
+    public float GetMeterAutoSpread()
     {
         return spread * 0.01f * autoSpreadMulti;
     }
@@ -72,28 +88,19 @@ public class Turret : Building
     void Update()
     {
         fireCountdown -= Time.deltaTime;
-        
+
         if (target != null)
         {
-            Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
-            float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.SpeedVector);
-            float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
-            Vector3 targetLead = target.transform.position + target.SpeedVector * t + 0.5f * gravity * Mathf.Pow(timeGravity,2);
-            Vector3 dir = targetLead - turretGuns.position;
-
-            Quaternion lookRotation = Quaternion.LookRotation(dir);
-            //qRotation = Quaternion.Euler(0f, turretBase.rotation.y + 90, turretGuns.localRotation.z);
-            qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
-            Vector3 realRotation = qRotation.eulerAngles;
-            turretBase.rotation = Quaternion.Euler(0f, realRotation.y, 0f);
-            turretGuns.localRotation = Quaternion.Euler(realRotation.x, 0f, 0f);
+            Quaternion lookRotation = Quaternion.LookRotation(CalcTargetLeadPoint());
+            RotateTurret(lookRotation);
 
             if (fireCountdown <= 0f)
             {
                 Vector3 realLookRotation = lookRotation.eulerAngles;
                 float rotationDiff = Quaternion.Angle(turretGuns.localRotation, Quaternion.Euler(realLookRotation.x, 0f, 0f)) +
                                      Quaternion.Angle(turretBase.rotation, Quaternion.Euler(0f, realLookRotation.y, 0f));
-                if (rotationDiff <= maxGesRotationDiff) // if it is near the ideal fire alignment
+
+                if (rotationDiff <= maxTotalRotationDiff) // if it is near the ideal fire alignment
                 {
                     if (CheckShootingPath())
                     {
@@ -102,7 +109,6 @@ public class Turret : Building
                     }
                     else
                     {
-
                         if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
                         {
                             if (!targetHidden)
@@ -110,7 +116,6 @@ public class Turret : Building
                                 targetHidden = true;
                                 StartCoroutine(ChangeTarget(target));
                             }
-
                         }
                         else
                         {
@@ -125,7 +130,7 @@ public class Turret : Building
     IEnumerator ChangeTarget(Airship oldTarget)
     {
         yield return new WaitForSeconds(changeTargetIfHiddenTime);
-        if(target == oldTarget && targetHidden)
+        if (target == oldTarget && targetHidden)
         {
             List<Airship> enemies = enemyList.GetEnemies().GetRange(0, enemyList.GetEnemies().Count);
             enemies.Remove(oldTarget);
@@ -133,8 +138,6 @@ public class Turret : Building
             SearchNearestTarget(enemies.ToArray());
         }
     }
-
-    
 
     IEnumerator UpdateTarget()
     {
@@ -179,6 +182,24 @@ public class Turret : Building
             target = null;
         }
     }
+    private void RotateTurret(Quaternion lookRotation)
+    {
+        qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
+        Vector3 realRotation = qRotation.eulerAngles;
+        turretBase.rotation = Quaternion.Euler(0f, realRotation.y, 0f);
+        turretGuns.localRotation = Quaternion.Euler(realRotation.x, 0f, 0f);
+    }
+
+    private Vector3 CalcTargetLeadPoint()
+    {
+        Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
+        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.SpeedVector);
+        float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
+        Vector3 targetLead = target.transform.position + target.SpeedVector * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
+        Vector3 dir = targetLead - turretGuns.position;
+        return dir;
+    }
+
     private bool CheckShootingPath()
     {
         float targetDistance = Vector3.Distance(target.transform.position, firePoint.position);
@@ -193,6 +214,7 @@ public class Turret : Building
             return false;
         }
     }
+
     void Shoot()
     {
         GameObject bullet = Instantiate(shell, firePoint.position, firePoint.rotation);
@@ -200,7 +222,6 @@ public class Turret : Building
         bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
         fireCountdown = 1f / fireRate;
     }
-
     //first-order intercept using relative target position
     public static float FirstOrderInterceptTime
     (

@@ -41,7 +41,7 @@ public class TurretPanel : MonoBehaviour
     void SetInfo()
     {
         infoText.text = "Fire rate: " + turret.GetFireRate() + "\n" +
-                        "Spread on 100m: " + turret.GetMeterSpread() + "m \n" +
+                        "Spread on 100m: " + turret.GetMeterAutoSpread() + "m \n" +
                         "Size: " + turret.GetSize() + "\n" +
                         "Damage per s: " + turret.GetDamage() + "\n" +
                         "Range: " + turret.GetRange() + "\n" +

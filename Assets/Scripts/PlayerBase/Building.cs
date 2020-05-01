@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
+    [Header("Building General")]
     [SerializeField] int maxHealth = 100;
     protected int health;
 
