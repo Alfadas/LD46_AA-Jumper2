@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFlightTime: 6
   scanAheadDistance: 10
-  damage: 200
+  damage: 400
   explosionSize: 10
   explosionDuration: 0.5
   explosionColor: {fileID: 2100000, guid: bf584f4a734267e47baa1a7f88008678, type: 2}

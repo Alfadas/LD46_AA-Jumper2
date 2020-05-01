@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: cost
-      value: 400
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
@@ -125,22 +125,37 @@ PrefabInstance:
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: fireRate
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: muzzleVelocity
-      value: 150
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: spread
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: turretName
+      value: Large high calibre
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: autoSpreadMulti
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.9840117
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
@@ -150,7 +165,7 @@ PrefabInstance:
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -176.6774
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}

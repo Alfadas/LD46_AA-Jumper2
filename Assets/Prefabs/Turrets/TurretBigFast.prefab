@@ -134,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: muzzleVelocity
-      value: 120
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
@@ -144,17 +144,37 @@ PrefabInstance:
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: fireRate
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: damage
-      value: 120
+      value: 144
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: turretName
+      value: Large gatling
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: cost
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: autoSpreadMulti
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.060591698
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
@@ -164,7 +184,7 @@ PrefabInstance:
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -177.54057
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
