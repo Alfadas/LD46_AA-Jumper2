@@ -5,7 +5,7 @@ using UnityEngine;
 public class Turret : Building
 {
     [SerializeField] string turretName;
-    [SerializeField] int fireRate;
+    [SerializeField] float fireRate;
     [SerializeField] int size;
     [SerializeField] int damage;
     [SerializeField] float muzzleVelocity;
@@ -33,7 +33,7 @@ public class Turret : Building
         return name;
     }
 
-    public int GetFireRate()
+    public float GetFireRate()
     {
         return fireRate;
     }
