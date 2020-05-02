@@ -46,7 +46,7 @@ public class Turret : Building
 
     public string GetName()
     {
-        return name;
+        return turretName;
     }
 
     public float GetFireRate()
