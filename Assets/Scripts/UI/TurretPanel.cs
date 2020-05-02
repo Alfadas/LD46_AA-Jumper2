@@ -35,7 +35,7 @@ public class TurretPanel : MonoBehaviour
 
     void SetName()
     {
-        headText.text = turret.name;
+        headText.text = turret.GetName();
     }
 
     void SetInfo()
