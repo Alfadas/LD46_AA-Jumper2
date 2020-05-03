@@ -18,7 +18,7 @@ PrefabInstance:
     - target: {fileID: 5924672719872641914, guid: b6e40e739809ae14585d3957cea9aae3,
         type: 3}
       propertyPath: turretName
-      value: small high calibre
+      value: Small high calibre
       objectReference: {fileID: 0}
     - target: {fileID: 5924672719872641914, guid: b6e40e739809ae14585d3957cea9aae3,
         type: 3}
