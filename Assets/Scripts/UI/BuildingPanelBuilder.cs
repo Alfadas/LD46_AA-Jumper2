@@ -19,6 +19,8 @@ public class BuildingPanelBuilder : MonoBehaviour
         {
             RectTransform newDisplay = Instantiate(turretPanel, new Vector3(transform.position.x + turretPanelWidth * counter, transform.position.y, transform.position.z), Quaternion.identity, transform);
             TurretPanel newPanel = newDisplay.gameObject.GetComponentInChildren<TurretPanel>();
+
+            newDisplay.transform.localPosition = new Vector3(turretPanelWidth * counter, 0, 0);
             turretPanels.Add(newPanel);
 
             newPanel.SetBuildingManager(buildingManager);
