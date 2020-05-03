@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuildingPanelBuilder : MonoBehaviour
 {
     [SerializeField] Turret[] turrets;
-    [SerializeField] TurretPanel turretPanel;
+    [SerializeField] RectTransform turretPanel;
     [SerializeField] int turretPanelWidth = 200;
     List<TurretPanel> turretPanels = new List<TurretPanel>();
     BuildingManager buildingManager;
@@ -17,7 +17,8 @@ public class BuildingPanelBuilder : MonoBehaviour
         int counter = -2;
         foreach (Turret turret in turrets)
         {
-            TurretPanel newPanel = Instantiate(turretPanel, new Vector3(transform.position.x + turretPanelWidth * counter, transform.position.y, transform.position.z), Quaternion.identity, transform);
+            RectTransform newDisplay = Instantiate(turretPanel, new Vector3(transform.position.x + turretPanelWidth * counter, transform.position.y, transform.position.z), Quaternion.identity, transform);
+            TurretPanel newPanel = newDisplay.gameObject.GetComponentInChildren<TurretPanel>();
             turretPanels.Add(newPanel);
 
             newPanel.SetBuildingManager(buildingManager);
