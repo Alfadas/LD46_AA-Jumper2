@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 5292961713254209816, guid: a871b45804972ca47ba41b8074a48c42, type: 3}
   - {fileID: 8461986820283126094, guid: f72ac64d238580246a0d8b3520ca9b1f, type: 3}
   - {fileID: 390723164812501243, guid: f1cd9c9f9f821af428b7d22047463f12, type: 3}
-  turretPanel: {fileID: 3712748588822286737, guid: 57238e345d8f84944be33c8782695a00,
+  turretPanel: {fileID: 6417530335571394161, guid: 51edff64250727f4bbd5944eafa8f202,
     type: 3}
   turretPanelWidth: 300
 --- !u!1 &5971033638242472271
