@@ -205,7 +205,7 @@ public class Turret : Building
         float targetDistance = Vector3.Distance(target.transform.position, firePoint.position);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(firePoint.position, firePoint.transform.forward, out hit, targetDistance);
-        if (!hasHit || (hasHit && hit.collider.gameObject.GetComponent<HitCollector>() != null))
+        if (!hasHit || (hasHit && hit.collider.gameObject.GetComponentInParent<Airship>() != null))
         {
             return true;
         }
