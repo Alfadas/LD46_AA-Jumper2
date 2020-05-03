@@ -8830,12 +8830,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 5971033637112843839, guid: 2e664728165918f47bb38d0d86e36af6,
-        type: 3}
-      propertyPath: turretPanel
-      value: 
-      objectReference: {fileID: 6394995603711005354, guid: 57238e345d8f84944be33c8782695a00,
-        type: 3}
     - target: {fileID: 8490682307199986952, guid: 2e664728165918f47bb38d0d86e36af6,
         type: 3}
       propertyPath: m_LocalPosition.x
