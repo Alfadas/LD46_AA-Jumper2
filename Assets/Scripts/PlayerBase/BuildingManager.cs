@@ -30,6 +30,10 @@ public class BuildingManager : MonoBehaviour
                         weaponController.BlockShooting(true);
                     }
                 }
+                else
+                {
+                    text.SetActive(false);
+                }
             }
             else
             {
