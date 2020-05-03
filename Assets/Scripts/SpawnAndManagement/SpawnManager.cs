@@ -8,6 +8,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] EnemyList enemyList;
     [SerializeField] bool active = true;
     [SerializeField] int laneMidDif = 3;
+    [SerializeField] int startWaitTime = 20;
     [SerializeField] int spawnInterval = 10;
     [SerializeField] int startValue = 2;
     [SerializeField] int valuePerWave = 5;
@@ -29,6 +30,7 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnCycle()
     {
+        yield return new WaitForSeconds(startWaitTime);
         while (true)
         {
             if (active)
