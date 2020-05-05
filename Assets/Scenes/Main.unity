@@ -7330,8 +7330,9 @@ MonoBehaviour:
   spawnManager: {fileID: 1336816757}
   enemyList: {fileID: 14192995}
   metalManager: {fileID: 1887868134}
-  playerController: {fileID: 0}
-  weaponController: {fileID: 0}
+  playerController: {fileID: 1031575413}
+  weaponController: {fileID: 128215075}
+  exitController: {fileID: 1887868135}
 --- !u!1001 &1887912587
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,12 +15,20 @@ public class GameOverHandler : MonoBehaviour
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] EnemyList enemyList;
     [SerializeField] MetalManager metalManager;
+    [Header("Player")]
+    [SerializeField] PlayerController playerController;
+    [SerializeField] WeaponController weaponController;
+    [SerializeField] ExitController exitController;
     // Start is called before the first frame update
     public void EndGame()
     {
         spawnManager.StopAllCoroutines(); //stop spawning enemies
         enemyList.KillAllAndClear(); //kill all ships and clear the list to prevent a higher score;
         metalManager.StopAllCoroutines(); //stop automatic income
+
+        exitController.BlockExitControll(); //prevent reseting mouse and weapon controll
+        playerController.setMouseVisible(true); //stop movement and set mouse visibel
+        weaponController.BlockShooting(true); //stop shooting
 
         mainCanvas.SetActive(false); // deactivate main Canvas
         loseScreen.SetActive(true); // activate GameOver Endscreen

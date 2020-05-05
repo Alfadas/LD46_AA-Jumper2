@@ -7,10 +7,11 @@ public class ExitController : MonoBehaviour
     [SerializeField] PlayerController player;
     [SerializeField] WeaponController weaponController;
     [SerializeField] GameObject exitPanel;
+    bool blocked = false;
 
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (!blocked && Input.GetButtonDown("Cancel"))
         {
             player.setMouseVisible(!exitPanel.activeSelf);
             weaponController.BlockShooting(!exitPanel.activeSelf);
@@ -26,5 +27,10 @@ public class ExitController : MonoBehaviour
     public void Restart()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    }
+
+    public void BlockExitControll()
+    {
+        blocked = true;
     }
 }
