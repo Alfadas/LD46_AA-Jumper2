@@ -70,6 +70,11 @@ public class Airship : MonoBehaviour
         }
     }
 
+    public void Dissolve()
+    {
+        DestroyShip(false);
+    }
+
     private void DestroyShip(bool kill)
     {
         if (kill)

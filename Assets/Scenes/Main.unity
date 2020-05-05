@@ -7008,11 +7008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   text: {fileID: 1331772559}
-  scoreText: {fileID: 2012392325}
-  loseScreen: {fileID: 348141220}
-  spawnManager: {fileID: 1336816757}
-  canvas: {fileID: 375980969}
-  metalManager: {fileID: 1887868134}
+  gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7262,6 +7258,7 @@ GameObject:
   - component: {fileID: 1887868136}
   - component: {fileID: 1887868134}
   - component: {fileID: 1887868135}
+  - component: {fileID: 1887868137}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7315,6 +7312,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1887868137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887868133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426c3336bdd140a40b1a498bec29e478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 2012392325}
+  loseScreen: {fileID: 348141220}
+  mainCanvas: {fileID: 375980969}
+  spawnManager: {fileID: 1336816757}
+  enemyList: {fileID: 14192995}
+  metalManager: {fileID: 1887868134}
+  playerController: {fileID: 0}
+  weaponController: {fileID: 0}
 --- !u!1001 &1887912587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8643,12 +8660,12 @@ PrefabInstance:
     - target: {fileID: 2961304262360970155, guid: b3955d14b0d31134c9f01a899455b26f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 807.8008
+      value: 807.75
       objectReference: {fileID: 0}
     - target: {fileID: 2961304262360970155, guid: b3955d14b0d31134c9f01a899455b26f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -506.2002
+      value: -506.25
       objectReference: {fileID: 0}
     - target: {fileID: 5261524695990278285, guid: b3955d14b0d31134c9f01a899455b26f,
         type: 3}
@@ -9347,12 +9364,12 @@ PrefabInstance:
     - target: {fileID: 8806043244260333949, guid: 352cde359bddb994fb54667c3a69b739,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -876.03906
+      value: -876
       objectReference: {fileID: 0}
     - target: {fileID: 8806043244260333949, guid: 352cde359bddb994fb54667c3a69b739,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 504.24023
+      value: 504.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 352cde359bddb994fb54667c3a69b739, type: 3}
