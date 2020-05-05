@@ -7,7 +7,9 @@ public class GameOverHandler : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] Text scoreText;
+    [Tooltip("Canvas")]
     [SerializeField] GameObject loseScreen;
+    [Tooltip("Canvas")]
     [SerializeField] GameObject mainCanvas;
     [Header("Manager")]
     [SerializeField] SpawnManager spawnManager;
