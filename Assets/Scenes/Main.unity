@@ -7025,7 +7025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df7eecd6699b2443a0e66a9a1ed486c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 100
   text: {fileID: 1331772559}
   gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455
