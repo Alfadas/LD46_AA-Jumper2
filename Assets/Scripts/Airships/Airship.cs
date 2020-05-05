@@ -10,6 +10,7 @@ public class Airship : MonoBehaviour
     [SerializeField] int metal = 5;
     int speed;
     int health;
+    bool destroyed = false;
     private int notWaiting = 1;
     [SerializeField] MetalManager metallManager;
     [SerializeField] EnemyList enemyList;
@@ -77,11 +78,15 @@ public class Airship : MonoBehaviour
 
     private void DestroyShip(bool kill)
     {
-        if (kill)
+        if (!destroyed)
         {
-            metallManager.AddMetalAndScore(metal);
+            destroyed = true;
+            if (kill)
+            {
+                metallManager.AddMetalAndScore(metal);
+            }
+            enemyList.RemoveEnemy(this);
+            Object.Destroy(gameObject, 0.1f);
         }
-        enemyList.RemoveEnemy(this);
-        Object.Destroy(gameObject, 0.1f);
     }
 }

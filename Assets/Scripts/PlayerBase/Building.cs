@@ -7,6 +7,7 @@ public class Building : MonoBehaviour
     [Header("Building General")]
     [SerializeField] int maxHealth = 100;
     protected int health;
+    bool destroyed = false;
 
     private void Start()
     {
@@ -24,6 +25,14 @@ public class Building : MonoBehaviour
 
     protected virtual void DestroyBuilding()
     {
+        if (!destroyed)
+        {
+            destroyed = true;
+        }
+        else
+        {
+            return;
+        }
         Debug.Log("Building Destroyed");
     }
 }
