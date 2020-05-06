@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &4489734428338763642
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7689761795612897296}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -8747561445212389166, guid: dc0b1f40c3a57a84d95b001901c3ac6d, type: 3}
 --- !u!1001 &5589799083406511116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,7 +80,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: dc0b1f40c3a57a84d95b001901c3ac6d,
         type: 3}
       propertyPath: m_Name
-      value: Ruinen-0
+      value: Ruinen-0 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4790030765818411843, guid: dc0b1f40c3a57a84d95b001901c3ac6d,
         type: 3}
@@ -103,9 +89,3 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 4f9778d37101bf34db992079e7c13cd2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc0b1f40c3a57a84d95b001901c3ac6d, type: 3}
---- !u!1 &7689761795612897296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -6402586800931488740, guid: dc0b1f40c3a57a84d95b001901c3ac6d,
-    type: 3}
-  m_PrefabInstance: {fileID: 5589799083406511116}
-  m_PrefabAsset: {fileID: 0}
