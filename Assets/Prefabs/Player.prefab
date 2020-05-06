@@ -255,9 +255,9 @@ MonoBehaviour:
   maxLookDown: 90
   maxLookUp: 270
   rotationSpeed: 200
-  movementSpeed: 1600
-  sprintFactor: 2
-  jumpStrength: 7000
+  movementSpeed: 1100
+  sprintFactor: 1.5
+  jumpStrength: 6800
   jumpTime: 0.2
   head: {fileID: 2003152391177076853}
   feet: {fileID: 1053153110}
