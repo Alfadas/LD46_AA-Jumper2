@@ -27,7 +27,7 @@ public class BuildingManager : MonoBehaviour
                         buildingUi.gameObject.SetActive(true);
                         buildingUi.SetupTurretPanels(this);
                         playerController.setMouseVisible(true);
-                        weaponController.BlockShooting(true);
+                        weaponController.toggleSafety(true);
                     }
                 }
                 else
@@ -62,6 +62,6 @@ public class BuildingManager : MonoBehaviour
         buildingUi.ClearList();
         buildingUi.gameObject.SetActive(false);
         playerController.setMouseVisible(false);
-        weaponController.BlockShooting(false);
+        weaponController.toggleSafety(false);
     }
 }

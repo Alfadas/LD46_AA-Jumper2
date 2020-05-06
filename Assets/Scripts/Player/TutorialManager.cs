@@ -67,7 +67,7 @@ public class TutorialManager : MonoBehaviour
             yield return new WaitUntil(() => buildingBase.IsFilled == true);
         }
         player.setMouseVisible(true);
-        weaponController.BlockShooting(true);
+        weaponController.toggleSafety(true);
         infoPanel.SetActive(true);
         toMenuButton.SetActive(true);
         infoText.text = endInfo;
@@ -81,12 +81,12 @@ public class TutorialManager : MonoBehaviour
             {
                 infoPanel.SetActive(false);
                 player.setMouseVisible(false);
-                weaponController.BlockShooting(false);
+                weaponController.toggleSafety(false);
             }
             else
             {
                 player.setMouseVisible(!goBackQuestion.activeSelf);
-                weaponController.BlockShooting(!goBackQuestion.activeSelf);
+                weaponController.toggleSafety(!goBackQuestion.activeSelf);
                 goBackQuestion.SetActive(!goBackQuestion.activeSelf);
             }
         }

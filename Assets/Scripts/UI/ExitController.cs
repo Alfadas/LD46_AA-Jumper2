@@ -14,7 +14,7 @@ public class ExitController : MonoBehaviour
         if (!blocked && Input.GetButtonDown("Cancel"))
         {
             player.setMouseVisible(!exitPanel.activeSelf);
-            weaponController.BlockShooting(!exitPanel.activeSelf);
+            weaponController.toggleSafety(!exitPanel.activeSelf);
             exitPanel.SetActive(!exitPanel.activeSelf);
         }
     }
