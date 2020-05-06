@@ -306,6 +306,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 45, y: 90, z: 0}
+--- !u!114 &736779898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 859686074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &815374195
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,8 +487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -120, y: 40}
-  m_SizeDelta: {x: 200, y: 40}
+  m_AnchoredPosition: {x: -80, y: 40}
+  m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946793585
 MonoBehaviour:
@@ -509,7 +521,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bullets
+  m_Text: Reload
 --- !u!222 &946793586
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1145,6 +1157,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 481758545447935620, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
+        type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 736779898}
     - target: {fileID: 481758545447935621, guid: 7e7e6efe37d28eb448e437ad7dd99ff6,
         type: 3}
       propertyPath: m_Name

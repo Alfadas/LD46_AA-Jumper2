@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Collider feet = null;
 	[Tooltip("Float Array of Length 3 with Factors applied to Movement when Character is grounded, touches something or is completely in Air")]
 	[SerializeField] private float floatingMovementFactor = 0.002f;
+	[SerializeField] private WeaponController weapon = null;
 	private Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
 	private List<ContactPoint> contactList = null;
@@ -110,6 +111,35 @@ public class PlayerController : MonoBehaviour
 		else
 			{
 			jumpCharge = jumpTime;
+			}
+
+		// Weapon Handling
+		if(weapon != null)
+			{
+			if(Input.GetButtonDown("Fire"))
+				{
+				weapon.pullTrigger();
+				}
+			if(Input.GetButtonUp("Fire"))
+				{
+				weapon.releaseTrigger();
+				}
+			if(Input.GetButtonDown("Aim"))
+				{
+				weapon.aim();
+				}
+			if(Input.GetButtonUp("Aim"))
+				{
+				weapon.unaim();
+				}
+			if(Input.GetButtonDown("Reload"))
+				{
+				weapon.reload();
+				}
+			if(Input.GetButtonDown("Firemode"))
+				{
+				weapon.switchFireMode();
+				}
 			}
 		}
 
