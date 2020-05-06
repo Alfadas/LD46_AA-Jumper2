@@ -262,7 +262,7 @@ MonoBehaviour:
   head: {fileID: 2003152391177076853}
   feet: {fileID: 1053153110}
   floatingMovementFactor: 0.002
-  weapon: {fileID: 0}
+  weapon: {fileID: 7160117199827436611}
 --- !u!114 &823876015
 MonoBehaviour:
   m_ObjectHideFlags: 0
