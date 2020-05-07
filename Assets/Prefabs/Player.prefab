@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22002e6467628284da4f82fefa91a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLookDown: 90
+  maxLookDown: 63
   maxLookUp: 270
   rotationSpeed: 200
   movementSpeed: 1100
