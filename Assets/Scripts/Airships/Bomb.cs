@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [Tooltip("Damage to buildings on impact")]
     [SerializeField] int damage = 1;
 
     private void OnTriggerEnter(Collider other)
     {
-        Building building = other.gameObject.GetComponent<Building>();
-        if (building != null)
+        Building building = other.gameObject.GetComponent<Building>();//try getting Building component
+        if (building != null) //if the collider has a building component attached
         {
-            building.GetDamage(damage);
+            building.GetDamage(damage); //Do damage to the building
             DestroyBomb();
         }
     }

@@ -1,19 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HitCollector : MonoBehaviour
 {
+    [Tooltip("Damage multiplicator if this part is hit")]
     [SerializeField] float damageMulti;
-    Airship airship;
-    // Start is called before the first frame update
+    Airship airship; //airship this is attached to
+
     void Start()
     {
-        airship = GetComponentInParent<Airship>();
+        airship = GetComponentInParent<Airship>(); //get attached airship
     }
 
-    public void GetDamage(int damage)
+    public void GetDamage(int damage) //Methode if this Part is damaged
     {
-        airship.GetDamage(Mathf.RoundToInt(damage * damageMulti));
+        airship.GetDamage(Mathf.RoundToInt(damage * damageMulti)); // airship gets damage * damage multi
     }
 }

@@ -1,35 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionAvoider : MonoBehaviour
 {
-    [SerializeField] Airship airship;
-    [SerializeField] Airship collidingAirship;
-    // Start is called before the first frame update
+    Airship airship; //Airship this is attached to
+    Airship collidingAirship; //Airship the attached Airship would collide with (currently colliding with the Avoider)
+
     void Start()
     {
-        airship = GetComponentInParent<Airship>();
+        airship = GetComponentInParent<Airship>(); // get attached airship
         StartCoroutine(CheckSpeed());
     }
 
-    IEnumerator CheckSpeed()
+    IEnumerator CheckSpeed() //check for speed changes every 2 seconds
     {
         while (true)
         {
-            if (collidingAirship != null)
+            if (collidingAirship != null) // if there is a colliding airship
             {
                 CorrectSpeed();
             }
-            else
+            else 
             {
-                airship.Speed = airship.MaxSpeed;
+                airship.Speed = airship.MaxSpeed; //set speed back to max of attached
             }
             yield return new WaitForSeconds(2);
         }
     }
 
-    private void CorrectSpeed()
+    private void CorrectSpeed() // allign speed with colliding or, if colliding is faster than max speed, reset to max speed
     {
         if (collidingAirship.Speed <= airship.MaxSpeed)
         {
@@ -41,11 +40,12 @@ public class CollisionAvoider : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //colliding ship is set only on enter and never removed, new ones just override
     {
         Airship newCollidingAirship = other.gameObject.GetComponentInParent<Airship>();
-        if (newCollidingAirship != null)
+        if (newCollidingAirship != null) //if colliding object is a Airship
         {
+            //set as new colliding and change speed
             collidingAirship = newCollidingAirship;
             CorrectSpeed();
         }
