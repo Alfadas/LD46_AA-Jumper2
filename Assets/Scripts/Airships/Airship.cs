@@ -1,53 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Airship : MonoBehaviour
 {
-    public int maxSpeed = 1;
+    [Tooltip("Maximum m/s")]
+    [SerializeField] int maxSpeed = 1;
+    [Tooltip("Maximum Airship Health")]
     [SerializeField] int maxHealth = 100;
+    [Tooltip("Z Point to automaticly dissolve the ship at the end of the lane")]
     [SerializeField] int killPoint = -500;
+    [Tooltip("Metal/Score rewarded for killing the ship")]
     [SerializeField] int metal = 5;
-    int speed;
-    int health;
-    bool destroyed = false;
-    private int notWaiting = 1;
-    [SerializeField] MetalManager metallManager;
-    [SerializeField] EnemyList enemyList;
+    int health; //current health
+    bool destroyed = false; //bool to secure one time destruction
+    MetalManager metallManager; // MetalManager ref to add kill reward
+    EnemyList enemyList; // EnemyList ref to delete ship on destruction
 
-    public Vector3 SpeedVector
+    public int Speed { get; set; } // current speed
+
+    public Vector3 SpeedVector //speed as Vector 3
     {
         get
         {
-            return new Vector3(0, 0, -speed);
+            return new Vector3(0, 0, -Speed);
         }
     }
 
-    public int Speed
+    public int MaxSpeed // get for max speed
     {
         get
         {
-            return speed;
-        }
-        set
-        {
-            speed = value;
+            return maxSpeed;
         }
     }
-
 
     private void Start()
     {
-        speed = maxSpeed;
+        //set speed and health to max
+        Speed = maxSpeed;
         health = maxHealth;
     }
 
-    public void SetManagingObjects(MetalManager metallManager, EnemyList enemyList)
-    {
-        this.metallManager = metallManager;
-        this.enemyList = enemyList;
-    }
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -57,32 +49,39 @@ public class Airship : MonoBehaviour
         }
     }
 
-    void Move()
+    public void SetManagingObjects(MetalManager metallManager, EnemyList enemyList) // called after spwan to set refs
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + (-speed * Time.deltaTime * notWaiting));
+        this.metallManager = metallManager;
+        this.enemyList = enemyList;
     }
 
-    public void GetDamage(int damage)
+    void Move()
+    {
+        transform.position = transform.position + (SpeedVector * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
+    }
+
+    public void GetDamage(int damage) //methode to calc damage to the ship itself
     {
         health -= damage;
         if (health <= 0)
         {
-            DestroyShip(true);
+            Dissolve();
         }
     }
 
-    public void Dissolve()
+    public void Dissolve() //destroy object without kill reward
     {
         DestroyShip(false);
     }
 
-    private void DestroyShip(bool kill)
+    private void DestroyShip(bool killReward) // destroys ship with or without kill reward
     {
         if (!destroyed)
         {
             destroyed = true;
-            if (kill)
+            if (killReward)
             {
+                //give kill reward
                 metallManager.AddMetalAndScore(metal);
             }
             enemyList.RemoveEnemy(this);
