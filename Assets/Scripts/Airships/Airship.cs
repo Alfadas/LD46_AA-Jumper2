@@ -10,10 +10,13 @@ public class Airship : MonoBehaviour
     [SerializeField] int killPoint = -500;
     [Tooltip("Metal/Score rewarded for killing the ship")]
     [SerializeField] int metal = 5;
+    [Header("Tutorial Refs")]
+    [Tooltip("MetalManager ref to add kill reward")]
+    [SerializeField] MetalManager metallManager; 
+    [Tooltip("EnemyList ref to delete ship on destruction")]
+    [SerializeField] EnemyList enemyList; 
     int health; //current health
     bool destroyed = false; //bool to secure one time destruction
-    MetalManager metallManager; // MetalManager ref to add kill reward
-    EnemyList enemyList; // EnemyList ref to delete ship on destruction
 
     public int Speed { get; set; } // current speed
 
