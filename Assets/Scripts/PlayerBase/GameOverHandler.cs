@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverHandler : MonoBehaviour
@@ -19,7 +17,7 @@ public class GameOverHandler : MonoBehaviour
     [SerializeField] PlayerController playerController;
     [SerializeField] WeaponController weaponController;
     [SerializeField] ExitController exitController;
-    // Start is called before the first frame update
+
     public void EndGame()
     {
         spawnManager.StopAllCoroutines(); //stop spawning enemies

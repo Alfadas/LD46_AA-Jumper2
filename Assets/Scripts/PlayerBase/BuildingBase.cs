@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BuildingBase : MonoBehaviour
 {
-    [SerializeField] Turret turret;
+    Turret turret; //turret on the BuildingBase
 
-    public bool IsFilled
+    public bool IsFilled // returns if the BuildingBase has a turret
     {
         get
         {
@@ -14,7 +12,7 @@ public class BuildingBase : MonoBehaviour
         }
     }
 
-    public void PlaceTurret(Turret newTurret)
+    public void PlaceTurret(Turret newTurret) 
     {
         turret = Instantiate(newTurret, transform.position, Quaternion.identity, transform);
     }
