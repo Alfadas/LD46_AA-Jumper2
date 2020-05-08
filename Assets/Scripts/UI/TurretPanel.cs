@@ -35,25 +35,25 @@ public class TurretPanel : MonoBehaviour
 
     void SetName()
     {
-        headText.text = turret.GetName();
+        headText.text = turret.Name;
     }
 
     void SetInfo()
     {
-        infoText.text = "Fire rate: " + turret.GetFireRate() + "\n" +
+        infoText.text = "Fire rate: " + turret.FireRate + "\n" +
                         "Spread on 100m: " + turret.GetMeterAutoSpread() + "m \n" +
-                        "Size: " + turret.GetSize() + "\n" +
-                        "Damage per s: " + turret.GetDamage() + "\n" +
-                        "Range: " + turret.GetRange() + "\n" +
-                        "Cost: " + turret.GetCost();
+                        "Size: " + turret.Size + "\n" +
+                        "Damage per s: " + turret.Damage + "\n" +
+                        "Range: " + turret.Range + "\n" +
+                        "Cost: " + turret.Cost;
     }
 
     void SetButton()
     {
-        if (metalManager.Metal - turret.GetCost() >= 0)
+        if (metalManager.Metal - turret.Cost >= 0)
         {
             button.enabled = true;
-            buttonText.text = "Place for " + turret.GetCost() + " Metal";
+            buttonText.text = "Place for " + turret.Cost + " Metal";
             buttonText.color = green;
         }
         else
@@ -76,9 +76,9 @@ public class TurretPanel : MonoBehaviour
 
     public void OnButtonPressed()
     {
-        if(metalManager.Metal - turret.GetCost() >= 0)
+        if(metalManager.Metal - turret.Cost >= 0)
         {
-            metalManager.DeductMetal(turret.GetCost());
+            metalManager.DeductMetal(turret.Cost);
             buildingManager.QuitBuildingMenu(turret);
         }
         else

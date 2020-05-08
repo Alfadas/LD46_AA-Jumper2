@@ -15,6 +15,7 @@ public class Turret : Building
     [SerializeField] int cost;
     [Tooltip("Size in m")]
     [SerializeField] int size;
+    [Tooltip("Turret max rotation speed")]
     [SerializeField] int turnSpeed;
 
     [Header("Shooting")]
@@ -22,12 +23,15 @@ public class Turret : Building
     [SerializeField] float fireRate;
     [Tooltip("Only displayed damage per second, no real damage property")]
     [SerializeField] int damage;
+    [Tooltip("Bullet velocity at the muzzle")]
     [SerializeField] float muzzleVelocity;
+    [Tooltip("Max auto target range")]
     [SerializeField] int range;
     [Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
     [SerializeField] int spread;
     [Tooltip("Spread multiplicator if turret fires automaticaly")]
     [SerializeField] int autoSpreadMulti = 4;
+    [Tooltip("Shell prefab")]
     [SerializeField] GameObject shell;
 
     [Header("Parts")]
@@ -44,34 +48,52 @@ public class Turret : Building
     Airship target;
     Quaternion qRotation;
 
-    public string GetName()
+    public string Name
     {
-        return turretName;
+        get
+        {
+            return turretName;
+        }
     }
 
-    public float GetFireRate()
+    public float FireRate
     {
-        return fireRate;
+        get
+        {
+            return fireRate;
+        }
     }
 
-    public int GetSize()
+    public int Size
     {
-        return size;
+        get
+        {
+            return size;
+        }
     }
 
-    public int GetDamage()
+    public int Damage
     {
-        return damage;
+        get
+        {
+            return damage;
+        }
     }
 
-    public int GetRange()
+    public int Range
     {
-        return range;
+        get
+        {
+            return range;
+        }
     }
 
-    public int GetCost()
+    public int Cost
     {
-        return cost;
+        get
+        {
+            return cost;
+        }
     }
 
     public float GetMeterAutoSpread()
@@ -160,6 +182,7 @@ public class Turret : Building
         }
 
     }
+
     void SearchNearestTarget(Airship[] enemies)
     {
         float shortestDistance = range;
@@ -182,6 +205,7 @@ public class Turret : Building
             target = null;
         }
     }
+
     private void RotateTurret(Quaternion lookRotation)
     {
         qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
@@ -222,6 +246,7 @@ public class Turret : Building
         bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
         fireCountdown = 1f / fireRate;
     }
+
     //first-order intercept using relative target position
     public static float FirstOrderInterceptTime
     (
