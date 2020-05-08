@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
-	{
+{
 	[SerializeField] private Vector3 aimPosition = Vector3.zero;
 	[SerializeField] private Vector3 muzzle = Vector3.zero;
 	[Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
@@ -37,32 +37,32 @@ public class WeaponController : MonoBehaviour
 	public bool safety = false;
 
 	private void Start()
-		{
+	{
 		originalRotation = transform.localRotation;
 		timePerRound = 1.0f / (roundsPerMinute / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
 		bulletCounter = GameObject.Find("BulletCounter").GetComponent<Text>();
-		}
+	}
 
 	private void Update()
-		{
+	{
 		// Auto Reload
 		if(shotCount <= 0 && reloadStarted < 0)
-			{
+		{
 			reloadStarted = Time.time;
-			}
+		}
 
 		// Finish Reload after reloadTime
 		if(reloadStarted >= 0 && Time.time - reloadStarted >= reloadTime)
-			{
+		{
 			reloadStarted = -1;
 			shotCount = magazineCapacity;
-			}
+		}
 
 		// Fire Weapon
 		if(fire && (fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && (Time.time - lastShot) >= timePerRound && shotCount > 0)
-			{
+		{
 			lastShot = Time.time;
 
 			--shotCount;
@@ -77,7 +77,7 @@ public class WeaponController : MonoBehaviour
 
 			audioSource.clip = fireSound;
 			audioSource.Play();
-			}
+		}
 
 		// Recenter Weapon
 		float recoilAngle = Quaternion.Angle(transform.localRotation, originalRotation);
@@ -85,65 +85,65 @@ public class WeaponController : MonoBehaviour
 
 		// Update Bullet Counter
 		if(reloadStarted < 0)
-			{
+		{
 			bulletCounter.text = shotCount + "/" + magazineCapacity;
 			bulletCounter.alignment = TextAnchor.LowerRight;
-			}
+		}
 		else
-			{
+		{
 			string text = "Reload";
 			int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));   // Add a virtual Letter to let the full Word appear for longer than 1 Frame
 			text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));                         // Subtract virtual Letter
 
 			bulletCounter.text = text;
 			bulletCounter.alignment = TextAnchor.LowerLeft;
-			}
 		}
+	}
 
 	// TODO: Remove and replace by actual Animation
 	public void aim()
-		{
+	{
 		transform.localPosition = aimPosition;
-		}
+	}
 	public void unaim()
-		{
+	{
 		transform.localPosition = hipPosition;
-		}
+	}
 
 	public void pullTrigger()
-		{
+	{
 		fire = true;
 		shotsFired = 0;
-		}
+	}
 
 	public void releaseTrigger()
-		{
+	{
 		fire = false;
-		}
+	}
 
 	public void reload()
-		{
+	{
 		if(reloadStarted < 0)
-			{
+		{
 			reloadStarted = Time.time;
 			shotCount = 0;
-			}
-		}
-
-	public void switchFireMode(int fireMode = -1)
-		{
-		if(fireMode >= 0)
-			{
-			this.fireMode = fireMode;
-			}
-		else
-			{
-			this.fireMode = (this.fireMode + 1) % fireModes.Length;
-			}
-		}
-
-	public void toggleSafety(bool safety)
-		{
-		this.safety = safety;
 		}
 	}
+
+	public void switchFireMode(int fireMode = -1)
+	{
+		if(fireMode >= 0)
+		{
+			this.fireMode = fireMode;
+		}
+		else
+		{
+			this.fireMode = (this.fireMode + 1) % fireModes.Length;
+		}
+	}
+
+	public void toggleSafety(bool safety)
+	{
+		this.safety = safety;
+	}
+}
