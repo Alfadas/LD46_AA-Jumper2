@@ -30,6 +30,6 @@ public class GameOverHandler : MonoBehaviour
 
         mainCanvas.SetActive(false); // deactivate main Canvas
         loseScreen.SetActive(true); // activate GameOver Endscreen
-        scoreText.text = "Score: " + metalManager.GetScore(); // display Score
+        scoreText.text = "Score: " + metalManager.Score; // display Score
     }
 }

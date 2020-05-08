@@ -50,7 +50,7 @@ public class TurretPanel : MonoBehaviour
 
     void SetButton()
     {
-        if (metalManager.GetMetal() - turret.GetCost() >= 0)
+        if (metalManager.Metal - turret.GetCost() >= 0)
         {
             button.enabled = true;
             buttonText.text = "Place for " + turret.GetCost() + " Metal";
@@ -76,7 +76,7 @@ public class TurretPanel : MonoBehaviour
 
     public void OnButtonPressed()
     {
-        if(metalManager.GetMetal() - turret.GetCost() >= 0)
+        if(metalManager.Metal - turret.GetCost() >= 0)
         {
             metalManager.DeductMetal(turret.GetCost());
             buildingManager.QuitBuildingMenu(turret);
