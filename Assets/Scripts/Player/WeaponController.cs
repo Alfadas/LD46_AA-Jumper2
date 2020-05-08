@@ -31,6 +31,14 @@ public class WeaponController : MonoBehaviour
 	private float reloadStarted = 0.0f;
 	private Text bulletCounter = null;
 	private AudioSource audioSource = null;
+	private bool readyToFire = false;
+	public bool ReadyToFire
+	{
+		get
+		{
+			return readyToFire;
+		}
+	}
 	private bool fire = false;
 	private int fireMode = 0;
 	private int shotsFired = 0;
@@ -60,13 +68,19 @@ public class WeaponController : MonoBehaviour
 			shotCount = magazineCapacity;
 		}
 
+		if((fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && reloadStarted < 0 && (Time.time - lastShot) >= timePerRound && shotCount > 0)
+		{
+			readyToFire = true;
+		}
+
 		// Fire Weapon
-		if(fire && (fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && (Time.time - lastShot) >= timePerRound && shotCount > 0)
+		if(fire && readyToFire)
 		{
 			lastShot = Time.time;
 
 			--shotCount;
 			++shotsFired;
+			readyToFire = false;
 
 			GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position + transform.rotation * Vector3.Scale(muzzle, transform.localScale), transform.rotation);
 			Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
