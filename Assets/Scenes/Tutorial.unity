@@ -2695,6 +2695,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1444608535}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1444608537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4552937347064695631, guid: d81f5da5ac63f784aafde3f88a11b622,
+    type: 3}
+  m_PrefabInstance: {fileID: 1444608535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1447243658 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3660404339667859095, guid: c48a58bb6fec8e34c97890ffd8910168,
@@ -4150,6 +4156,11 @@ PrefabInstance:
       propertyPath: buildingUi
       value: 
       objectReference: {fileID: 1537158087}
+    - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: interactHelp
+      value: 
+      objectReference: {fileID: 1444608537}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x
