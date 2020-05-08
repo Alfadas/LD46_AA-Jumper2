@@ -6,25 +6,47 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    [Header("General")]
+    [Tooltip("PlayerController on Player")]
     [SerializeField] PlayerController player;
+    [Tooltip("WeaponController on player weapon")]
     [SerializeField] WeaponController weaponController;
+    [Tooltip("Window to comfirm exit")]
+    [SerializeField] GameObject exitDisplay;
+    [Tooltip("Tutorial info panel")]
     [SerializeField] GameObject infoPanel;
+    [Tooltip("Tutorial info text object")]
     [SerializeField] Text infoText;
+    [Header("Intro")]
+    [Tooltip("Displayed text, '/n' for new line")]
     [SerializeField] string introText;
+    [Header("Weapon Info")]
+    [Tooltip("Info display position")]
     [SerializeField] int zTriggerWeapon;
+    [Tooltip("Displayed text, '/n' for new line")]
     [SerializeField] string weaponInfo;
+    [Header("Enemy Info")]
+    [Tooltip("Info display position")]
     [SerializeField] int zTriggerEnemies;
+    [Tooltip("Displayed text, '/n' for new line")]
     [SerializeField] string enemyInfo;
+    [Tooltip("Airship to kill")]
     [SerializeField] Airship airship;
+    [Tooltip("Blocker to delete after airship kill")]
     [SerializeField] GameObject blocker;
+    [Header("Turret Info")]
+    [Tooltip("Info display position")]
     [SerializeField] int zTriggerTurrets;
+    [Tooltip("Displayed text, '/n' for new line")]
     [SerializeField] string turretInfo;
+    [Tooltip("BuildingBase for turret ro be build on")]
     [SerializeField] BuildingBase buildingBase;
+    [Header("End")]
+    [Tooltip("Tutorial info to menu button")]
     [SerializeField] GameObject toMenuButton;
+    [Tooltip("Displayed text, '/n' for new line")]
     [SerializeField] string endInfo;
-    [SerializeField] GameObject goBackQuestion;
 
-    // Start is called before the first frame update
     void Start()
     {
         infoPanel.SetActive(true);
@@ -37,47 +59,11 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(Tutorial());
     }
 
-    IEnumerator Tutorial()
-    {
-        if (player.transform.position.z < zTriggerWeapon)
-        {
-            yield return new WaitUntil(() => player.transform.position.z >= zTriggerWeapon);
-        }
-        infoPanel.SetActive(true);
-        infoText.text = weaponInfo;
-        if (player.transform.position.z < zTriggerEnemies)
-        {
-            yield return new WaitUntil(() => player.transform.position.z >= zTriggerEnemies);
-        }
-        infoPanel.SetActive(true);
-        infoText.text = enemyInfo;
-        if (airship != null)
-        {
-            yield return new WaitUntil(() => airship == null);
-        }
-        Object.DestroyImmediate(blocker);
-        if (player.transform.position.z < zTriggerTurrets)
-        {
-            yield return new WaitUntil(() => player.transform.position.z >= zTriggerTurrets);
-        }
-        infoPanel.SetActive(true);
-        infoText.text = turretInfo;
-        if (!buildingBase.IsFilled)
-        {
-            yield return new WaitUntil(() => buildingBase.IsFilled == true);
-        }
-        player.setMouseVisible(true);
-        weaponController.toggleSafety(true);
-        infoPanel.SetActive(true);
-        toMenuButton.SetActive(true);
-        infoText.text = endInfo;
-    }
-
     private void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            if(infoPanel.activeSelf == true)
+            if (infoPanel.activeSelf == true)
             {
                 infoPanel.SetActive(false);
                 player.setMouseVisible(false);
@@ -85,11 +71,49 @@ public class TutorialManager : MonoBehaviour
             }
             else
             {
-                player.setMouseVisible(!goBackQuestion.activeSelf);
-                weaponController.toggleSafety(!goBackQuestion.activeSelf);
-                goBackQuestion.SetActive(!goBackQuestion.activeSelf);
+                player.setMouseVisible(!exitDisplay.activeSelf);
+                weaponController.toggleSafety(!exitDisplay.activeSelf);
+                exitDisplay.SetActive(!exitDisplay.activeSelf);
             }
         }
+    }
+
+    IEnumerator Tutorial()
+    {
+        // Weapon Info
+        if (player.transform.position.z < zTriggerWeapon)
+        {
+            yield return new WaitUntil(() => player.transform.position.z >= zTriggerWeapon); //Wait until player reaches zPoint
+        }
+        infoPanel.SetActive(true);
+        infoText.text = weaponInfo;
+        // Enemy Info
+        if (player.transform.position.z < zTriggerEnemies)
+        {
+            yield return new WaitUntil(() => player.transform.position.z >= zTriggerEnemies);//Wait until player reaches zPoint
+        }
+        infoPanel.SetActive(true);
+        infoText.text = enemyInfo;
+        if (airship != null)
+        {
+            yield return new WaitUntil(() => airship == null); //Wait until player kills airship
+        }
+        Object.DestroyImmediate(blocker);
+        if (player.transform.position.z < zTriggerTurrets)
+        {
+            yield return new WaitUntil(() => player.transform.position.z >= zTriggerTurrets);//Wait until player reaches zPoint
+        }
+        infoPanel.SetActive(true);
+        infoText.text = turretInfo;
+        if (!buildingBase.IsFilled)
+        {
+            yield return new WaitUntil(() => buildingBase.IsFilled == true); // Wait until player builds turret
+        }
+        player.setMouseVisible(true);
+        weaponController.toggleSafety(true);
+        infoPanel.SetActive(true);
+        toMenuButton.SetActive(true);
+        infoText.text = endInfo;
     }
 
     public void BackToMenu()
