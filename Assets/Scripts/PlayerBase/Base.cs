@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Base : Building
 {
-    [SerializeField] Text text;
+    [Tooltip("Text Ui object to display base health")]
+    [SerializeField] Text baseHealthText;
+    [Tooltip("GameOverHandler ref to handle lose")]
     [SerializeField] GameOverHandler gameOverHandler;
 
     protected override void DestroyBuilding()
     {
+        //lose game
         base.DestroyBuilding();
         gameOverHandler.EndGame();
     }
 
     private void Update()
     {
-        text.text = "Base: " + health;
+        baseHealthText.text = "Base: " + health;
     }
 }

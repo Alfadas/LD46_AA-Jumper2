@@ -7032,7 +7032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  text: {fileID: 1331772559}
+  baseHealthText: {fileID: 1331772559}
   gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455
 BoxCollider:

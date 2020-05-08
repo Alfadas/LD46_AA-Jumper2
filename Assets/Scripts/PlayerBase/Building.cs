@@ -1,20 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Building : MonoBehaviour
 {
     [Header("Building General")]
     [SerializeField] int maxHealth = 100;
-    protected int health;
-    bool destroyed = false;
+    protected int health; // current health
+    bool destroyed = false; //bool to secure one time destruction
 
     private void Start()
     {
-        health = maxHealth;
+        health = maxHealth; //set health to maxHealth
     }
 
-    public void GetDamage(int damage)
+    public void GetDamage(int damage) //methode to calc damage to the Building itself
     {
         health -= damage;
         if(health <= 0)
@@ -33,6 +31,5 @@ public class Building : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Building Destroyed");
     }
 }
