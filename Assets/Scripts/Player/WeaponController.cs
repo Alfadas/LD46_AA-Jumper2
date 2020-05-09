@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class WeaponController : MonoBehaviour
 {
 	[SerializeField] private Vector3 aimPosition = Vector3.zero;
-	[SerializeField] private Vector3 muzzle = Vector3.zero;
+	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
+	[SerializeField] private Transform muzzle = null;
 	[Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
 	[SerializeField] private float spread = 50.0f;
 	[Tooltip("Angle by which the Gun is rotated at most per Shot in Degrees upwards")]
@@ -82,7 +83,7 @@ public class WeaponController : MonoBehaviour
 			++shotsFired;
 			readyToFire = false;
 
-			GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position + transform.rotation * Vector3.Scale(muzzle, transform.localScale), transform.rotation);
+			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
 			Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
 			bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
 
