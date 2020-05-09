@@ -5,18 +5,25 @@ using System.Linq;
 
 public class SpawnManager : MonoBehaviour
 {
+    [Header("General")]
+    [SerializeField] MetalManager metalManager;
     [SerializeField] EnemyList enemyList;
     [SerializeField] bool active = true;
+    [Header("SpawnPointChanger")]
     [SerializeField] int laneMidDif = 3;
+    [Header("SpawnTime")]
     [SerializeField] int startWaitTime = 20;
     [SerializeField] int spawnInterval = 10;
+    [Header("WaveValue")]
     [SerializeField] int startValue = 2;
     [SerializeField] int valuePerWave = 5;
     [SerializeField] float valueDiviation = 0.1f;
+    [Header("OverTimeClassChange")]
     [SerializeField] float maxClassBuildupFactor = 0.9f;
+    [Header("Ships")]
     [SerializeField] GameObject[] enemyModels;
     [SerializeField] int[] cost;
-    [SerializeField] MetalManager metalManager;
+
     Lane[] laneArray;
     bool spawning = false;
     int currentValue;

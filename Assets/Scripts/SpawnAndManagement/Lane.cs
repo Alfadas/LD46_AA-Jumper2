@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-    [SerializeField] Airship newAirship;
+    [Tooltip("Minimal distance, the ship needs to travel, until lane is free again")]
     [SerializeField] int minDistance;
+    Airship newAirship;
 
     public bool HasAirship
     {
@@ -25,7 +25,7 @@ public class Lane : MonoBehaviour
         StartCoroutine(CheckIfShipLeft());
     }
 
-    IEnumerator CheckIfShipLeft()
+    IEnumerator CheckIfShipLeft() //checks every sec if spwaned ship is far enough away to spawn a new one
     {
         while (true)
         {
