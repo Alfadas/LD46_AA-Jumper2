@@ -31,6 +31,7 @@ public class WeaponController : MonoBehaviour
 	private int shotCount = 0;
 	private float reloadStarted = 0.0f;
 	private Text magazineIndicator = null;
+	private Text firemodeIndicator = null;
 	private AudioSource audioSource = null;
 	public bool ReadyToFire { get; private set; } = false;
 	private bool fire = false;
@@ -44,7 +45,8 @@ public class WeaponController : MonoBehaviour
 		timePerRound = 1.0f / (roundsPerMinute / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
-		magazineIndicator = GameObject.Find("BulletCounter").GetComponent<Text>();
+		magazineIndicator = GameObject.Find("MagazineIndicator").GetComponentInChildren<Text>();
+		firemodeIndicator = GameObject.Find("FiremodeIndicator").GetComponentInChildren<Text>();
 	}
 
 	private void Update()
@@ -150,6 +152,22 @@ public class WeaponController : MonoBehaviour
 		else
 		{
 			this.fireMode = (this.fireMode + 1) % fireModes.Length;
+		}
+
+		if(firemodeIndicator != null)
+		{
+			if(fireModes[this.fireMode] == 0)
+			{
+				firemodeIndicator.text = "Auto";
+			}
+			else if(fireModes[this.fireMode] == 1)
+			{
+				firemodeIndicator.text = "Semi";
+			}
+			else
+			{
+				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
+			}
 		}
 	}
 
