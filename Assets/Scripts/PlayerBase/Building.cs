@@ -12,6 +12,7 @@ public class Building : MonoBehaviour
         health = maxHealth; //set health to maxHealth
     }
 
+    // Code Duplication with Airship, maybe make a Destroyable-Class
     public void GetDamage(int damage) //methode to calc damage to the Building itself
     {
         health -= damage;
@@ -23,9 +24,11 @@ public class Building : MonoBehaviour
 
     protected virtual void DestroyBuilding()
     {
+        // If-Check unnecessary like in Airship
         if (!destroyed)
         {
             destroyed = true;
+            // No GameObject.Destroy()?
         }
         else
         {

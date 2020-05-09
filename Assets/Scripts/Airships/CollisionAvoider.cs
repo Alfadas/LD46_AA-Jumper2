@@ -50,4 +50,6 @@ public class CollisionAvoider : MonoBehaviour
             CorrectSpeed();
         }
     }
+
+    // Maybe Check for Exit/Stay too, so that, if the collidingAirship is shot down, this Airship can return to maxSpeed?
 }

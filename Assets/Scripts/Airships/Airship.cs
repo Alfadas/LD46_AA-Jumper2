@@ -20,6 +20,7 @@ public class Airship : MonoBehaviour
 
     public int Speed { get; set; } // current speed
 
+    // Velocity == SpeedVector, Speed == float, Velocity == Vector
     public Vector3 SpeedVector //speed as Vector 3
     {
         get
@@ -68,10 +69,11 @@ public class Airship : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Dissolve();
+            Dissolve(); // Why no Kill Reward, when being destroyed by Gunfire?
         }
     }
 
+    // Why this extra method?
     public void Dissolve() //destroy object without kill reward
     {
         DestroyShip(false);
@@ -79,7 +81,7 @@ public class Airship : MonoBehaviour
 
     private void DestroyShip(bool killReward) // destroys ship with or without kill reward
     {
-        if (!destroyed)
+        if (!destroyed) // Can simply override destroyed, if check is unnecessary
         {
             destroyed = true;
             if (killReward)

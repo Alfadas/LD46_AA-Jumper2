@@ -11,6 +11,8 @@ public class PlayerLife : MonoBehaviour
 
     void Update()
     {
+        // if(Input.GetButtonDown("Kill") || transform.position.z < zMin || transform.position.z > zMax || transform.position.y < yMin || transform.position.y > yMax)
+
         if (Input.GetButtonDown("Kill"))
         {
             Respawn();
@@ -19,7 +21,7 @@ public class PlayerLife : MonoBehaviour
         {
             Respawn();
         }
-        if (transform.position.z < zMin)
+        if (transform.position.z < zMin) // Min Check after Max Check? (Readability)
         {
             Respawn();
         }

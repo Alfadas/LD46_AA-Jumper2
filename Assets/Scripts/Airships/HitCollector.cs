@@ -13,6 +13,7 @@ public class HitCollector : MonoBehaviour
 
     public void GetDamage(int damage) //Methode if this Part is damaged
     {
+        // Maybe set a Minimum of 1 Damage? (Design Choice)
         airship.GetDamage(Mathf.RoundToInt(damage * damageMulti)); // airship gets damage * damage multi
     }
 }

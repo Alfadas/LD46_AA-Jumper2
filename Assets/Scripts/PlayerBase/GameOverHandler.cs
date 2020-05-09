@@ -21,7 +21,7 @@ public class GameOverHandler : MonoBehaviour
     public void EndGame()
     {
         spawnManager.StopAllCoroutines(); //stop spawning enemies
-        enemyList.KillAllAndClear(); //kill all ships and clear the list to prevent a higher score;
+        enemyList.KillAllAndClear(); //kill all ships and clear the list to prevent a higher score; // In my Test Game Ships were still alive after GameOver
         metalManager.StopAllCoroutines(); //stop automatic income
 
         exitController.BlockExitControll(); //prevent reseting mouse and weapon controll

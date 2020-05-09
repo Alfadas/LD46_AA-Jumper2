@@ -15,6 +15,7 @@ public class Base : Building
         gameOverHandler.EndGame();
     }
 
+    // Potential for Bugs if someday Building starts using Update(), too, any Keywords/Strategy to defuse this? Calling base.Update() is a bad Idea because Magic Methods should not be called directly, right?
     private void Update()
     {
         baseHealthText.text = "Base: " + health;

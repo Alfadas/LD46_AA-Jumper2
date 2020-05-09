@@ -31,9 +31,10 @@ public class BuildingManager : MonoBehaviour
                         weaponController.toggleSafety(true);
                     }
                 }
+                // Maybe use a Buffer Variable bool deactivateInteractHelp which is on by default and gets turned off in the If-Branch to avoid 3 identical Else-Branches or alternatively combine everything in a single If, which could get messy
                 else
                 {
-                    interactHelp.SetActive(false);
+                    interactHelp.SetActive(false); // Does this disable interactHelp when there is an empty buildingBase and the interactHelp is enabled? Why does this work? Aren't you disabling the interactHelp at least every second Frame this Way?
                 }
             }
             else
@@ -54,6 +55,7 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    // Why does QuitBuildingMenu() get a Function and EnterBuildingMenu not?
     public void QuitBuildingMenu(Turret turret = null) //close Building menu and resume to normal game, if there is a turret to build, tell the buildingBase to build the turret
     {
         if (turret != null)
