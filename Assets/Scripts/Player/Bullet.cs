@@ -50,8 +50,8 @@ public class Bullet : MonoBehaviour
 				target?.GetDamage(Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage));
 
 				transform.position = hit.point;
-				rigidbody.velocity = Vector3.zero;
-				rigidbody.useGravity = false;
+				Object.Destroy(rigidbody, 0.0f);
+				transform.SetParent(hit.transform, true);
 
 				gameObject.GetComponent<MeshRenderer>().material = explosionColor;
 				originalScale = transform.localScale;

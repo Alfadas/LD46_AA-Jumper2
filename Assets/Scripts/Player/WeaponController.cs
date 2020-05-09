@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class WeaponController : MonoBehaviour
 {
 	[SerializeField] private Vector3 aimPosition = Vector3.zero;
-	[SerializeField] private Vector3 muzzle = Vector3.zero;
+	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
+	[SerializeField] private Transform muzzle = null;
 	[Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
 	[SerializeField] private float spread = 50.0f;
 	[Tooltip("Angle by which the Gun is rotated at most per Shot in Degrees upwards")]
@@ -29,16 +30,10 @@ public class WeaponController : MonoBehaviour
 	private float lastShot = 0.0f;
 	private int shotCount = 0;
 	private float reloadStarted = 0.0f;
-	private Text bulletCounter = null;
+	private Text magazineIndicator = null;
+	private Text firemodeIndicator = null;
 	private AudioSource audioSource = null;
-	private bool readyToFire = false;
-	public bool ReadyToFire
-	{
-		get
-		{
-			return readyToFire;
-		}
-	}
+	public bool ReadyToFire { get; private set; } = false;
 	private bool fire = false;
 	private int fireMode = 0;
 	private int shotsFired = 0;
@@ -50,7 +45,8 @@ public class WeaponController : MonoBehaviour
 		timePerRound = 1.0f / (roundsPerMinute / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
-		bulletCounter = GameObject.Find("BulletCounter").GetComponent<Text>();
+		magazineIndicator = GameObject.Find("MagazineIndicator").GetComponentInChildren<Text>();
+		firemodeIndicator = GameObject.Find("FiremodeIndicator").GetComponentInChildren<Text>();
 	}
 
 	private void Update()
@@ -70,19 +66,19 @@ public class WeaponController : MonoBehaviour
 
 		if((fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && reloadStarted < 0 && (Time.time - lastShot) >= timePerRound && shotCount > 0)
 		{
-			readyToFire = true;
+			ReadyToFire = true;
 		}
 
 		// Fire Weapon
-		if(fire && readyToFire)
+		if(fire && ReadyToFire)
 		{
 			lastShot = Time.time;
 
 			--shotCount;
 			++shotsFired;
-			readyToFire = false;
+			ReadyToFire = false;
 
-			GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position + transform.rotation * Vector3.Scale(muzzle, transform.localScale), transform.rotation);
+			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
 			Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
 			bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
 
@@ -98,19 +94,22 @@ public class WeaponController : MonoBehaviour
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
 		// Update Bullet Counter
-		if(reloadStarted < 0)
+		if(magazineIndicator != null)
 		{
-			bulletCounter.text = shotCount + "/" + magazineCapacity;
-			bulletCounter.alignment = TextAnchor.LowerRight;
-		}
-		else
-		{
-			string text = "Reload";
-			int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));   // Add a virtual Letter to let the full Word appear for longer than 1 Frame
-			text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));                         // Subtract virtual Letter
+			if(reloadStarted < 0)
+			{
+				magazineIndicator.text = shotCount + "/" + magazineCapacity;
+				magazineIndicator.alignment = TextAnchor.LowerRight;
+			}
+			else
+			{
+				string text = "Reload";
+				int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));							// Subtract virtual Letter
 
-			bulletCounter.text = text;
-			bulletCounter.alignment = TextAnchor.LowerLeft;
+				magazineIndicator.text = text;
+				magazineIndicator.alignment = TextAnchor.LowerLeft;
+			}
 		}
 	}
 
@@ -153,6 +152,22 @@ public class WeaponController : MonoBehaviour
 		else
 		{
 			this.fireMode = (this.fireMode + 1) % fireModes.Length;
+		}
+
+		if(firemodeIndicator != null)
+		{
+			if(fireModes[this.fireMode] == 0)
+			{
+				firemodeIndicator.text = "Auto";
+			}
+			else if(fireModes[this.fireMode] == 1)
+			{
+				firemodeIndicator.text = "Semi";
+			}
+			else
+			{
+				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
+			}
 		}
 	}
 
