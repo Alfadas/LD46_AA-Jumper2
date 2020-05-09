@@ -4791,6 +4791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbbf884c5aad91e448072df816b47a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  metalManager: {fileID: 1887868134}
   enemyList: {fileID: 14192995}
   active: 1
   laneMidDif: 3
@@ -4805,7 +4806,6 @@ MonoBehaviour:
   - {fileID: 4616447376057133032, guid: 0b54ba806c84417478ff1e35b8dcee93, type: 3}
   - {fileID: 6128204267936596719, guid: c4a579d21934dca4da9007814f990d60, type: 3}
   cost: 010000000500000019000000
-  metalManager: {fileID: 1887868134}
 --- !u!4 &1336816758
 Transform:
   m_ObjectHideFlags: 0
@@ -8964,7 +8964,7 @@ PrefabInstance:
         type: 3}
       propertyPath: interactHelp
       value: 
-      objectReference: {fileID: 8553432336234623703}
+      objectReference: {fileID: 927835779}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9265,12 +9265,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d81f5da5ac63f784aafde3f88a11b622, type: 3}
---- !u!1 &8553432336234623703 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4552937347064695631, guid: d81f5da5ac63f784aafde3f88a11b622,
-    type: 3}
-  m_PrefabInstance: {fileID: 8553432336234623702}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8806043245248030195
 PrefabInstance:
   m_ObjectHideFlags: 0
