@@ -217,9 +217,9 @@ public class Turret : Building
     private Vector3 CalcTargetLeadPoint()
     {
         Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
-        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.SpeedVector);
+        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.Velocity);
         float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
-        Vector3 targetLead = target.transform.position + target.SpeedVector * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
+        Vector3 targetLead = target.transform.position + target.Velocity * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
         Vector3 dir = targetLead - turretGuns.position;
         return dir;
     }

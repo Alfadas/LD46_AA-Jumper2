@@ -20,7 +20,7 @@ public class Airship : MonoBehaviour
 
     public int Speed { get; set; } // current speed
 
-    public Vector3 SpeedVector //speed as Vector 3
+    public Vector3 Velocity //speed as Vector 3
     {
         get
         {
@@ -48,7 +48,7 @@ public class Airship : MonoBehaviour
         Move();
         if (transform.position.z < killPoint)
         {
-            DestroyShip(false);
+            Dissolve();
         }
     }
 
@@ -60,7 +60,7 @@ public class Airship : MonoBehaviour
 
     void Move()
     {
-        transform.position = transform.position + (SpeedVector * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
+        transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
     }
 
     public void GetDamage(int damage) //methode to calc damage to the ship itself
@@ -68,7 +68,7 @@ public class Airship : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Dissolve();
+            DestroyShip(true);
         }
     }
 

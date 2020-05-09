@@ -24,11 +24,7 @@ public class BuildingManager : MonoBehaviour
                     interactHelp.SetActive(true);//show interact help only if there is a BuildingBase and no Menu shown
                     if (Input.GetButton("Interact"))
                     {
-                        buildingUi.gameObject.SetActive(true);
-                        buildingUi.SetupTurretPanels(this);
-                        //stop userinput to normal controlls to properly use the menu
-                        playerController.setMouseVisible(true);
-                        weaponController.toggleSafety(true);
+                        EnterBuildingMenu();
                     }
                 }
                 else
@@ -52,6 +48,15 @@ public class BuildingManager : MonoBehaviour
                 QuitBuildingMenu();
             }
         }
+    }
+
+    private void EnterBuildingMenu()
+    {
+        buildingUi.gameObject.SetActive(true);
+        buildingUi.SetupTurretPanels(this);
+        //stop userinput to normal controlls to properly use the menu
+        playerController.setMouseVisible(true);
+        weaponController.toggleSafety(true);
     }
 
     public void QuitBuildingMenu(Turret turret = null) //close Building menu and resume to normal game, if there is a turret to build, tell the buildingBase to build the turret
