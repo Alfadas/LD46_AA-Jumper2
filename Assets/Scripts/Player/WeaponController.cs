@@ -30,7 +30,7 @@ public class WeaponController : MonoBehaviour
 	private float lastShot = 0.0f;
 	private int shotCount = 0;
 	private float reloadStarted = 0.0f;
-	private Text bulletCounter = null;
+	private Text magazineIndicator = null;
 	private AudioSource audioSource = null;
 	public bool ReadyToFire { get; private set; } = false;
 	private bool fire = false;
@@ -44,7 +44,7 @@ public class WeaponController : MonoBehaviour
 		timePerRound = 1.0f / (roundsPerMinute / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
-		bulletCounter = GameObject.Find("BulletCounter").GetComponent<Text>();
+		magazineIndicator = GameObject.Find("BulletCounter").GetComponent<Text>();
 	}
 
 	private void Update()
@@ -92,19 +92,22 @@ public class WeaponController : MonoBehaviour
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
 		// Update Bullet Counter
-		if(reloadStarted < 0)
+		if(magazineIndicator != null)
 		{
-			bulletCounter.text = shotCount + "/" + magazineCapacity;
-			bulletCounter.alignment = TextAnchor.LowerRight;
-		}
-		else
-		{
-			string text = "Reload";
-			int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));   // Add a virtual Letter to let the full Word appear for longer than 1 Frame
-			text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));                         // Subtract virtual Letter
+			if(reloadStarted < 0)
+			{
+				magazineIndicator.text = shotCount + "/" + magazineCapacity;
+				magazineIndicator.alignment = TextAnchor.LowerRight;
+			}
+			else
+			{
+				string text = "Reload";
+				int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));							// Subtract virtual Letter
 
-			bulletCounter.text = text;
-			bulletCounter.alignment = TextAnchor.LowerLeft;
+				magazineIndicator.text = text;
+				magazineIndicator.alignment = TextAnchor.LowerLeft;
+			}
 		}
 	}
 
