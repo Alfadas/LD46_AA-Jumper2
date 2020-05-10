@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] int spawnInterval = 10;
     [Header("WaveValue")]
     [SerializeField] int startValue = 2;
-    [SerializeField] int valuePerWave = 5;
+    [SerializeField] float valuePercPerWave = 0.1f;
     [SerializeField] float valueDiviation = 0.1f;
     [Header("OverTimeClassChange")]
     [SerializeField] float maxClassBuildupFactor = 0.9f;
@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
                 Debug.Log("Wave " + wave + " started, value:" + nextWaveValue);
                 StartCoroutine(SpawnEnemies(CreateSpawnList(nextWaveValue)));
                 yield return new WaitWhile(() => spawning == true);
-                currentValue += valuePerWave;
+                currentValue += Mathf.CeilToInt(currentValue * valuePercPerWave);
                 yield return new WaitForSeconds(spawnInterval);
             }
             else
