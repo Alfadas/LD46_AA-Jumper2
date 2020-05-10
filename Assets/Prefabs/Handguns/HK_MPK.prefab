@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimPosition: {x: -0.005, y: 0, z: 0.4}
   muzzle: {fileID: 3579016340314717250}
-  spread: 100
+  spread: 200
   verticalRecoil: 1.6
   horizontalRecoil: 0.8
   recoilResetFactor: 2

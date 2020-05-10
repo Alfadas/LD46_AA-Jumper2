@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
 	private Vector3 lastPosition = Vector3.zero;
 	private float impactTime = -1.0f;
 	private Vector3 originalScale = Vector3.one;
+	private bool stopped = false;
 
 	private void Start()
 	{
@@ -30,16 +31,16 @@ public class Bullet : MonoBehaviour
 
 		if(impactTime >= 0)
 		{
-			transform.localScale = originalScale * (((Time.time - impactTime) / explosionDuration) * explosionSize);
-
-			if(Time.time - impactTime >= explosionDuration)
+			if(Time.time - impactTime < explosionDuration)
 			{
-				impactTime = -1.0f;
+				transform.localScale = originalScale * (((Time.time - impactTime) / explosionDuration) * explosionSize);
+			}
+			else
+			{
 				DestroyBullet();
 			}
 		}
-
-		if((transform.position - lastPosition).magnitude > scanAheadDistance)
+		else if((transform.position - lastPosition).magnitude > scanAheadDistance)
 		{
 			RaycastHit hit;
 			if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance) && !hit.collider.isTrigger)
