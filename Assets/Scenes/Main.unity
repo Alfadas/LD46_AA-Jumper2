@@ -17,10 +17,10 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0.65080994, g: 0.666729, b: 0.7075472, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.002
+  m_FogDensity: 0.0025
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.70710677, g: 0.70710677, b: 0.70710677, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.2850269, g: 0.3713935, b: 0.49601045, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502667, g: 0.37139356, b: 0.4960102, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2677,7 +2677,7 @@ PrefabInstance:
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -62.72061
+      value: -62.73
       objectReference: {fileID: 0}
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
@@ -4363,7 +4363,7 @@ PrefabInstance:
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -62.72061
+      value: -62.73
       objectReference: {fileID: 0}
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
@@ -6944,7 +6944,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 63da2ffc3b451fb4ab8d00f9ec043b69,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -200
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 63da2ffc3b451fb4ab8d00f9ec043b69,
         type: 3}
@@ -7971,7 +7971,7 @@ PrefabInstance:
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -63.72061
+      value: -63.73
       objectReference: {fileID: 0}
     - target: {fileID: 274460470950202587, guid: f359c4054ecc9694b8e859f2b04e5b42,
         type: 3}
@@ -8294,7 +8294,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.99522597, g: 1, b: 0.8160377, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
@@ -8351,13 +8351,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138677391}
-  m_LocalRotation: {x: 0.7064338, y: 0.47771442, z: 0.030843567, w: 0.5213338}
-  m_LocalPosition: {x: 0.24, y: 3, z: 4.18}
+  m_LocalRotation: {x: 0.4792421, y: -0.0287702, z: 0.5199296, w: 0.70652145}
+  m_LocalPosition: {x: 0.24, y: 203.9, z: 4.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 45, y: 130, z: 90}
+  m_LocalEulerAnglesHint: {x: 45.000004, y: 40.336002, z: 90.00001}
 --- !u!1001 &2145708401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9040,6 +9040,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346026783906299253, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: far clip plane
+      value: 2194
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346026783906299259, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99c72aaa27e6c34b962dd6a5a551171, type: 3}
