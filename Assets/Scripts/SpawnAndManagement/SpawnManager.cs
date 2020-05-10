@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] EnemyList enemyList;
     [SerializeField] bool active = true;
     [Header("SpawnPointChanger")]
+    [Tooltip("Absolute x y dif from lane mid")]
     [SerializeField] int laneMidDif = 3;
     [Header("SpawnTime")]
     [SerializeField] int startWaitTime = 20;
@@ -24,10 +25,10 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] GameObject[] enemyModels;
     [SerializeField] int[] cost;
 
-    Lane[] laneArray;
-    bool spawning = false;
-    int currentValue;
-    int wave = 0;
+    Lane[] laneArray;// Array of all lanes
+    bool spawning = false; //secure one time spawn  
+    int currentValue; 
+    int wave = 0; // current wave
 
     private void Start()
     {
@@ -79,7 +80,7 @@ public class SpawnManager : MonoBehaviour
         foreach (int enemy in enemies)
         {
             Lane lane = null;
-            while(lane == null)
+            while (lane == null)
             {
                 List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
                 while (freeLanes.Count > 0 && lane == null)
@@ -87,19 +88,24 @@ public class SpawnManager : MonoBehaviour
                     lane = freeLanes[Random.Range(0, freeLanes.Count)];
                     freeLanes.Remove(lane);
                 }
-                if(lane == null)
+                if (lane == null)
                 {
                     yield return new WaitForSeconds(0.2f);
                 }
             }
-            GameObject newEnemy = Instantiate(enemyModels[enemy], GetPosition(lane), Quaternion.identity, enemyList.transform);
-            Airship newEnemyRenderer = newEnemy.GetComponent<Airship>();
-            lane.SetAirship(newEnemyRenderer);
-            enemyList.AddEnemy(newEnemyRenderer);
-            newEnemyRenderer.SetManagingObjects(metalManager ,enemyList);
+            SpawnNewEnemy(enemy, lane);
             yield return new WaitForSeconds(0.1f);
         }
         spawning = false;
+    }
+
+    private void SpawnNewEnemy(int enemy, Lane lane)
+    {
+        GameObject newEnemy = Instantiate(enemyModels[enemy], GetPosition(lane), Quaternion.identity, enemyList.transform);
+        Airship newEnemyRenderer = newEnemy.GetComponent<Airship>();
+        lane.SetAirship(newEnemyRenderer);
+        enemyList.AddEnemy(newEnemyRenderer);
+        newEnemyRenderer.SetManagingObjects(metalManager, enemyList);
     }
 
     Vector3 GetPosition(Lane lane)
