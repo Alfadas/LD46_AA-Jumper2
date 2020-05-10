@@ -4798,14 +4798,14 @@ MonoBehaviour:
   startWaitTime: 20
   spawnInterval: 45
   startValue: 1
-  valuePerWave: 1
+  valuePercPerWave: 0.1
   valueDiviation: 0.1
   maxClassBuildupFactor: 0.9
   enemyModels:
   - {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e, type: 3}
   - {fileID: 4616447376057133032, guid: 0b54ba806c84417478ff1e35b8dcee93, type: 3}
   - {fileID: 6128204267936596719, guid: c4a579d21934dca4da9007814f990d60, type: 3}
-  cost: 010000000500000019000000
+  cost: 010000000500000014000000
 --- !u!4 &1336816758
 Transform:
   m_ObjectHideFlags: 0
