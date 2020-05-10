@@ -68,6 +68,10 @@ public class WeaponController : MonoBehaviour
 		{
 			ReadyToFire = true;
 		}
+		else
+		{
+			ReadyToFire = false;
+		}
 
 		// Fire Weapon
 		if(fire && ReadyToFire)
@@ -76,7 +80,6 @@ public class WeaponController : MonoBehaviour
 
 			--shotCount;
 			++shotsFired;
-			ReadyToFire = false;
 
 			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
 			Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
