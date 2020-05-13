@@ -14,9 +14,14 @@ public class TurretPanel : MonoBehaviour
     BuildingManager buildingManager;
     MetalManager metalManager;
 
-    private void Start()
+    private void Awake()
     {
         StartCoroutine(FillPanel());
+    }
+
+    private void OnDisable()
+    {
+        turret = null;
     }
 
     IEnumerator FillPanel()
