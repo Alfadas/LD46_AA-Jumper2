@@ -4130,6 +4130,11 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 2045041021}
+    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: interactHelp
+      value: 
+      objectReference: {fileID: 1592625863}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: text

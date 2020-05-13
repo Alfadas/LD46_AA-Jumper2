@@ -8966,9 +8966,9 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 1377273605}
-    - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
+    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
-      propertyPath: text
+      propertyPath: interactHelp
       value: 
       objectReference: {fileID: 927835779}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
@@ -8976,11 +8976,6 @@ PrefabInstance:
       propertyPath: buildingUi
       value: 
       objectReference: {fileID: 1023450530}
-    - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: interactHelp
-      value: 
-      objectReference: {fileID: 927835779}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9040,16 +9035,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7346026783906299253, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: far clip plane
-      value: 2194
-      objectReference: {fileID: 0}
-    - target: {fileID: 7346026783906299259, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99c72aaa27e6c34b962dd6a5a551171, type: 3}

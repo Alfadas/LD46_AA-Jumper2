@@ -2,8 +2,6 @@
 
 public class BuildingManager : MonoBehaviour
 {
-    [Tooltip("Panel to sigalize interactivity")]
-    [SerializeField] GameObject interactHelp;
     [Tooltip("Building Menu Panel")]
     [SerializeField] BuildingPanelBuilder buildingUi;
     [SerializeField] PlayerController playerController;
@@ -11,47 +9,14 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] WeaponController weaponController;
     BuildingBase buildingBase; //buildingBase used to interact with
 
-    private void Update()
+    public bool GetUiStatus() //return status of the building ui
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 5)) //search for BuildingBases
-        {
-            buildingBase = hit.collider.gameObject.GetComponent<BuildingBase>();
-            if (buildingBase != null && !buildingBase.IsFilled) //if free buildingBase is in front of the player
-            {
-                if (!buildingUi.isActiveAndEnabled)
-                {
-                    interactHelp.SetActive(true);//show interact help only if there is a BuildingBase and no Menu shown
-                    if (Input.GetButton("Interact"))
-                    {
-                        EnterBuildingMenu();
-                    }
-                }
-                else
-                {
-                    interactHelp.SetActive(false);
-                }
-            }
-            else
-            {
-                interactHelp.SetActive(false);
-            }
-        }
-        else
-        {
-            interactHelp.SetActive(false);
-        }
-        if (Input.GetButtonDown("Cancel"))
-        {
-            if (buildingUi.isActiveAndEnabled)
-            {
-                QuitBuildingMenu();
-            }
-        }
+        return buildingUi.isActiveAndEnabled;
     }
 
-    private void EnterBuildingMenu()
+    public void EnterBuildingMenu(BuildingBase buildingBase)
     {
+        this.buildingBase = buildingBase;
         buildingUi.gameObject.SetActive(true);
         buildingUi.SetupTurretPanels(this);
         //stop userinput to normal controlls to properly use the menu
