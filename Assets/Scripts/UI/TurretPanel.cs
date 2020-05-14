@@ -72,8 +72,12 @@ public class TurretPanel : MonoBehaviour
         this.buildingManager = buildingManager;
     }
 
-    public void SetTurret(Turret turret)
+    public void SetTurret(Turret turret, bool buyable = true)
     {
+        if (!buyable)
+        {
+            button.gameObject.SetActive(false);
+        }
         this.turret = turret;
     }
 

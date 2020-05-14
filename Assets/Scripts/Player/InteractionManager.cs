@@ -41,7 +41,7 @@ public class InteractionManager : MonoBehaviour
                 interactHelp.SetActive(true);//show interact help only if there is a turret and no turretinteraction
                 if (Input.GetButton("Interact"))
                 {
-                    turretInteractionManager.OpenTurretInteraction();
+                    turretInteractionManager.OpenTurretInteraction(turret);
                     playerController.setMouseVisible(true);
                     weaponController.toggleSafety(true);
                 }
