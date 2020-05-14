@@ -269,7 +269,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5364892059560762689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5364892060059844531}
+        m_MethodName: SellTurret
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5364892059662243223
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +475,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5364892059825596769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5364892060059844531}
+        m_MethodName: OpenTurretInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5364892060059844529
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +539,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPanel: {fileID: 5364892058699871473}
   turretInfo: {fileID: 1932355764159276002}
+  metalManager: {fileID: 0}
+  returnPerc: 0.5
 --- !u!1001 &3985597190664107501
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class Building : MonoBehaviour
         }
     }
 
-    protected virtual void DestroyBuilding()
+    public virtual void DestroyBuilding()
     {
         if (!destroyed)
         {

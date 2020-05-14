@@ -37,6 +37,11 @@ public class MetalManager : MonoBehaviour
         Score += value;
     }
 
+    public void AddMetal(int value)
+    {
+        Metal += value;
+    }
+
     public void DeductMetal (int value)
     {
         Metal -= value;

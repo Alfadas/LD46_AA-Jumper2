@@ -8,7 +8,7 @@ public class Base : Building
     [Tooltip("GameOverHandler ref to handle lose")]
     [SerializeField] GameOverHandler gameOverHandler;
 
-    protected override void DestroyBuilding()
+    public override void DestroyBuilding()
     {
         //lose game
         base.DestroyBuilding();

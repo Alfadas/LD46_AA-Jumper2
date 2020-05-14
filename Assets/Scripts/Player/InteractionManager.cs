@@ -41,9 +41,8 @@ public class InteractionManager : MonoBehaviour
                 interactHelp.SetActive(true);//show interact help only if there is a turret and no turretinteraction
                 if (Input.GetButton("Interact"))
                 {
-                    turretInteractionManager.OpenTurretInteraction(turret);
-                    playerController.setMouseVisible(true);
-                    weaponController.toggleSafety(true);
+                    turretInteractionManager.OpenTurretInteraction(turret, this);
+                    PlayerInteractWithUI(true);
                 }
             }
             else
@@ -64,9 +63,14 @@ public class InteractionManager : MonoBehaviour
             else if(turretInteractionManager.GetUiStatus())
             {
                 turretInteractionManager.CloseTurretInteraction();
-                playerController.setMouseVisible(false);
-                weaponController.toggleSafety(false);
+                PlayerInteractWithUI(false);
             }
         }
+    }
+
+    public void PlayerInteractWithUI(bool canInteract)
+    {
+        playerController.setMouseVisible(canInteract);
+        weaponController.toggleSafety(canInteract);
     }
 }
