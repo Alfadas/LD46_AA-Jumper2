@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   weaponController: {fileID: 0}
-  exitDisplay: {fileID: 0}
+  exitController: {fileID: 0}
   infoPanel: {fileID: 3660404339698782659}
   infoText: {fileID: 3660404338845161153}
   introText: 'Welcome to the tutorial of AA-Jumper 2. /n You are a Roboter, build
@@ -297,7 +297,7 @@ MonoBehaviour:
   enemyInfo: On the right, you can see one of the crafts attacking us. They carry
     bombs and will drop them on our base if they reach it. /n /n Besides the metal
     you gain every few seconds we can use the wrecks of enemy ships to gain it, meaning
-    you erne not only score points but also metal from every craft you kill. /n /n
+    you earn not only score points but also metal from every craft you kill. /n /n
     Shoot the craft to progress.
   airship: {fileID: 0}
   blocker: {fileID: 0}
