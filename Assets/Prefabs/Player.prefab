@@ -275,6 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73f06dc5d6e5374dbd48ce286244278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  damageMulti: 1
+  isEnemy: 0
   respawnPoint: {fileID: 0}
   zMax: 300
   zMin: -300

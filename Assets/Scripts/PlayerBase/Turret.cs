@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : Building
+public class Turret : Hittable
 {
     readonly Vector3 gravity = new Vector3(0, 10f, 0);
     const int maxTotalRotationDiff = 10;
@@ -101,8 +101,9 @@ public class Turret : Building
         return spread * 0.01f * autoSpreadMulti;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         enemyList = FindObjectOfType<EnemyList>();
         StartCoroutine(UpdateTarget());
     }
@@ -299,9 +300,9 @@ public class Turret : Building
             return Mathf.Max(-b / (2f * a), 0f); //don't shoot back in time
     }
 
-    public override void DestroyBuilding()
+    public override void DestroyHittable()
     {
-        base.DestroyBuilding();
+        base.DestroyHittable();
         Object.Destroy(gameObject);
     }
 }

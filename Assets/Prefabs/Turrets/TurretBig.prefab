@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  damageMulti: 1
+  isEnemy: 0
   turretName: Turret 1
   cost: 300
   size: 4

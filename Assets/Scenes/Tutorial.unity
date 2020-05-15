@@ -1521,12 +1521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &602134286 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6493463934002410545, guid: adc22347addad8d4f9e3458edd0bad62,
-    type: 3}
-  m_PrefabInstance: {fileID: 936108443}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,6 +2126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   damageMulti: 1
+  isEnemy: 1
   maxSpeed: 0
   killPoint: -500
   metal: 0
@@ -2642,7 +2637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd1d94b9ec11c148a03ba4c53ba0c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   damageMulti: 1
+  isEnemy: 1
 --- !u!65 &1417586262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2868,6 +2865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageMulti: 1
+  isEnemy: 1
   baseHealthText: {fileID: 503474354}
   gameOverHandler: {fileID: 0}
 --- !u!65 &1494423233
@@ -4089,9 +4087,9 @@ PrefabInstance:
       objectReference: {fileID: 1651193274}
     - target: {fileID: 3660404339667859094, guid: c48a58bb6fec8e34c97890ffd8910168,
         type: 3}
-      propertyPath: exitDisplay
+      propertyPath: exitController
       value: 
-      objectReference: {fileID: 602134286}
+      objectReference: {fileID: 1894727893}
     - target: {fileID: 3660404339667859094, guid: c48a58bb6fec8e34c97890ffd8910168,
         type: 3}
       propertyPath: airship
@@ -4107,11 +4105,6 @@ PrefabInstance:
       propertyPath: buildingBase
       value: 
       objectReference: {fileID: 911317996}
-    - target: {fileID: 3660404339667859094, guid: c48a58bb6fec8e34c97890ffd8910168,
-        type: 3}
-      propertyPath: exitController
-      value: 
-      objectReference: {fileID: 1894727893}
     - target: {fileID: 3660404339667859095, guid: c48a58bb6fec8e34c97890ffd8910168,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerLife : MonoBehaviour
+public class PlayerLife : Hittable
 {
     [SerializeField] Transform respawnPoint;
     [Header("Movement boundaries")]
@@ -25,5 +25,11 @@ public class PlayerLife : MonoBehaviour
     {
         transform.position = respawnPoint.position;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; // reset velocity to stop pre respawn movement
+    }
+
+    public override void DestroyHittable()
+    {
+        base.DestroyHittable();
+        Respawn();
     }
 }

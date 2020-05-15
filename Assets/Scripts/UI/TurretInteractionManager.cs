@@ -41,7 +41,7 @@ public class TurretInteractionManager : MonoBehaviour
     public void SellTurret()
     {
         metalManager.AddMetal(Mathf.RoundToInt(currentTurret.Cost * returnPerc));
-        currentTurret.DestroyBuilding();
+        currentTurret.DestroyHittable();
         QuitTurretInteraction();
         currentInteractionManager.PlayerInteractWithUI(false);
     }

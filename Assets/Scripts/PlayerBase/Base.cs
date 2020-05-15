@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class Base : Building
+public class Base : Hittable
 {
     [Tooltip("Text Ui object to display base health")]
     [SerializeField] Text baseHealthText;
     [Tooltip("GameOverHandler ref to handle lose")]
     [SerializeField] GameOverHandler gameOverHandler;
 
-    public override void DestroyBuilding()
+    public override void DestroyHittable()
     {
+        base.DestroyHittable();
         //lose game
-        base.DestroyBuilding();
         gameOverHandler.EndGame();
     }
 

@@ -5,10 +5,19 @@ public class Hittable : MonoBehaviour
     [Header("Hittable General")]
     [SerializeField] protected int maxHealth = 100;
     [SerializeField] protected float damageMulti = 1;
+    [SerializeField] protected bool isEnemy = true;
     protected int health; //currentHealth
     bool destroyed = false; //bool to secure one time destruction
 
-    protected void Start()
+    public bool IsEnemy
+    {
+        get
+        {
+            return isEnemy;
+        }
+    }
+
+    protected virtual void Start()
     {
         health = maxHealth; //set health to maxHealth
     }

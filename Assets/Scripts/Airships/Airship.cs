@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 
-public class Airship : MonoBehaviour
+public class Airship : Hittable
 {
     [Tooltip("Maximum m/s")]
     [SerializeField] int maxSpeed = 1;
-    [Tooltip("Maximum Airship Health")]
-    [SerializeField] int maxHealth = 100;
     [Tooltip("Z Point to automaticly dissolve the ship at the end of the lane")]
     [SerializeField] int killPoint = -500;
     [Tooltip("Metal/Score rewarded for killing the ship")]
@@ -15,8 +13,6 @@ public class Airship : MonoBehaviour
     [SerializeField] MetalManager metallManager; 
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList; 
-    int health; //current health
-    bool destroyed = false; //bool to secure one time destruction
 
     public int Speed { get; set; } // current speed
 
@@ -36,11 +32,11 @@ public class Airship : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
-        //set speed and health to max
+        base.Start();
+        //set speed to max
         Speed = maxSpeed;
-        health = maxHealth;
     }
 
     void Update()
@@ -63,32 +59,18 @@ public class Airship : MonoBehaviour
         transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
     }
 
-    public void GetDamage(int damage) //methode to calc damage to the ship itself
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            DestroyShip(true);
-        }
-    }
-
     public void Dissolve() //destroy object without kill reward
     {
-        DestroyShip(false);
+        enemyList.RemoveEnemy(this);
+        Object.Destroy(gameObject, 0.1f);
     }
 
-    private void DestroyShip(bool killReward) // destroys ship with or without kill reward
+    public override void DestroyHittable()
     {
-        if (!destroyed)
-        {
-            destroyed = true;
-            if (killReward)
-            {
-                //give kill reward
-                metallManager.AddMetalAndScore(metal);
-            }
-            enemyList.RemoveEnemy(this);
-            Object.Destroy(gameObject, 0.1f);
-        }
+        base.DestroyHittable();
+        //give kill reward
+        metallManager.AddMetalAndScore(metal);
+        enemyList.RemoveEnemy(this);
+        Object.Destroy(gameObject, 0.1f);
     }
 }

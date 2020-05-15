@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 			{
 				Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
 
-				HitCollector target = hit.collider.GetComponent<HitCollector>();
+				AirshipHitCollector target = hit.collider.GetComponent<AirshipHitCollector>();
 				target?.GetDamage(Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage));
 
 				transform.position = hit.point;

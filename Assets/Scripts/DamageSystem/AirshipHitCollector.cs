@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 
-public class HitCollector : MonoBehaviour
+public class AirshipHitCollector : Hittable
 {
-    [Tooltip("Damage multiplicator if this part is hit")]
-    [SerializeField] float damageMulti;
     Airship airship; //airship this is attached to
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         airship = GetComponentInParent<Airship>(); //get attached airship
     }
 
-    public void GetDamage(int damage) //Methode if this Part is damaged
+    public override void GetDamage(int damage) //Methode if this Part is damaged
     {
+        base.GetDamage(damage);
         airship.GetDamage(Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
     }
 }

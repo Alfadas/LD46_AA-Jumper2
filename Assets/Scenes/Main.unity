@@ -7080,6 +7080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageMulti: 1
+  isEnemy: 0
   baseHealthText: {fileID: 1331772559}
   gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455

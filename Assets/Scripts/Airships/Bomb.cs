@@ -7,10 +7,10 @@ public class Bomb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Building building = other.gameObject.GetComponent<Building>();//try getting Building component
-        if (building != null) //if the collider has a building component attached
+        Hittable hittable = other.gameObject.GetComponent<Hittable>();//try getting Building component
+        if (hittable != null && !hittable.IsEnemy) //if the collider has a building component attached
         {
-            building.GetDamage(damage); //Do damage to the building
+            hittable.GetDamage(damage); //Do damage to the building
             DestroyBomb();
         }
     }
