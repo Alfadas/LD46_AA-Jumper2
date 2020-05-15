@@ -3962,6 +3962,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1127447321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1132141665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
+    type: 3}
+  m_PrefabInstance: {fileID: 7493452754294159297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57a30b754d641747ada3dccdd35b7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1206469943
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,6 +7079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  damageMulti: 1
   baseHealthText: {fileID: 1331772559}
   gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455
@@ -7358,6 +7371,8 @@ MonoBehaviour:
   player: {fileID: 1031575413}
   weaponController: {fileID: 128215075}
   exitPanel: {fileID: 666102243}
+  turretInteractionManager: {fileID: 811872211}
+  buildingManager: {fileID: 1132141665}
 --- !u!4 &1887868136
 Transform:
   m_ObjectHideFlags: 0
@@ -9119,16 +9134,6 @@ PrefabInstance:
       propertyPath: turretInteractionManager
       value: 
       objectReference: {fileID: 811872211}
-    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: weaponController
-      value: 
-      objectReference: {fileID: 128215075}
-    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: playerController
-      value: 
-      objectReference: {fileID: 1031575413}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: buildingUi

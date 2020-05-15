@@ -423,8 +423,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingUi: {fileID: 0}
-  playerController: {fileID: 7346026782969594584}
-  weaponController: {fileID: 7160117199827436611}
 --- !u!114 &2016584773282131633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +436,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactHelp: {fileID: 0}
+  turretInteractionManager: {fileID: 0}
+  playerController: {fileID: 7346026782969594584}
+  weaponController: {fileID: 7160117199827436611}
 --- !u!1001 &424099642910997638
 PrefabInstance:
   m_ObjectHideFlags: 0
