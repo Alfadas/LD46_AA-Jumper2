@@ -46,8 +46,8 @@ public class ExitController : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
-    public void BlockExitControll()
+    public void BlockExitControll(bool blocked)
     {
-        blocked = true;
+        this.blocked = blocked;
     }
 }

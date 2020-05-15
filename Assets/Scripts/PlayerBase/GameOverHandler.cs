@@ -24,7 +24,7 @@ public class GameOverHandler : MonoBehaviour
         enemyList.KillAllAndClear(); //kill all ships and clear the list to prevent a higher score;
         metalManager.StopAllCoroutines(); //stop automatic income
 
-        exitController.BlockExitControll(); //prevent reseting mouse and weapon controll
+        exitController.BlockExitControll(true); //prevent reseting mouse and weapon controll
         playerController.setMouseVisible(true); //stop movement and set mouse visibel
         weaponController.toggleSafety(true); //stop shooting
 

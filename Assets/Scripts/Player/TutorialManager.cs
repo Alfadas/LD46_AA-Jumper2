@@ -11,8 +11,8 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] PlayerController player;
     [Tooltip("WeaponController on player weapon")]
     [SerializeField] WeaponController weaponController;
-    [Tooltip("Window to comfirm exit")]
-    [SerializeField] GameObject exitDisplay;
+    [Tooltip("exitController for cancel management")]
+    [SerializeField] ExitController exitController;
     [Tooltip("Tutorial info panel")]
     [SerializeField] GameObject infoPanel;
     [Tooltip("Tutorial info text object")]
@@ -61,6 +61,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
+        exitController.BlockExitControll(infoPanel.activeSelf);
         if (Input.GetButtonDown("Cancel"))
         {
             if (infoPanel.activeSelf == true)
@@ -68,12 +69,6 @@ public class TutorialManager : MonoBehaviour
                 infoPanel.SetActive(false);
                 player.setMouseVisible(false);
                 weaponController.toggleSafety(false);
-            }
-            else
-            {
-                player.setMouseVisible(!exitDisplay.activeSelf);
-                weaponController.toggleSafety(!exitDisplay.activeSelf);
-                exitDisplay.SetActive(!exitDisplay.activeSelf);
             }
         }
     }
