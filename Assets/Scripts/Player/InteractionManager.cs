@@ -21,19 +21,13 @@ public class InteractionManager : MonoBehaviour
         {
             BuildingBase buildingBase = hit.collider.gameObject.GetComponent<BuildingBase>();
             Turret turret = hit.collider.gameObject.GetComponent<Turret>();
-            if (buildingBase != null && !buildingBase.IsFilled) //if free buildingBase is in front of the player
+            if (buildingBase != null && !buildingBase.IsFilled && !buildingManager.GetUiStatus()) //if free buildingBase is in front of the player
             {
-                if (!buildingManager.GetUiStatus())
+                interactHelp.SetActive(true);//show interact help only if there is a BuildingBase and no Menu shown
+                if (Input.GetButton("Interact"))
                 {
-                    interactHelp.SetActive(true);//show interact help only if there is a BuildingBase and no Menu shown
-                    if (Input.GetButton("Interact"))
-                    {
-                        buildingManager.EnterBuildingMenu(buildingBase);
-                    }
-                }
-                else
-                {
-                    interactHelp.SetActive(false);
+                    buildingManager.EnterBuildingMenu(buildingBase);
+                    PlayerInteractWithUI(true);
                 }
             }
             else if(turret != null && !turretInteractionManager.GetUiStatus())
@@ -59,6 +53,7 @@ public class InteractionManager : MonoBehaviour
             if (buildingManager.GetUiStatus())
             {
                 buildingManager.QuitBuildingMenu();
+                PlayerInteractWithUI(false);
             }
             else if(turretInteractionManager.GetUiStatus())
             {
