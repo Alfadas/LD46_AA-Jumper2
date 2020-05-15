@@ -17,6 +17,8 @@ public class Turret : Hittable
     [SerializeField] int size;
     [Tooltip("Turret max rotation speed")]
     [SerializeField] int turnSpeed;
+    [Tooltip("If turret can rotate, needs TurretRotator")]
+    [SerializeField] bool rotatable = true;
 
     [Header("Shooting")]
     [Tooltip("Fire rate per second")]
@@ -35,18 +37,17 @@ public class Turret : Hittable
     [SerializeField] GameObject shell;
 
     [Header("Parts")]
-    [Tooltip("Part to rotate on y-axis (parent of gun)")]
-    [SerializeField] Transform turretBase;
-    [Tooltip("Part to rotate on local x-axis")]
-    [SerializeField] Transform turretGuns;
     [Tooltip("Bullet start point")]
     [SerializeField] Transform firePoint;
+    [Tooltip("Part to rotate on local x-axis")]
+    [SerializeField] Transform turretGuns;
 
     float fireCountdown = 0f;
     bool targetHidden = false;
+    TurretRotator turretRotator; //rotator comnponent
     EnemyList enemyList;
     Airship target;
-    Quaternion qRotation;
+
 
     public string Name
     {
@@ -96,6 +97,14 @@ public class Turret : Hittable
         }
     }
 
+    public int TurnSpeed
+    {
+        get
+        {
+            return turnSpeed;
+        }
+    }
+
     public float GetMeterAutoSpread()
     {
         return spread * 0.01f * autoSpreadMulti;
@@ -104,6 +113,14 @@ public class Turret : Hittable
     protected override void Start()
     {
         base.Start();
+        if (rotatable)
+        {
+            turretRotator = gameObject.GetComponent<TurretRotator>();
+            if (turretRotator == null)
+            {
+                Debug.LogWarning("missing turret rotator component");
+            }
+        }
         enemyList = FindObjectOfType<EnemyList>();
         StartCoroutine(UpdateTarget());
     }
@@ -114,38 +131,43 @@ public class Turret : Hittable
 
         if (target != null)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(CalcTargetLeadPoint());
-            RotateTurret(lookRotation);
-
-            if (fireCountdown <= 0f)
+            if (rotatable)
             {
-                Vector3 realLookRotation = lookRotation.eulerAngles;
-                float rotationDiff = Quaternion.Angle(turretGuns.localRotation, Quaternion.Euler(realLookRotation.x, 0f, 0f)) +
-                                     Quaternion.Angle(turretBase.rotation, Quaternion.Euler(0f, realLookRotation.y, 0f));
+                Quaternion lookRotation = Quaternion.LookRotation(CalcTargetLeadPoint());
+                turretRotator.RotateTurret(lookRotation);
 
-                if (rotationDiff <= maxTotalRotationDiff) // if it is near the ideal fire alignment
+                if (fireCountdown <= 0f)
                 {
-                    if (CheckShootingPath())
+                    float rotationDiff = turretRotator.GetRotationDiff(lookRotation);
+
+                    if (rotationDiff <= maxTotalRotationDiff) // if it is near the ideal fire alignment
                     {
-                        targetHidden = false;
-                        Shoot();
-                    }
-                    else
-                    {
-                        if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
+                        if (CheckShootingPath())
                         {
-                            if (!targetHidden)
-                            {
-                                targetHidden = true;
-                                StartCoroutine(ChangeTarget(target));
-                            }
+                            targetHidden = false;
+                            Shoot();
                         }
                         else
                         {
-                            targetHidden = false;
+                            if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
+                            {
+                                if (!targetHidden)
+                                {
+                                    targetHidden = true;
+                                    StartCoroutine(ChangeTarget(target));
+                                }
+                            }
+                            else
+                            {
+                                targetHidden = false;
+                            }
                         }
                     }
                 }
+            }
+            else
+            {
+                Shoot();
             }
         }
     }
@@ -205,14 +227,6 @@ public class Turret : Hittable
         {
             target = null;
         }
-    }
-
-    private void RotateTurret(Quaternion lookRotation)
-    {
-        qRotation = Quaternion.Lerp(qRotation, lookRotation, Time.deltaTime * turnSpeed);
-        Vector3 realRotation = qRotation.eulerAngles;
-        turretBase.rotation = Quaternion.Euler(0f, realRotation.y, 0f);
-        turretGuns.localRotation = Quaternion.Euler(realRotation.x, 0f, 0f);
     }
 
     private Vector3 CalcTargetLeadPoint()
