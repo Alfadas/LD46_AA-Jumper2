@@ -48,19 +48,6 @@ public class InteractionManager : MonoBehaviour
         {
             interactHelp.SetActive(false);
         }
-        if (Input.GetButtonDown("Cancel"))
-        {
-            if (buildingManager.GetUiStatus())
-            {
-                buildingManager.QuitBuildingMenu();
-                PlayerInteractWithUI(false);
-            }
-            else if(turretInteractionManager.GetUiStatus())
-            {
-                turretInteractionManager.CloseTurretInteraction();
-                PlayerInteractWithUI(false);
-            }
-        }
     }
 
     public void PlayerInteractWithUI(bool canInteract)
