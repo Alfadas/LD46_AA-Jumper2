@@ -25,7 +25,7 @@ public class TurretInteractionManager : MonoBehaviour
         buttonPanel.SetActive(true);
     }
 
-    public void CloseTurretInteraction()
+    public void QuitTurretInteraction()
     {
         buttonPanel.SetActive(false);
         turretInfo.gameObject.SetActive(false);
@@ -42,7 +42,7 @@ public class TurretInteractionManager : MonoBehaviour
     {
         metalManager.AddMetal(Mathf.RoundToInt(currentTurret.Cost * returnPerc));
         currentTurret.DestroyBuilding();
-        CloseTurretInteraction();
+        QuitTurretInteraction();
         currentInteractionManager.PlayerInteractWithUI(false);
     }
 }

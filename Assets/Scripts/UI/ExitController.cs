@@ -23,7 +23,7 @@ public class ExitController : MonoBehaviour
             }
             else if (turretInteractionManager.GetUiStatus())
             {
-                turretInteractionManager.CloseTurretInteraction();
+                turretInteractionManager.QuitTurretInteraction();
                 player.setMouseVisible(false);
                 weaponController.toggleSafety(false);
             }
