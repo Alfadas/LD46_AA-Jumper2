@@ -33,11 +33,25 @@ public class WeaponController : MonoBehaviour
 	private Text magazineIndicator = null;
 	private Text firemodeIndicator = null;
 	private AudioSource audioSource = null;
-	public bool ReadyToFire { get; private set; } = false;
 	private bool fire = false;
 	private int fireMode = 0;
 	private int shotsFired = 0;
-	public bool safety = false;
+	private bool safety = false;
+	private bool toggleSafety = false;
+
+	public bool ReadyToFire { get; private set; } = false;
+	public bool Safety
+	{
+		get
+		{
+			return safety;
+		}
+
+		set
+		{
+			toggleSafety = value;
+		}
+	}
 
 	private void Start()
 	{
@@ -96,6 +110,9 @@ public class WeaponController : MonoBehaviour
 		float recoilAngle = Quaternion.Angle(transform.localRotation, originalRotation);
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
+		// Toggle Safety
+		safety = toggleSafety;
+
 		// Update Bullet Counter
 		if(magazineIndicator != null)
 		{
@@ -107,8 +124,8 @@ public class WeaponController : MonoBehaviour
 			else
 			{
 				string text = "Reload";
-				int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
-				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));							// Subtract virtual Letter
+				int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));    // Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));                         // Subtract virtual Letter
 
 				magazineIndicator.text = text;
 				magazineIndicator.alignment = TextAnchor.LowerLeft;
@@ -172,10 +189,5 @@ public class WeaponController : MonoBehaviour
 				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
 			}
 		}
-	}
-
-	public void toggleSafety(bool safety)
-	{
-		this.safety = safety;
 	}
 }

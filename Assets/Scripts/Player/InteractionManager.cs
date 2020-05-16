@@ -53,6 +53,6 @@ public class InteractionManager : MonoBehaviour
     public void PlayerInteractWithUI(bool canInteract)
     {
         playerController.setMouseVisible(canInteract);
-        weaponController.toggleSafety(canInteract);
+        weaponController.Safety = canInteract;
     }
 }

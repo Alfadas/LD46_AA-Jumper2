@@ -19,7 +19,7 @@ public class ExitController : MonoBehaviour
             {
                 //toggle back to menu window
                 player.setMouseVisible(!exitPanel.activeSelf);
-                weaponController.toggleSafety(!exitPanel.activeSelf);
+                weaponController.Safety = !exitPanel.activeSelf;
                 exitPanel.SetActive(!exitPanel.activeSelf);
             }
         }
@@ -31,14 +31,14 @@ public class ExitController : MonoBehaviour
         {
             buildingManager.QuitBuildingMenu();
             player.setMouseVisible(false);
-            weaponController.toggleSafety(false);
+            weaponController.Safety = false;
             return true;
         }
         else if (turretInteractionManager.GetUiStatus())
         {
             turretInteractionManager.QuitTurretInteraction();
             player.setMouseVisible(false);
-            weaponController.toggleSafety(false);
+            weaponController.Safety = false;
             return true;
         }
         return false;
