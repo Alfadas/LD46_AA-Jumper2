@@ -7,11 +7,10 @@ public class BuildingPanelBuilder : MonoBehaviour
     [SerializeField] RectTransform turretPanel;
     [SerializeField] int turretPanelWidth = 200;
     List<TurretPanel> turretPanels = new List<TurretPanel>();
-    BuildingManager buildingManager;
 
-    public void SetupTurretPanels(BuildingManager buildingManager)
+    public void SetupTurretPanels(BuildingBase buildingBase)
     {
-        this.buildingManager = buildingManager;
+        ExitController exitController = FindObjectOfType<ExitController>();
         ClearList();
         int counter = -2;
         foreach (Turret turret in turrets)
@@ -22,16 +21,10 @@ public class BuildingPanelBuilder : MonoBehaviour
             newDisplay.transform.localPosition = new Vector3(turretPanelWidth * counter, 0, 0);
             turretPanels.Add(newPanel);
 
-            newPanel.SetBuildingManager(buildingManager);
+            newPanel.SetBuildingProperties(buildingBase, exitController);
             newPanel.SetTurret(turret);
             counter++;
         }
-    }
-
-    public void CloseBuildingMenu()
-    {
-        ClearList();
-        buildingManager.QuitBuildingMenu();
     }
 
     public void ClearList()

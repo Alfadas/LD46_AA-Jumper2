@@ -11,8 +11,9 @@ public class TurretPanel : MonoBehaviour
     [SerializeField] Text buttonText;
     [SerializeField] Color green;
     Turret turret;
-    BuildingManager buildingManager;
+    BuildingBase buildingBase;
     MetalManager metalManager;
+    ExitController exitController;
 
     private void Awake()
     {
@@ -67,12 +68,13 @@ public class TurretPanel : MonoBehaviour
         }
     }
 
-    public void SetBuildingManager(BuildingManager buildingManager)
+    public void SetBuildingProperties(BuildingBase buildingBase, ExitController exitController)
     {
-        this.buildingManager = buildingManager;
+        this.buildingBase = buildingBase;
+        this.exitController = exitController;
     }
 
-    public void SetTurret(Turret turret, bool buyable = true)
+    public void SetTurret(Turret turret, bool buyable = true) // used as a start methode
     {
         if (!buyable)
         {
@@ -86,11 +88,12 @@ public class TurretPanel : MonoBehaviour
         if(metalManager.Metal - turret.Cost >= 0)
         {
             metalManager.DeductMetal(turret.Cost);
-            buildingManager.QuitBuildingMenu(turret);
+            buildingBase.PlaceTurret(turret);
+            exitController.CloseMenuIfOpen();
         }
         else
         {
-            buildingManager.QuitBuildingMenu();
-        } 
+            exitController.CloseMenuIfOpen();
+        }
     }
 }

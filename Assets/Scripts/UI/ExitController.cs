@@ -15,25 +15,33 @@ public class ExitController : MonoBehaviour
     {
         if (!blocked && Input.GetButtonDown("Cancel"))
         {
-            if (buildingManager.GetUiStatus())
+            if(!CloseMenuIfOpen())
             {
-                buildingManager.QuitBuildingMenu();
-                player.setMouseVisible(false);
-                weaponController.toggleSafety(false);
-            }
-            else if (turretInteractionManager.GetUiStatus())
-            {
-                turretInteractionManager.QuitTurretInteraction();
-                player.setMouseVisible(false);
-                weaponController.toggleSafety(false);
-            }
-            else
-            {
+                //toggle back to menu window
                 player.setMouseVisible(!exitPanel.activeSelf);
                 weaponController.toggleSafety(!exitPanel.activeSelf);
                 exitPanel.SetActive(!exitPanel.activeSelf);
             }
         }
+    }
+
+    public bool CloseMenuIfOpen() // returns if a menu was open
+    {
+        if (buildingManager.GetUiStatus())
+        {
+            buildingManager.QuitBuildingMenu();
+            player.setMouseVisible(false);
+            weaponController.toggleSafety(false);
+            return true;
+        }
+        else if (turretInteractionManager.GetUiStatus())
+        {
+            turretInteractionManager.QuitTurretInteraction();
+            player.setMouseVisible(false);
+            weaponController.toggleSafety(false);
+            return true;
+        }
+        return false;
     }
 
     public void BackToMenu()
