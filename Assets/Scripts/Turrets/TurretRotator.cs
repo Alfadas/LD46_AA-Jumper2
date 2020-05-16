@@ -10,6 +10,13 @@ public class TurretRotator : MonoBehaviour
 
     Quaternion qRotation;
     Turret turret;
+    public Vector3 TurretGun
+    {
+        get
+        {
+            return turretGuns.position;
+        }
+    }
 
     private void Start()
     {

@@ -6,7 +6,6 @@ public class Turret : Hittable
 {
     readonly Vector3 gravity = new Vector3(0, 10f, 0);
     const int maxTotalRotationDiff = 10;
-    const int changeTargetIfHiddenTime = 3;
 
     [Header("General")]
     [Tooltip("Displayed name")]
@@ -19,6 +18,8 @@ public class Turret : Hittable
     [SerializeField] int turnSpeed;
     [Tooltip("If turret can rotate, needs TurretRotator")]
     [SerializeField] bool rotatable = true;
+    [Tooltip("If turret aims at Enemys")]
+    [SerializeField] bool targetingEnemys = true;
 
     [Header("Shooting")]
     [Tooltip("Fire rate per second")]
@@ -39,15 +40,28 @@ public class Turret : Hittable
     [Header("Parts")]
     [Tooltip("Bullet start point")]
     [SerializeField] Transform firePoint;
-    [Tooltip("Part to rotate on local x-axis")]
-    [SerializeField] Transform turretGuns;
 
     float fireCountdown = 0f;
-    bool targetHidden = false;
     TurretRotator turretRotator; //rotator comnponent
-    EnemyList enemyList;
-    Airship target;
+    TurretTargetEnemy turretTargetEnemy;
 
+    public bool TargetHidden { get; set; } = false;
+    public Airship Target { get; set; }
+
+    public Vector3 TurretAimCenter
+    {
+        get
+        {
+            if (rotatable)
+            {
+                return turretRotator.TurretGun;
+            }
+            else
+            {
+                return transform.position;
+            }
+        }
+    }
 
     public string Name
     {
@@ -121,15 +135,22 @@ public class Turret : Hittable
                 Debug.LogWarning("missing turret rotator component");
             }
         }
-        enemyList = FindObjectOfType<EnemyList>();
-        StartCoroutine(UpdateTarget());
+        if (targetingEnemys)
+        {
+            turretTargetEnemy = gameObject.GetComponent<TurretTargetEnemy>();
+            if (turretRotator == null)
+            {
+                Debug.LogWarning("missing turret rotator component");
+            }
+        }
+       StartCoroutine(turretTargetEnemy.UpdateTarget());
     }
 
     void Update()
     {
         fireCountdown -= Time.deltaTime;
 
-        if (target != null)
+        if (Target != null)
         {
             if (rotatable)
             {
@@ -144,22 +165,22 @@ public class Turret : Hittable
                     {
                         if (CheckShootingPath())
                         {
-                            targetHidden = false;
+                            TargetHidden = false;
                             Shoot();
                         }
                         else
                         {
                             if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
                             {
-                                if (!targetHidden)
+                                if (!TargetHidden)
                                 {
-                                    targetHidden = true;
-                                    StartCoroutine(ChangeTarget(target));
+                                    TargetHidden = true;
+                                    StartCoroutine(turretTargetEnemy.ChangeTarget(Target));
                                 }
                             }
                             else
                             {
-                                targetHidden = false;
+                                TargetHidden = false;
                             }
                         }
                     }
@@ -172,76 +193,22 @@ public class Turret : Hittable
         }
     }
 
-    IEnumerator ChangeTarget(Airship oldTarget)
-    {
-        yield return new WaitForSeconds(changeTargetIfHiddenTime);
-        if (target == oldTarget && targetHidden)
-        {
-            List<Airship> enemies = enemyList.GetEnemies().GetRange(0, enemyList.GetEnemies().Count);
-            enemies.Remove(oldTarget);
-            targetHidden = false;
-            SearchNearestTarget(enemies.ToArray());
-        }
-    }
 
-    IEnumerator UpdateTarget()
-    {
-        while (true)
-        {
-            Airship[] enemies = enemyList.GetEnemies().ToArray();
-            if (target == null)
-            {
-                SearchNearestTarget(enemies);
-            }
-            else
-            {
-                float distanceToEnemy = Vector3.Distance(turretGuns.position, target.transform.position);
-                if (distanceToEnemy > range)
-                {
-                    SearchNearestTarget(enemies);
-                }
-            }
-            yield return new WaitForSeconds(1);
-        }
-
-    }
-
-    void SearchNearestTarget(Airship[] enemies)
-    {
-        float shortestDistance = range;
-        Airship nearestEnemy = null;
-        foreach (Airship enemy in enemies)
-        {
-            float distanceToEnemy = Vector3.Distance(turretGuns.position, enemy.transform.position);
-            if (distanceToEnemy <= range && distanceToEnemy < shortestDistance && turretGuns.position.y <= enemy.transform.position.y)
-            {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            }
-        }
-        if (nearestEnemy != null)
-        {
-            target = nearestEnemy;
-        }
-        else
-        {
-            target = null;
-        }
-    }
+    
 
     private Vector3 CalcTargetLeadPoint()
     {
-        Vector3 targetRelativePosition = target.transform.position - turretGuns.position;
-        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, target.Velocity);
+        Vector3 targetRelativePosition = Target.transform.position - TurretAimCenter;
+        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, Target.Velocity);
         float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
-        Vector3 targetLead = target.transform.position + target.Velocity * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
-        Vector3 dir = targetLead - turretGuns.position;
+        Vector3 targetLead = Target.transform.position + Target.Velocity * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
+        Vector3 dir = targetLead - TurretAimCenter;
         return dir;
     }
 
     private bool CheckShootingPath()
     {
-        float targetDistance = Vector3.Distance(target.transform.position, firePoint.position);
+        float targetDistance = Vector3.Distance(Target.transform.position, firePoint.position);
         RaycastHit hit;
         bool hasHit = Physics.Raycast(firePoint.position, firePoint.transform.forward, out hit, targetDistance);
         if (!hasHit || (hasHit && hit.collider.gameObject.GetComponentInParent<Airship>() != null))

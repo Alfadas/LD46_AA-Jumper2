@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 5924672719872641914}
   - component: {fileID: 8535619815648206232}
   - component: {fileID: 4990596474607298034}
+  - component: {fileID: 6752851070902219061}
   m_Layer: 0
   m_Name: TurretSmall
   m_TagString: Untagged
@@ -209,6 +210,7 @@ MonoBehaviour:
   size: 1
   turnSpeed: 5
   rotatable: 1
+  targetingEnemys: 1
   fireRate: 5
   damage: 3
   muzzleVelocity: 100
@@ -217,7 +219,6 @@ MonoBehaviour:
   autoSpreadMulti: 4
   shell: {fileID: 3907702288452539037, guid: 1594782658ba06c47b6beb674173656a, type: 3}
   firePoint: {fileID: 1090187109}
-  turretGuns: {fileID: 1948849894}
 --- !u!65 &8535619815648206232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -245,6 +246,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turretBase: {fileID: 1173676928}
   turretGuns: {fileID: 1948849894}
+--- !u!114 &6752851070902219061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5924672719872641917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940866f6bc3d2dd4caac8319940f42b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &439974610918259904
 PrefabInstance:
   m_ObjectHideFlags: 0
