@@ -216,8 +216,11 @@ public class WeaponController : MonoBehaviour
 				fire = false;
 			}
 
-			audioSource.clip = fireSound;
-			audioSource.Play();
+			if(fireSound != null)
+			{
+				audioSource.clip = fireSound;
+				audioSource.Play();
+			}	
 		}
 
 		// Recenter Weapon
