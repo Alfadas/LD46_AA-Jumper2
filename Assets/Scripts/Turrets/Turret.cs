@@ -128,13 +128,11 @@ public class Turret : Hittable
         if (onAutoFire)
         {
             hittingArea = Mathf.Pow(distance * 0.01f * (weaponController.Spread * autoSpreadMulti * 0.01f), 2) * Mathf.PI;
-            Debug.Log(distance + " " + distance * 0.01f * (weaponController.Spread * autoSpreadMulti * 0.01f));
         }
         else
         {
             hittingArea = Mathf.Pow(distance * 0.01f * (weaponController.Spread * 0.01f), 2) * Mathf.PI;
         }
-        Debug.Log(distance + " " + hittingArea / smallShipHitArea);
         int accuracy = 100 - Mathf.FloorToInt(hittingArea / smallShipHitArea );
         if(accuracy > 100)
         {
