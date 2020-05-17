@@ -18,32 +18,27 @@ public class Turret : Hittable
     [SerializeField] int turnSpeed;
     [Tooltip("If turret can rotate, needs TurretRotator")]
     [SerializeField] bool rotatable = true;
-    [Tooltip("If turret aims at Enemys")]
+    [Tooltip("If turret aims at Enemys with TurretTargetEnemy")]
     [SerializeField] bool targetingEnemys = true;
+    [Tooltip("Shoothing bullets with WeaponController")]
+    [SerializeField] bool shootingBullets = true;
 
     [Header("Shooting")]
-    [Tooltip("Fire rate per second")]
-    [SerializeField] float fireRate;
     [Tooltip("Only displayed damage per second, no real damage property")]
     [SerializeField] int damage;
-    [Tooltip("Bullet velocity at the muzzle")]
-    [SerializeField] float muzzleVelocity;
     [Tooltip("Max auto target range")]
     [SerializeField] int range;
-    [Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
-    [SerializeField] int spread;
-    [Tooltip("Spread multiplicator if turret fires automaticaly")]
+    [Tooltip("Spread multiplicator if turret fires automaticaly")] 
     [SerializeField] int autoSpreadMulti = 4;
-    [Tooltip("Shell prefab")]
-    [SerializeField] GameObject shell;
 
     [Header("Parts")]
     [Tooltip("Bullet start point")]
     [SerializeField] Transform firePoint;
+    [SerializeField] WeaponController weaponController;
 
-    float fireCountdown = 0f;
     TurretRotator turretRotator; //rotator comnponent
     TurretTargetEnemy turretTargetEnemy;
+    
 
     public bool TargetHidden { get; set; } = false;
     public Airship Target { get; set; }
@@ -75,7 +70,7 @@ public class Turret : Hittable
     {
         get
         {
-            return fireRate;
+            return weaponController.RoundsPerMinute;
         }
     }
 
@@ -121,7 +116,7 @@ public class Turret : Hittable
 
     public float GetMeterAutoSpread()
     {
-        return spread * 0.01f * autoSpreadMulti;
+        return weaponController.Spread * 0.01f * autoSpreadMulti;
     }
 
     protected override void Start()
@@ -138,41 +133,52 @@ public class Turret : Hittable
         if (targetingEnemys)
         {
             turretTargetEnemy = gameObject.GetComponent<TurretTargetEnemy>();
-            if (turretRotator == null)
+            if (turretTargetEnemy == null)
             {
                 Debug.LogWarning("missing turret rotator component");
             }
         }
-       StartCoroutine(turretTargetEnemy.UpdateTarget());
+        if (shootingBullets)
+        {
+            weaponController = gameObject.GetComponentInChildren<WeaponController>();
+            if (weaponController == null)
+            {
+                Debug.LogWarning("missing turret rotator component");
+            }
+            weaponController.SpreadMod = autoSpreadMulti;
+        }
+        StartCoroutine(turretTargetEnemy.UpdateTarget());
     }
 
     void Update()
     {
-        fireCountdown -= Time.deltaTime;
-
         if (Target != null)
         {
+            Quaternion lookRotation = Quaternion.identity;
             if (rotatable)
             {
-                Quaternion lookRotation = Quaternion.LookRotation(CalcTargetLeadPoint());
+                lookRotation = Quaternion.LookRotation(CalcTargetLeadPoint());
                 turretRotator.RotateTurret(lookRotation);
-
-                if (fireCountdown <= 0f)
+            }
+            if (shootingBullets && weaponController.ReadyToFire)
+            {
+                if (rotatable)
                 {
                     float rotationDiff = turretRotator.GetRotationDiff(lookRotation);
 
                     if (rotationDiff <= maxTotalRotationDiff) // if it is near the ideal fire alignment
                     {
-                        if (CheckShootingPath())
+                        if (!targetingEnemys || targetingEnemys && CheckShootingPathWithAirshipTarget()) // if not targeting enemies skip check
                         {
                             TargetHidden = false;
-                            Shoot();
+                            weaponController.pullTrigger();
                         }
                         else
                         {
+                            weaponController.releaseTrigger();
                             if (rotationDiff <= 0.1f) // if it is at the ideal fire alignment
                             {
-                                if (!TargetHidden)
+                                if (!TargetHidden && targetingEnemys)
                                 {
                                     TargetHidden = true;
                                     StartCoroutine(turretTargetEnemy.ChangeTarget(Target));
@@ -185,28 +191,25 @@ public class Turret : Hittable
                         }
                     }
                 }
-            }
-            else
-            {
-                Shoot();
+                else
+                {
+                    weaponController.pullTrigger();
+                }
             }
         }
     }
 
-
-    
-
     private Vector3 CalcTargetLeadPoint()
     {
         Vector3 targetRelativePosition = Target.transform.position - TurretAimCenter;
-        float t = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, Target.Velocity);
-        float timeGravity = FirstOrderInterceptTime(muzzleVelocity, targetRelativePosition, gravity);
+        float t = FirstOrderInterceptTime(weaponController.MuzzleVelocity, targetRelativePosition, Target.Velocity);
+        float timeGravity = FirstOrderInterceptTime(weaponController.MuzzleVelocity, targetRelativePosition, gravity);
         Vector3 targetLead = Target.transform.position + Target.Velocity * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
         Vector3 dir = targetLead - TurretAimCenter;
         return dir;
     }
 
-    private bool CheckShootingPath()
+    private bool CheckShootingPathWithAirshipTarget()
     {
         float targetDistance = Vector3.Distance(Target.transform.position, firePoint.position);
         RaycastHit hit;
@@ -219,14 +222,6 @@ public class Turret : Hittable
         {
             return false;
         }
-    }
-
-    void Shoot()
-    {
-        GameObject bullet = Instantiate(shell, firePoint.position, firePoint.rotation);
-        Vector3 deviation = (Random.insideUnitSphere * spread * autoSpreadMulti) / 10000.0f;
-        bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
-        fireCountdown = 1f / fireRate;
     }
 
     //first-order intercept using relative target position

@@ -15,6 +15,32 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: roundsPerMinute
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: muzzleVelocity
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: spread
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3907702288452539037, guid: f49672ac459941c4a94b9e5c24afd14d,
+        type: 3}
     - target: {fileID: 5924672719872641914, guid: b6e40e739809ae14585d3957cea9aae3,
         type: 3}
       propertyPath: turretName

@@ -207,7 +207,94 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: fireModes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: fireModes.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: fireModes.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: fireModes.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: spread
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: roundsPerMinute
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: muzzle
+      value: 
+      objectReference: {fileID: 6292807237423613156}
+    - target: {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: muzzleVelocity
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: spread
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: verticalRecoil
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: horizontalRecoil
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: roundsPerMinute
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: muzzleVelocity
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: muzzle
+      value: 
+      objectReference: {fileID: 6292807237423613156}
+    - target: {fileID: 6701084844923294899, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3907702288452539037, guid: 22e3f8111bbc1134c881d1667ef2ba17,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 779438cfea0515144bfee8944fa63e96, type: 3}
 --- !u!4 &6292807237423613156 stripped
 Transform:
