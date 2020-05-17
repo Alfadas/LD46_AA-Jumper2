@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 908130657494930374}
   - component: {fileID: 1218376570537434958}
   - component: {fileID: 994155265931037904}
+  - component: {fileID: 1920001397178082138}
   m_Layer: 0
   m_Name: TurretBig
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 940866f6bc3d2dd4caac8319940f42b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1920001397178082138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908130657494930369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5b2520068670141a762317b70b86be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6819292573016832963
@@ -221,6 +234,8 @@ MonoBehaviour:
   muzzle: {fileID: 6819292573101635545}
   fireModes: 01000000
   bulletPrefab: {fileID: 0}
+  magazineIndicator: {fileID: 0}
+  firemodeIndicator: {fileID: 0}
   fireSound: {fileID: 0}
 --- !u!82 &6107019843691685137
 AudioSource:
