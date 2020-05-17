@@ -68,7 +68,7 @@ public class TutorialManager : MonoBehaviour
             {
                 infoPanel.SetActive(false);
                 player.setMouseVisible(false);
-                weaponController.toggleSafety(false);
+                weaponController.Safety = false;
             }
         }
     }
@@ -105,7 +105,7 @@ public class TutorialManager : MonoBehaviour
             yield return new WaitUntil(() => buildingBase.IsFilled == true); // Wait until player builds turret
         }
         player.setMouseVisible(true);
-        weaponController.toggleSafety(true);
+        weaponController.Safety = true;
         infoPanel.SetActive(true);
         toMenuButton.SetActive(true);
         infoText.text = endInfo;

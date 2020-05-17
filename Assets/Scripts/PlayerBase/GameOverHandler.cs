@@ -26,7 +26,7 @@ public class GameOverHandler : MonoBehaviour
 
         exitController.BlockExitControll(true); //prevent reseting mouse and weapon controll
         playerController.setMouseVisible(true); //stop movement and set mouse visibel
-        weaponController.toggleSafety(true); //stop shooting
+        weaponController.Safety = true; //stop shooting
 
         mainCanvas.SetActive(false); // deactivate main Canvas
         loseScreen.SetActive(true); // activate GameOver Endscreen

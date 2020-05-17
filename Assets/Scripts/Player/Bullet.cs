@@ -16,6 +16,20 @@ public class Bullet : MonoBehaviour
 	private Vector3 originalScale = Vector3.one;
 	private bool stopped = false;
 
+	public int Damage
+	{
+		get
+		{
+			return damage;
+		}
+
+		private set
+		{
+			damage = value;
+		}
+	}
+	public float DamageMod { get; set; } = 1.0f;
+
 	private void Start()
 	{
 		bulletFired = Time.time;

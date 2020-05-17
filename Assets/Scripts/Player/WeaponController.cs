@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour
 {
-	[SerializeField] private Vector3 aimPosition = Vector3.zero;
-	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
-	[SerializeField] private Transform muzzle = null;
+	[Tooltip("Base Damage of this Weapon")]
+	[SerializeField] private float damage = 1.0f;
 	[Tooltip("Maximum Deviation from Point of Aim in cm at a Target Distance of 100m")]
 	[SerializeField] private float spread = 50.0f;
 	[Tooltip("Angle by which the Gun is rotated at most per Shot in Degrees upwards")]
@@ -20,10 +19,14 @@ public class WeaponController : MonoBehaviour
 	[SerializeField] private int magazineCapacity = 1;
 	[SerializeField] private float reloadTime = 2.0f;
 	[SerializeField] private float muzzleVelocity = 40.0f;
+	[SerializeField] private Vector3 aimPosition = Vector3.zero;
+	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
+	[SerializeField] private Transform muzzle = null;
 	[Tooltip("Available Burst Counts, the first Element is default, 0 means full-auto")]
 	[SerializeField] private int[] fireModes = { 0, 3, 1 };
 	[SerializeField] private GameObject bulletPrefab = null;
 	[SerializeField] private AudioClip fireSound = null;
+	private float roundsPerMinuteMod = 1.0f;
 	private Vector3 hipPosition = Vector3.zero;
 	private Quaternion originalRotation = Quaternion.identity;
 	private float timePerRound = 1.0f;
@@ -33,16 +36,137 @@ public class WeaponController : MonoBehaviour
 	private Text magazineIndicator = null;
 	private Text firemodeIndicator = null;
 	private AudioSource audioSource = null;
-	public bool ReadyToFire { get; private set; } = false;
 	private bool fire = false;
 	private int fireMode = 0;
 	private int shotsFired = 0;
-	public bool safety = false;
+	private bool safety = false;
+	private bool toggleSafety = false;
+
+	public float Damage
+	{
+		get
+		{
+			return damage;
+		}
+		private set
+		{
+			damage = value;
+		}
+	}
+	public float Spread
+	{
+		get
+		{
+			return spread;
+		}
+		private set
+		{
+			spread = value;
+		}
+	}
+	public float VerticalRecoil
+	{
+		get
+		{
+			return verticalRecoil;
+		}
+		private set
+		{
+			verticalRecoil = value;
+		}
+	}
+	public float HorizontalRecoil
+	{
+		get
+		{
+			return horizontalRecoil;
+		}
+		private set
+		{
+			horizontalRecoil = value;
+		}
+	}
+	public int RoundsPerMinute
+	{
+		get
+		{
+			return roundsPerMinute;
+		}
+		private set
+		{
+			roundsPerMinute = value;
+			timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
+		}
+	}
+	public int MagazineCapacity
+	{
+		get
+		{
+			return magazineCapacity;
+		}
+		private set
+		{
+			magazineCapacity = value;
+		}
+	}
+	public float ReloadTime
+	{
+		get
+		{
+			return reloadTime;
+		}
+		private set
+		{
+			reloadTime = value;
+		}
+	}
+	public float MuzzleVelocity
+	{
+		get
+		{
+			return muzzleVelocity;
+		}
+		private set
+		{
+			muzzleVelocity = value;
+		}
+	}
+	public float DamageMod { get; set; } = 1.0f;
+	public float SpreadMod { get; set; } = 1.0f;
+	public float RecoilMod { get; set; } = 1.0f;
+	public float RoundsPerMinuteMod
+	{
+		get
+		{
+			return roundsPerMinuteMod;
+		}
+		set
+		{
+			RoundsPerMinuteMod = value;
+			timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
+		}
+	}
+	public float MagazineCapacityMod { get; set; } = 1.0f;
+	public float ReloadTimeMod { get; set; } = 1.0f;
+	public float MuzzleVelocityMod { get; set; } = 1.0f;
+	public bool ReadyToFire { get; private set; } = false;
+	public bool Safety
+	{
+		get
+		{
+			return safety;
+		}
+
+		set
+		{
+			toggleSafety = value;
+		}
+	}
 
 	private void Start()
 	{
 		originalRotation = transform.localRotation;
-		timePerRound = 1.0f / (roundsPerMinute / 60.0f);
+		timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
 		magazineIndicator = GameObject.Find("MagazineIndicator").GetComponentInChildren<Text>();
@@ -58,10 +182,10 @@ public class WeaponController : MonoBehaviour
 		}
 
 		// Finish Reload after reloadTime
-		if(reloadStarted >= 0 && Time.time - reloadStarted >= reloadTime)
+		if(reloadStarted >= 0 && Time.time - reloadStarted >= (ReloadTime * ReloadTimeMod))
 		{
 			reloadStarted = -1;
-			shotCount = magazineCapacity;
+			shotCount = Mathf.RoundToInt(MagazineCapacity * MagazineCapacityMod);
 		}
 
 		if((fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && reloadStarted < 0 && (Time.time - lastShot) >= timePerRound && shotCount > 0)
@@ -82,11 +206,12 @@ public class WeaponController : MonoBehaviour
 			++shotsFired;
 
 			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-			Vector3 deviation = (Random.insideUnitSphere * spread) / 10000.0f;
-			bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * muzzleVelocity, ForceMode.VelocityChange);
+			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
+			Vector3 deviation = (Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f;
+			bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod, ForceMode.VelocityChange);
 
-			transform.localRotation *= Quaternion.AngleAxis(verticalRecoil * Random.Range(0.5f, 1.0f), Vector3.left);
-			transform.localRotation *= Quaternion.AngleAxis(horizontalRecoil * Random.Range(-1.0f, 1.0f), Vector3.up);
+			transform.localRotation *= Quaternion.AngleAxis(VerticalRecoil * RecoilMod * Random.Range(0.5f, 1.0f), Vector3.left);
+			transform.localRotation *= Quaternion.AngleAxis(HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f), Vector3.up);
 
 			audioSource.clip = fireSound;
 			audioSource.Play();
@@ -96,19 +221,22 @@ public class WeaponController : MonoBehaviour
 		float recoilAngle = Quaternion.Angle(transform.localRotation, originalRotation);
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
+		// Toggle Safety
+		safety = toggleSafety;
+
 		// Update Bullet Counter
 		if(magazineIndicator != null)
 		{
 			if(reloadStarted < 0)
 			{
-				magazineIndicator.text = shotCount + "/" + magazineCapacity;
+				magazineIndicator.text = shotCount + "/" + (MagazineCapacity * MagazineCapacityMod);
 				magazineIndicator.alignment = TextAnchor.LowerRight;
 			}
 			else
 			{
 				string text = "Reload";
-				int lettercount = (int)(((Time.time - reloadStarted) / reloadTime) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
-				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));							// Subtract virtual Letter
+				int lettercount = (int)(((Time.time - reloadStarted) / (ReloadTime * ReloadTimeMod)) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));											// Subtract virtual Letter
 
 				magazineIndicator.text = text;
 				magazineIndicator.alignment = TextAnchor.LowerLeft;
@@ -172,10 +300,5 @@ public class WeaponController : MonoBehaviour
 				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
 			}
 		}
-	}
-
-	public void toggleSafety(bool safety)
-	{
-		this.safety = safety;
 	}
 }
