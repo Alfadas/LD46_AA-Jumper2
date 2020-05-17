@@ -3,6 +3,7 @@
 public class Turret : Hittable
 {
     const int maxTotalRotationDiff = 10;
+    const int smallShipHitArea = 50; // 4^2*pi  using smalest ship as reference
 
     [Header("General")]
     [Tooltip("Displayed name")]
@@ -113,9 +114,33 @@ public class Turret : Hittable
         }
     }
 
-    public float GetMeterAutoSpread()
+    public int MagazineCapacity
     {
-        return weaponController.Spread * 0.01f * autoSpreadMulti;
+        get
+        {
+            return weaponController.MagazineCapacity;
+        }
+    }
+
+    public int GetAccuracyOnDistance(int distance, bool onAutoFire) //distance in m
+    {
+        float hittingArea = 1;
+        if (onAutoFire)
+        {
+            hittingArea = Mathf.Pow(distance * 0.01f * (weaponController.Spread * autoSpreadMulti * 0.01f), 2) * Mathf.PI;
+            Debug.Log(distance + " " + distance * 0.01f * (weaponController.Spread * autoSpreadMulti * 0.01f));
+        }
+        else
+        {
+            hittingArea = Mathf.Pow(distance * 0.01f * (weaponController.Spread * 0.01f), 2) * Mathf.PI;
+        }
+        Debug.Log(distance + " " + hittingArea / smallShipHitArea);
+        int accuracy = 100 - Mathf.FloorToInt(hittingArea / smallShipHitArea );
+        if(accuracy > 100)
+        {
+            accuracy = 100;
+        }
+        return accuracy;
     }
 
     public WeaponController WeaponController

@@ -44,12 +44,20 @@ public class TurretPanel : MonoBehaviour
 
     void SetInfo()
     {
-        infoText.text = "Fire rate: " + turret.FireRate + "\n" +
-                        "Spread on 100m: " + turret.GetMeterAutoSpread() + "m \n" +
+        infoText.text = "Rounds per Minute: " + turret.FireRate + "\n" +
+                        "Magazine capacity: " + turret.MagazineCapacity + "\n" +
+                        "Damage per bullet: " + turret.Damage + "\n" +
+                        "Accuracy on 100m: " + turret.GetAccuracyOnDistance(100, false) + "% \n" +
+                        "Accuracy on 500m: " + turret.GetAccuracyOnDistance(500, false) + "% \n" +
+                        "\n" +
+                        "When firing automatically:" + "\n" +
+                        "Range: " + turret.Range + "m \n" +
+                        "Accuracy on 100m: " + turret.GetAccuracyOnDistance(100, true)  + "% \n" +
+                        "Accuracy on max Range: " + turret.GetAccuracyOnDistance(turret.Range, true) + "% \n" +
+                        "\n" +
                         "Size: " + turret.Size + "\n" +
-                        "Damage per s: " + turret.Damage + "\n" +
-                        "Range: " + turret.Range + "\n" +
                         "Cost: " + turret.Cost;
+
     }
 
     void SetButton()
