@@ -25,16 +25,16 @@ public class WeaponController : MonoBehaviour
 	[Tooltip("Available Burst Counts, the first Element is default, 0 means full-auto")]
 	[SerializeField] private int[] fireModes = { 0, 3, 1 };
 	[SerializeField] private GameObject bulletPrefab = null;
+	[SerializeField] private Text magazineIndicator = null;
+	[SerializeField] private Text firemodeIndicator = null;
 	[SerializeField] private AudioClip fireSound = null;
-	private float roundsPerMinuteMod = 1.0f;
 	private Vector3 hipPosition = Vector3.zero;
 	private Quaternion originalRotation = Quaternion.identity;
+	private float roundsPerMinuteMod = 1.0f;
 	private float timePerRound = 1.0f;
 	private float lastShot = 0.0f;
 	private int shotCount = 0;
 	private float reloadStarted = 0.0f;
-	private Text magazineIndicator = null;
-	private Text firemodeIndicator = null;
 	private AudioSource audioSource = null;
 	private bool fire = false;
 	private int fireMode = 0;
@@ -142,7 +142,7 @@ public class WeaponController : MonoBehaviour
 		}
 		set
 		{
-			RoundsPerMinuteMod = value;
+			roundsPerMinuteMod = value;
 			timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		}
 	}
@@ -169,8 +169,6 @@ public class WeaponController : MonoBehaviour
 		timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
-		magazineIndicator = GameObject.Find("MagazineIndicator").GetComponentInChildren<Text>();
-		firemodeIndicator = GameObject.Find("FiremodeIndicator").GetComponentInChildren<Text>();
 	}
 
 	private void Update()
@@ -188,7 +186,7 @@ public class WeaponController : MonoBehaviour
 			shotCount = Mathf.RoundToInt(MagazineCapacity * MagazineCapacityMod);
 		}
 
-		if((fireModes[fireMode] == 0 || shotsFired < fireModes[fireMode]) && !safety && reloadStarted < 0 && (Time.time - lastShot) >= timePerRound && shotCount > 0)
+		if(!safety && reloadStarted < 0 && (Time.time - lastShot) >= timePerRound && shotCount > 0)
 		{
 			ReadyToFire = true;
 		}
@@ -212,6 +210,11 @@ public class WeaponController : MonoBehaviour
 
 			transform.localRotation *= Quaternion.AngleAxis(VerticalRecoil * RecoilMod * Random.Range(0.5f, 1.0f), Vector3.left);
 			transform.localRotation *= Quaternion.AngleAxis(HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f), Vector3.up);
+
+			if(fireModes[fireMode] != 0 && shotsFired >= fireModes[fireMode])
+			{
+				fire = false;
+			}
 
 			audioSource.clip = fireSound;
 			audioSource.Play();
