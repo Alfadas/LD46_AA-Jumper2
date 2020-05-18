@@ -60,7 +60,8 @@ public class SpawnManager : MonoBehaviour
 
     List<int> CreateSpawnList(int remainingValue)
     {
-        int maxClass = Mathf.RoundToInt((-Mathf.Pow(maxClassBuildupFactor, wave) + 1) * (enemyModels.Length - 1));
+        //int maxClass = Mathf.RoundToInt((-Mathf.Pow(maxClassBuildupFactor, wave) + 1) * (enemyModels.Length - 1)) + 1;
+        int maxClass = enemyModels.Length + 1;
         List<int> newEnemies = new List<int>();
         while (remainingValue > 0)
         {
