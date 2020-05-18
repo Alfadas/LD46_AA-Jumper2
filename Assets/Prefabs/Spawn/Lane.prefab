@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f6d3497270c9b468e60822e72c8539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newAirship: {fileID: 0}
   minDistance: 50
+  laneHightStep: 0

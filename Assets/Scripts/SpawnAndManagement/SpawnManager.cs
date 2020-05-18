@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] MetalManager metalManager;
     [SerializeField] EnemyList enemyList;
     [SerializeField] bool active = true;
+    [SerializeField] int laneHightStepMax;
     [Header("SpawnPointChanger")]
     [Tooltip("Absolute x y dif from lane mid")]
     [SerializeField] int laneMidDif = 3;
@@ -81,23 +82,55 @@ public class SpawnManager : MonoBehaviour
         foreach (int enemy in enemies)
         {
             Lane lane = null;
-            while (lane == null)
+            if(wave*0.2f < laneHightStepMax)
             {
-                List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
-                while (freeLanes.Count > 0 && lane == null)
+                while (lane == null)
                 {
-                    lane = freeLanes[Random.Range(0, freeLanes.Count)];
-                    freeLanes.Remove(lane);
+                    List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
+                    while (freeLanes.Count > 0 && lane == null)
+                    {
+                        if (lane.LaneHightStep < wave * 0.2f)
+                        {
+                            lane = TrySetLane(enemy, lane, freeLanes);
+                        }
+                    }
+                    if (lane == null)
+                    {
+                        yield return new WaitForSeconds(0.2f);
+                    }
                 }
-                if (lane == null)
-                {
-                    yield return new WaitForSeconds(0.2f);
-                }
+                SpawnNewEnemy(enemy, lane);
+                yield return new WaitForSeconds(0.1f);
             }
-            SpawnNewEnemy(enemy, lane);
-            yield return new WaitForSeconds(0.1f);
+            else
+            {
+                while (lane == null)
+                {
+                    List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
+                    while (freeLanes.Count > 0 && lane == null)
+                    {
+                        lane = TrySetLane(enemy, lane, freeLanes);
+                    }
+                    if (lane == null)
+                    {
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                }
+                SpawnNewEnemy(enemy, lane);
+                yield return new WaitForSeconds(0.1f);
+            }
         }
         spawning = false;
+    }
+
+    private static Lane TrySetLane(int enemy, Lane lane, List<Lane> freeLanes)
+    {
+        if (enemy >= lane.LaneHightStep)
+        {
+            lane = freeLanes[Random.Range(0, freeLanes.Count)];
+            freeLanes.Remove(lane);
+        }
+        return lane;
     }
 
     private void SpawnNewEnemy(int enemy, Lane lane)

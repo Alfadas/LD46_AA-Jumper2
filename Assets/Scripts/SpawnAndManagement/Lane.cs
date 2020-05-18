@@ -5,6 +5,7 @@ public class Lane : MonoBehaviour
 {
     [Tooltip("Minimal distance, the ship needs to travel, until lane is free again")]
     [SerializeField] int minDistance;
+    [SerializeField] int laneHightStep;
     Airship newAirship;
 
     public bool HasAirship
@@ -12,6 +13,14 @@ public class Lane : MonoBehaviour
         get
         {
             return newAirship != null;
+        }
+    }
+
+    public int LaneHightStep
+    {
+        get
+        {
+            return laneHightStep;
         }
     }
     public void SetAirship(Airship airship)
