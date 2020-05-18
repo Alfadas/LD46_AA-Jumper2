@@ -4906,7 +4906,7 @@ MonoBehaviour:
   startValue: 1
   valuePercPerWave: 0.1
   valueDiviation: 0.1
-  maxClassBuildupFactor: 0.9
+  maxClassBuildupFactor: 0.945
   enemyModels:
   - {fileID: 4368452007946506391, guid: dca531fba31947b4b81687151f746b3e, type: 3}
   - {fileID: 4616447376057133032, guid: 0b54ba806c84417478ff1e35b8dcee93, type: 3}
