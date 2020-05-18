@@ -6,7 +6,7 @@ public class TurretPanel : MonoBehaviour
 {
     [SerializeField] Text headText;
     [SerializeField] Text infoText;
-    [SerializeField] Image image;
+    [SerializeField] RawImage image;
     [SerializeField] Button button;
     [SerializeField] Text buttonText;
     [SerializeField] Color green;
@@ -88,6 +88,7 @@ public class TurretPanel : MonoBehaviour
         {
             button.gameObject.SetActive(false);
         }
+        image.texture = turret.TurretImage;
         this.turret = turret;
     }
 

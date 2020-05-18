@@ -171,6 +171,11 @@ PrefabInstance:
       propertyPath: autoSpreadMulti
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: turretImage
+      value: 
+      objectReference: {fileID: 2800000, guid: 1bcdf979065688d4ba77be49c0c34b4d, type: 3}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.x

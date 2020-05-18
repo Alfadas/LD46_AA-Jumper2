@@ -8,6 +8,8 @@ public class Turret : Hittable
     [Header("General")]
     [Tooltip("Displayed name")]
     [SerializeField] string turretName;
+    [Tooltip("Image of the turret")]
+    [SerializeField] Texture turretImage;
     [Tooltip("Purchase metal cost")]
     [SerializeField] int cost;
     [Tooltip("Size in m")]
@@ -119,6 +121,14 @@ public class Turret : Hittable
         get
         {
             return weaponController.MagazineCapacity;
+        }
+    }
+
+    public Texture TurretImage
+    {
+        get
+        {
+            return turretImage;
         }
     }
 

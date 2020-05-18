@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headText: {fileID: 6451902901359869192}
   infoText: {fileID: 3532213199441196466}
-  image: {fileID: 105122775135184653}
+  image: {fileID: 3279409641866400253}
   button: {fileID: 1855349366599814792}
   buttonText: {fileID: 7569260436808562496}
   green: {r: 0.089376554, g: 0.6226415, b: 0.0029369951, a: 1}
@@ -425,7 +425,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6977835254199214602}
   - component: {fileID: 6472461554786794764}
-  - component: {fileID: 105122775135184653}
+  - component: {fileID: 3279409641866400253}
   m_Layer: 5
   m_Name: TurretImage
   m_TagString: Untagged
@@ -460,7 +460,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6800887900200653784}
   m_CullTransparentMesh: 0
---- !u!114 &105122775135184653
+--- !u!114 &3279409641866400253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6800887900200653784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -478,16 +478,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &6989222498801624982
 GameObject:
   m_ObjectHideFlags: 0
