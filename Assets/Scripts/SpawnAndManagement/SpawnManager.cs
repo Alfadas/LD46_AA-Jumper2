@@ -61,8 +61,8 @@ public class SpawnManager : MonoBehaviour
 
     List<int> CreateSpawnList(int remainingValue)
     {
-        //int maxClass = Mathf.RoundToInt((-Mathf.Pow(maxClassBuildupFactor, wave) + 1) * (enemyModels.Length - 1)) + 1;
-        int maxClass = enemyModels.Length + 1;
+        int maxClass = Mathf.RoundToInt((-Mathf.Pow(maxClassBuildupFactor, wave) + 1) * (enemyModels.Length - 1)) + 1;
+        //int maxClass = enemyModels.Length + 1;
         List<int> newEnemies = new List<int>();
         while (remainingValue > 0)
         {
@@ -89,9 +89,10 @@ public class SpawnManager : MonoBehaviour
                     List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
                     while (freeLanes.Count > 0 && lane == null)
                     {
-                        if (lane.LaneHightStep < wave * 0.2f)
+                        Lane freeLane = freeLanes[Random.Range(0, freeLanes.Count)];
+                        if (freeLane.LaneHightStep < wave * 0.2f)
                         {
-                            lane = TrySetLane(enemy, lane, freeLanes);
+                            lane = TrySetLane(enemy, freeLanes, freeLane);
                         }
                     }
                     if (lane == null)
@@ -109,7 +110,8 @@ public class SpawnManager : MonoBehaviour
                     List<Lane> freeLanes = laneArray.Where(n => !n.HasAirship).ToList();
                     while (freeLanes.Count > 0 && lane == null)
                     {
-                        lane = TrySetLane(enemy, lane, freeLanes);
+                        Lane freeLane = freeLanes[Random.Range(0, freeLanes.Count)];
+                        lane = TrySetLane(enemy, freeLanes, freeLane);
                     }
                     if (lane == null)
                     {
@@ -123,14 +125,17 @@ public class SpawnManager : MonoBehaviour
         spawning = false;
     }
 
-    private static Lane TrySetLane(int enemy, Lane lane, List<Lane> freeLanes)
+    private static Lane TrySetLane(int enemy, List<Lane> freeLanes, Lane freeLane)
     {
-        if (enemy >= lane.LaneHightStep)
+        if (enemy >= freeLane.LaneHightStep)
         {
-            lane = freeLanes[Random.Range(0, freeLanes.Count)];
-            freeLanes.Remove(lane);
+            freeLanes.Remove(freeLane);
+            return freeLane;
         }
-        return lane;
+        else
+        {
+            return null;
+        }
     }
 
     private void SpawnNewEnemy(int enemy, Lane lane)
