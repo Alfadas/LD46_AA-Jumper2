@@ -94,6 +94,10 @@ public class SpawnManager : MonoBehaviour
                         {
                             lane = TrySetLane(enemy, freeLanes, freeLane);
                         }
+                        else
+                        {
+                            freeLanes.Remove(freeLane);
+                        }
                     }
                     if (lane == null)
                     {
@@ -127,9 +131,9 @@ public class SpawnManager : MonoBehaviour
 
     private static Lane TrySetLane(int enemy, List<Lane> freeLanes, Lane freeLane)
     {
-        if (enemy >= freeLane.LaneHightStep)
+        freeLanes.Remove(freeLane);
+        if (freeLane.LaneHightStep >= enemy)
         {
-            freeLanes.Remove(freeLane);
             return freeLane;
         }
         else
