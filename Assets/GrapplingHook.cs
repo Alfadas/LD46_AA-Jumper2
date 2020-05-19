@@ -35,11 +35,15 @@ public class GrapplingHook : MonoBehaviour
     {
         if (Input.GetButtonDown("Grapple"))
         {
-            StartGrapple();
-        }
-        if (Input.GetButtonUp("Grapple"))
-        {
-            StopGrapple();
+            if (joint)
+            {
+                StopGrapple();
+            }
+            else
+            {
+                StartGrapple();
+            }
+            
         }
     }
 
