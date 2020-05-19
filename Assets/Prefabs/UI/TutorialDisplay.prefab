@@ -292,7 +292,9 @@ MonoBehaviour:
   zTriggerWeapon: -48
   weaponInfo: You are armed with a light machine gun to fend off enemies near you.
     /n /n You can fire with the "left mouse button" and aim with the "right mouse
-    button" /n /n Shoot the red Wall to continue.
+    button". /n The weapon will reload automaticaly if the magazine is empty but
+    you can relode everytime with "R". /n To change the firemode press the "middle
+    mouse button". /n /n Shoot the red Wall to continue.
   zTriggerEnemies: -27
   enemyInfo: On the right, you can see one of the crafts attacking us. They carry
     bombs and will drop them on our base if they reach it. /n /n Besides the metal
