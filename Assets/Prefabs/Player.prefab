@@ -933,7 +933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
       propertyPath: aimPosition.y
-      value: 0.097
+      value: 0.108
       objectReference: {fileID: 0}
     - target: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
       propertyPath: aimPosition.z
