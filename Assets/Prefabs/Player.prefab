@@ -900,17 +900,27 @@ PrefabInstance:
     - target: {fileID: 4532747613844803775, guid: f4c2749cee1f0f942ad57959f5902c17,
         type: 3}
       propertyPath: jointDistanceMaxMulti
-      value: 0.01
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4532747613844803775, guid: f4c2749cee1f0f942ad57959f5902c17,
         type: 3}
       propertyPath: jointDistanceMinMulti
-      value: 0.001
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4532747613844803775, guid: f4c2749cee1f0f942ad57959f5902c17,
         type: 3}
       propertyPath: jointSpringStrength
-      value: 7
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532747613844803775, guid: f4c2749cee1f0f942ad57959f5902c17,
+        type: 3}
+      propertyPath: jointDamperStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4532747613844803775, guid: f4c2749cee1f0f942ad57959f5902c17,
+        type: 3}
+      propertyPath: jointMassScale
+      value: 27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c2749cee1f0f942ad57959f5902c17, type: 3}
