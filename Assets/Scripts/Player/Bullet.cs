@@ -7,14 +7,12 @@ public class Bullet : MonoBehaviour
 	[SerializeField] private float maxFlightTime = 6.0f;
 	[SerializeField] private float scanAheadDistance = 10.0f;
 	[SerializeField] private int damage = 10;
-	[SerializeField] private float explosionSize = 8.0f;
-	[SerializeField] private float explosionDuration = 0.2f;
-	[SerializeField] private Material explosionColor = null;
+	[SerializeField] private float fragmentCountModifier = 1.0f;
+	[SerializeField] private float fragmentSpeed = 4.0f;
+	[SerializeField] private GameObject fragmentPrefab = null;
 	private float bulletFired = 0.0f;
 	private Vector3 lastPosition = Vector3.zero;
-	private float impactTime = -1.0f;
-	private Vector3 originalScale = Vector3.one;
-	private bool stopped = false;
+	private bool destroyed = false;
 
 	public int Damage
 	{
@@ -43,42 +41,43 @@ public class Bullet : MonoBehaviour
 			DestroyBullet();
 		}
 
-		if(impactTime >= 0)
-		{
-			if(Time.time - impactTime < explosionDuration)
-			{
-				transform.localScale = originalScale * (((Time.time - impactTime) / explosionDuration) * explosionSize);
-			}
-			else
-			{
-				DestroyBullet();
-			}
-		}
-		else if((transform.position - lastPosition).magnitude > scanAheadDistance)
+		if(!destroyed && (transform.position - lastPosition).magnitude > scanAheadDistance)
 		{
 			RaycastHit hit;
 			if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance) && !hit.collider.isTrigger)
 			{
 				Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
 
+				int impactDamage = Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage * DamageMod);
+
 				AirshipHitCollector target = hit.collider.GetComponent<AirshipHitCollector>();
-				target?.GetDamage(Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage));
+				target?.GetDamage(impactDamage);
 
 				transform.position = hit.point;
-				Object.Destroy(rigidbody, 0.0f);
-				transform.SetParent(hit.transform, true);
 
-				gameObject.GetComponent<MeshRenderer>().material = explosionColor;
-				originalScale = transform.localScale;
-				impactTime = Time.time;
+				DestroyBullet(impactDamage);
 			}
 
 			lastPosition = transform.position;
 		}
 	}
 
-	private void DestroyBullet()
+	private void DestroyBullet(float fragmentationDamage = 0.0f)
 	{
+		destroyed = true;
+
+		if(fragmentationDamage > 0.0f)
+		{
+			int fragmentCount = Mathf.Max(Mathf.FloorToInt(fragmentationDamage * fragmentCountModifier), 1);
+			for(int i = 0; i < fragmentCount; ++i)
+			{
+				// Spawn Fragment
+				GameObject fragment = Object.Instantiate(fragmentPrefab, transform.position, transform.rotation);
+				// Give Fragment a random Velocity in general Back-Direction of the Bullet
+				fragment.GetComponent<Fragment>().Velocity = -transform.forward + Random.insideUnitSphere * fragmentSpeed;
+			}
+		}
+
 		Object.Destroy(gameObject, 0.2f);
 	}
 }
