@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
 	[SerializeField] private GameObject fragmentPrefab = null;
+	[SerializeField] private AudioClip[] hitSounds = null;
 	private float bulletFired = 0.0f;
 	private Vector3 lastPosition = Vector3.zero;
 	private bool destroyed = false;
@@ -46,15 +47,20 @@ public class Bullet : MonoBehaviour
 			RaycastHit hit;
 			if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance) && !hit.collider.isTrigger)
 			{
+				// Calculate Damage
 				Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-
 				int impactDamage = Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage * DamageMod);
 
-				AirshipHitCollector target = hit.collider.GetComponent<AirshipHitCollector>();
-				target?.GetDamage(impactDamage);
+				// Apply Damage
+				hit.collider.GetComponent<AirshipHitCollector>()?.GetDamage(impactDamage);
 
+				// Play Hit Sound
+				hit.collider.GetComponent<AudioSource>()?.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
+
+				// Change Bullet Position to Impact Point
 				transform.position = hit.point;
 
+				// Destroy Bullets and spawn Fragments at Impact Point
 				DestroyBullet(impactDamage);
 			}
 

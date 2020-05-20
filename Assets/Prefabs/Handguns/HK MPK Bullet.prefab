@@ -130,3 +130,8 @@ MonoBehaviour:
   fragmentSpeed: 10
   fragmentPrefab: {fileID: 3000640768434099919, guid: 3a3422038b41c404285da3357e72579d,
     type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 29e930c2f9ff9f542a57ef899876a160, type: 3}
+  - {fileID: 8300000, guid: 79fdaa99b0c22f54aa23f406da7cdad5, type: 3}
+  - {fileID: 8300000, guid: bbd68e83a054e3f43a771dc3b354600d, type: 3}
+  - {fileID: 8300000, guid: 44beaaa8106c1ec449702812c9ddaf04, type: 3}
