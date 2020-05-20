@@ -817,6 +817,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrapplingHook
       objectReference: {fileID: 0}
+    - target: {fileID: 4532747613844803772, guid: f4c2749cee1f0f942ad57959f5902c17,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4532747613844803774, guid: f4c2749cee1f0f942ad57959f5902c17,
         type: 3}
       propertyPath: m_LocalPosition.x
