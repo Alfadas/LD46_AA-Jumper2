@@ -5,12 +5,11 @@ using UnityEngine;
 public class GrapplingHook : MonoBehaviour
 {
     LineRenderer lineRenderer;
-    Vector3 grapplePoint;
-    [SerializeField] LayerMask grappleableLayer;
     [SerializeField] Transform firePoint;
     [SerializeField] Transform playerCamera;
     [SerializeField] Transform player;
     [SerializeField] int maxDistance;
+    [SerializeField] GameObject hook;
     [Header("JointData")]
     [Tooltip("Max grapplePoint- Player distance multi to distance on contact")]
     [SerializeField] float jointDistanceMaxMulti = 0.8f;
@@ -20,6 +19,7 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] float jointDamperStrength = 7f;
     [SerializeField] float jointMassScale = 4.5f;
     SpringJoint joint;
+    GameObject currentHook;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void LateUpdate()
     {
-        DrawRope();
+        UpdateConnection();
     }
 
     private void Update()
@@ -50,14 +50,15 @@ public class GrapplingHook : MonoBehaviour
     private void StartGrapple()
     {
         RaycastHit hit;
-        if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxDistance, grappleableLayer))
+        if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxDistance))
         {
-            grapplePoint = hit.point;
+            currentHook = Instantiate(hook, hit.point, Quaternion.identity, hit.collider.transform);
+
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
-            joint.connectedAnchor = grapplePoint;
+            joint.connectedAnchor = currentHook.transform.position;
 
-            float distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
+            float distanceFromPoint = Vector3.Distance(player.position, currentHook.transform.position);
 
             joint.maxDistance = distanceFromPoint * jointDistanceMaxMulti;
             joint.minDistance = distanceFromPoint * jointDistanceMinMulti;
@@ -76,10 +77,11 @@ public class GrapplingHook : MonoBehaviour
         Destroy(joint);
     }
 
-    void DrawRope()
+    void UpdateConnection()
     {
         if (!joint) return; //if not grappling, don´t draw
+        joint.connectedAnchor = currentHook.transform.position;
         lineRenderer.SetPosition(0, firePoint.position);
-        lineRenderer.SetPosition(1, grapplePoint);
+        lineRenderer.SetPosition(1, joint.connectedAnchor);
     }
 }
