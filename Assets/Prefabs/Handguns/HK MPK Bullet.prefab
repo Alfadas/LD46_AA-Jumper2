@@ -126,8 +126,8 @@ MonoBehaviour:
   maxFlightTime: 6
   scanAheadDistance: 10
   damage: 10
-  fragmentCountModifier: 1
-  fragmentSpeed: 10
+  fragmentCountModifier: 0.5
+  fragmentSpeed: 4
   fragmentPrefab: {fileID: 3000640768434099919, guid: 3a3422038b41c404285da3357e72579d,
     type: 3}
   hitSounds:
