@@ -52,10 +52,18 @@ public class Bullet : MonoBehaviour
 				int impactDamage = Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage * DamageMod);
 
 				// Apply Damage
-				hit.collider.GetComponent<AirshipHitCollector>()?.GetDamage(impactDamage);
+				AirshipHitCollector target = hit.collider.GetComponent<AirshipHitCollector>();
+				if(target != null)
+				{
+					target.GetDamage(impactDamage);
+				}
 
 				// Play Hit Sound
-				hit.collider.GetComponent<AudioSource>()?.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
+				AudioSource audioSource = hit.collider.GetComponent<AudioSource>();
+				if(audioSource != null)
+				{
+					audioSource.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
+				}
 
 				// Change Bullet Position to Impact Point
 				transform.position = hit.point;
