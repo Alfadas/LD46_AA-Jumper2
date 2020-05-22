@@ -12,7 +12,9 @@ public class Airship : Hittable
     [Tooltip("MetalManager ref to add kill reward")]
     [SerializeField] MetalManager metallManager; 
     [Tooltip("EnemyList ref to delete ship on destruction")]
-    [SerializeField] EnemyList enemyList; 
+    [SerializeField] EnemyList enemyList;
+
+    float maxSpeedModifier;
 
     public int Speed { get; set; } // current speed
 
@@ -29,6 +31,14 @@ public class Airship : Hittable
         get
         {
             return maxSpeed;
+        }
+    }
+
+    public int MaxSpeedModified // get for max speed
+    {
+        get
+        {
+            return Mathf.CeilToInt(maxSpeed * maxSpeedModifier);
         }
     }
 
@@ -57,6 +67,15 @@ public class Airship : Hittable
     void Move()
     {
         transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
+    }
+
+    public void ChangeMaxSpeedModifier(float addition) // Add
+    {
+        maxSpeedModifier += addition;
+        if (Speed > MaxSpeedModified) //update speed
+        {
+            Speed = MaxSpeedModified;
+        }
     }
 
     public void Dissolve() //destroy object without kill reward

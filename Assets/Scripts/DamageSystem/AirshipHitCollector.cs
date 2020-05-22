@@ -2,7 +2,7 @@
 
 public class AirshipHitCollector : Hittable
 {
-    Airship airship; //airship this is attached to
+    protected Airship airship; //airship this is attached to
 
     protected override void Start()
     {

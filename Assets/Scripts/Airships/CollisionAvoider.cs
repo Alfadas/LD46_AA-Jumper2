@@ -22,7 +22,7 @@ public class CollisionAvoider : MonoBehaviour
             }
             else 
             {
-                airship.Speed = airship.MaxSpeed; //set speed back to max of attached
+                airship.Speed = airship.MaxSpeedModified; //set speed back to max of attached
             }
             yield return new WaitForSeconds(2);
         }
@@ -30,13 +30,13 @@ public class CollisionAvoider : MonoBehaviour
 
     private void CorrectSpeed() // allign speed with colliding or, if colliding is faster than max speed, reset to max speed
     {
-        if (collidingAirship.Speed <= airship.MaxSpeed)
+        if (collidingAirship.Speed <= airship.MaxSpeedModified)
         {
             airship.Speed = collidingAirship.Speed;
         }
         else
         {
-            airship.Speed = airship.MaxSpeed;
+            airship.Speed = airship.MaxSpeedModified;
         }
     }
 
