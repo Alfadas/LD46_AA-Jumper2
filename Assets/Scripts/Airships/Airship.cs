@@ -14,7 +14,7 @@ public class Airship : Hittable
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList;
 
-    float maxSpeedModifier;
+    float maxSpeedModifier = 1f;
 
     public int Speed { get; set; } // current speed
 
