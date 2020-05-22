@@ -11,7 +11,7 @@ public class PropellerHitCollector : AirshipHitCollector
 
     public override void DestroyHittable()
     {
-        airship.ChangeMaxSpeedModifier(airship.MaxSpeed * speedReductionPerc); //Floor to never set MaxSpeed to 0
+        airship.ChangeMaxSpeedModifier(-airship.MaxSpeed * speedReductionPerc); //Floor to never set MaxSpeed to 0
         base.DestroyHittable();
     }
 }
