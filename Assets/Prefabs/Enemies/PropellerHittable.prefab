@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 118125636777765709}
   - component: {fileID: 6820163192056385496}
   - component: {fileID: 1542872759687737723}
-  - component: {fileID: 6936667444894501396}
+  - component: {fileID: 97001845287142299}
   m_Layer: 0
   m_Name: PropellerHittable
   m_TagString: Untagged
@@ -184,7 +184,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6936667444894501396
+--- !u!114 &97001845287142299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,9 +193,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1751434684371922790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd1d94b9ec11c148a03ba4c53ba0c5a, type: 3}
+  m_Script: {fileID: 11500000, guid: e1d175ba96bb9954294186c8ee8a86c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 50
   damageMulti: 1.3
   isEnemy: 1
+  speedReductionPerc: 0.8
