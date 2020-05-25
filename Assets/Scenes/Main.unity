@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.2850267, g: 0.37139368, b: 0.49601018, a: 1}
+  m_IndirectSpecularColor: {r: 0.28502667, g: 0.37139356, b: 0.4960102, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6253,12 +6253,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1612249010}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1627044576 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5978212730913259545, guid: b99c72aaa27e6c34b962dd6a5a551171,
-    type: 3}
-  m_PrefabInstance: {fileID: 7493452754294159297}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1643877314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7438,7 +7432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1008984185}
   metalText: {fileID: 1331772557}
-  startingMetal: 25
+  startingMetal: 1000
   gainIntervall: 10
   metalGain: 1
 --- !u!114 &1887868135
@@ -9238,40 +9232,19 @@ PrefabInstance:
       objectReference: {fileID: 811872211}
     - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
-      propertyPath: muzzle
+      propertyPath: magazineIndicator
       value: 
-      objectReference: {fileID: 1627044576}
+      objectReference: {fileID: 962297023}
     - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
-      propertyPath: bulletPrefab
+      propertyPath: firemodeIndicator
       value: 
-      objectReference: {fileID: 6748685144120150169, guid: 90c9401a743b45a48bf949a144fc1969,
-        type: 3}
-    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: aimPosition.x
-      value: -0.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: aimPosition.y
-      value: 0.2
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 469167816}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: buildingUi
       value: 
       objectReference: {fileID: 1023450530}
-    - target: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: magazineIndicator
-      value: 
-      objectReference: {fileID: 962297023}
-    - target: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: firemodeIndicator
-      value: 
-      objectReference: {fileID: 469167816}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x

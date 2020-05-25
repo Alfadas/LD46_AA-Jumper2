@@ -4319,6 +4319,16 @@ PrefabInstance:
       propertyPath: weaponController
       value: 
       objectReference: {fileID: 7160117200666287733}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: magazineIndicator
+      value: 
+      objectReference: {fileID: 52167657}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: firemodeIndicator
+      value: 
+      objectReference: {fileID: 52167656}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: text
