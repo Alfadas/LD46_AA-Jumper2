@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1567840482998555971}
   - component: {fileID: 1709864985}
-  - component: {fileID: 1709864984}
+  - component: {fileID: 3985122253342804191}
   m_Layer: 0
   m_Name: HK_MPK
   m_TagString: Untagged
@@ -209,7 +209,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1709864984
+--- !u!114 &3985122253342804191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,11 +218,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2565168616811915088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimPosition: {x: -0.005, y: 0, z: 0.4}
-  muzzle: {fileID: 3579016340314717250}
+  damage: 1
   spread: 200
   verticalRecoil: 1.6
   horizontalRecoil: 0.8
@@ -231,11 +230,14 @@ MonoBehaviour:
   magazineCapacity: 32
   reloadTime: 2
   muzzleVelocity: 120
+  aimPosition: {x: -0.04, y: 0.2, z: 0.4}
+  muzzle: {fileID: 3579016340314717250}
   fireModes: 000000000300000001000000
   bulletPrefab: {fileID: 6748685144120150169, guid: 90c9401a743b45a48bf949a144fc1969,
     type: 3}
+  magazineIndicator: {fileID: 0}
+  firemodeIndicator: {fileID: 0}
   fireSound: {fileID: 8300000, guid: 59e746f4a8fa0274ea1e27d9284cad49, type: 3}
-  safety: 0
 --- !u!1 &8328569595354219213
 GameObject:
   m_ObjectHideFlags: 0

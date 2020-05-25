@@ -15,6 +15,32 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: spread
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: roundsPerMinute
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: muzzleVelocity
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3907702288452539037, guid: f49672ac459941c4a94b9e5c24afd14d,
+        type: 3}
     - target: {fileID: 2959717012811465550, guid: b6e40e739809ae14585d3957cea9aae3,
         type: 3}
       propertyPath: roundsPerMinute
@@ -92,6 +118,11 @@ PrefabInstance:
       propertyPath: turretImage
       value: 
       objectReference: {fileID: 2800000, guid: 117cd7fb504bc6046b448c260850306f, type: 3}
+    - target: {fileID: 5924672719872641914, guid: b6e40e739809ae14585d3957cea9aae3,
+        type: 3}
+      propertyPath: weaponController
+      value: 
+      objectReference: {fileID: 1607939855894557243}
     - target: {fileID: 5924672719872641915, guid: b6e40e739809ae14585d3957cea9aae3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -154,6 +185,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e40e739809ae14585d3957cea9aae3, type: 3}
+--- !u!114 &1607939855894557243 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 944707090146910297, guid: b6e40e739809ae14585d3957cea9aae3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1967170133134037602}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1967170132070153479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1090187109, guid: b6e40e739809ae14585d3957cea9aae3,

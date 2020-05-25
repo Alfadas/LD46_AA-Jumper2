@@ -133,8 +133,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1948849894}
+  - component: {fileID: 944707090146910297}
   - component: {fileID: 2484408622859989478}
-  - component: {fileID: 2959717012811465550}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -157,6 +157,34 @@ Transform:
   m_Father: {fileID: 1173676928}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &944707090146910297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948849893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  spread: 50
+  verticalRecoil: 0.1
+  horizontalRecoil: 0.05
+  recoilResetFactor: 1
+  roundsPerMinute: 600
+  magazineCapacity: 1
+  reloadTime: 2
+  muzzleVelocity: 40
+  aimPosition: {x: 0, y: 0, z: 0}
+  muzzle: {fileID: 1090187109}
+  fireModes: 01000000
+  bulletPrefab: {fileID: 0}
+  magazineIndicator: {fileID: 0}
+  firemodeIndicator: {fileID: 0}
+  fireSound: {fileID: 0}
 --- !u!82 &2484408622859989478
 AudioSource:
   m_ObjectHideFlags: 0
@@ -253,34 +281,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2959717012811465550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948849893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
-  spread: 50
-  verticalRecoil: 0.1
-  horizontalRecoil: 0.05
-  recoilResetFactor: 1
-  roundsPerMinute: 600
-  magazineCapacity: 1
-  reloadTime: 2
-  muzzleVelocity: 40
-  aimPosition: {x: 0, y: 0, z: 0}
-  muzzle: {fileID: 1090187109}
-  fireModes: 01000000
-  bulletPrefab: {fileID: 0}
-  magazineIndicator: {fileID: 0}
-  firemodeIndicator: {fileID: 0}
-  fireSound: {fileID: 0}
 --- !u!1 &5924672719872641917
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,6 +333,7 @@ MonoBehaviour:
   damageMulti: 1
   isEnemy: 0
   turretName: Turret 1
+  turretImage: {fileID: 0}
   cost: 50
   size: 1
   turnSpeed: 5
@@ -344,7 +345,7 @@ MonoBehaviour:
   range: 500
   autoSpreadMulti: 4
   firePoint: {fileID: 1090187109}
-  weaponController: {fileID: 2959717012811465550}
+  weaponController: {fileID: 0}
 --- !u!65 &8535619815648206232
 BoxCollider:
   m_ObjectHideFlags: 0

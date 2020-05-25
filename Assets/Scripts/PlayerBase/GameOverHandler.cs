@@ -15,7 +15,7 @@ public class GameOverHandler : MonoBehaviour
     [SerializeField] MetalManager metalManager;
     [Header("Player")]
     [SerializeField] PlayerController playerController;
-    [SerializeField] WeaponController weaponController;
+    [SerializeField] Weapon weaponController;
     [SerializeField] ExitController exitController;
 
     public void EndGame()

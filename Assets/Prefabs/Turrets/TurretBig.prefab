@@ -65,17 +65,19 @@ MonoBehaviour:
   damageMulti: 1
   isEnemy: 0
   turretName: Turret 1
+  turretImage: {fileID: 0}
   cost: 300
   size: 4
   turnSpeed: 4
   rotatable: 1
   targetingEnemys: 1
   shootingBullets: 1
+  useTargetHelper: 1
   damage: 3
   range: 500
   autoSpreadMulti: 4
   firePoint: {fileID: 6819292573101635545}
-  weaponController: {fileID: 6701084844923294899}
+  weaponController: {fileID: 0}
 --- !u!114 &1218376570537434958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6819292573853371994}
-  - component: {fileID: 6701084844923294899}
+  - component: {fileID: 8348751135451967310}
   - component: {fileID: 6107019843691685137}
   m_Layer: 0
   m_Name: Gun
@@ -209,7 +211,7 @@ Transform:
   m_Father: {fileID: 6819292573016832828}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6701084844923294899
+--- !u!114 &8348751135451967310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +220,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6819292573853371993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1

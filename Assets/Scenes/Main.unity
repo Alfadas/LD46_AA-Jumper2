@@ -344,18 +344,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 126121751}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &128215075 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-    type: 3}
-  m_PrefabInstance: {fileID: 7493452754294159297}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &185547563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6265,6 +6253,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1612249010}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1627044576 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5978212730913259545, guid: b99c72aaa27e6c34b962dd6a5a551171,
+    type: 3}
+  m_PrefabInstance: {fileID: 7493452754294159297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1643877314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7460,7 +7454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1031575413}
-  weaponController: {fileID: 128215075}
+  weaponController: {fileID: 2065151625}
   exitPanel: {fileID: 666102243}
   turretInteractionManager: {fileID: 811872211}
   buildingManager: {fileID: 1132141665}
@@ -7497,7 +7491,7 @@ MonoBehaviour:
   enemyList: {fileID: 14192995}
   metalManager: {fileID: 1887868134}
   playerController: {fileID: 1031575413}
-  weaponController: {fileID: 128215075}
+  weaponController: {fileID: 2065151625}
   exitController: {fileID: 1887868135}
 --- !u!1001 &1887912587
 PrefabInstance:
@@ -8396,6 +8390,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2052079920}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2065151625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+    type: 3}
+  m_PrefabInstance: {fileID: 7493452754294159297}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0
@@ -9230,6 +9236,27 @@ PrefabInstance:
       propertyPath: turretInteractionManager
       value: 
       objectReference: {fileID: 811872211}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: muzzle
+      value: 
+      objectReference: {fileID: 1627044576}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6748685144120150169, guid: 90c9401a743b45a48bf949a144fc1969,
+        type: 3}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: aimPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: aimPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: buildingUi

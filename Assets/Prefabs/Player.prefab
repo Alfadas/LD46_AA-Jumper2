@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 7346026782969594583}
   - component: {fileID: 7346026782969594587}
   - component: {fileID: 7346026782969594584}
+  - component: {fileID: 2370706801361435080}
   - component: {fileID: 823876015}
   - component: {fileID: 1053153110}
   m_Layer: 0
@@ -263,7 +264,19 @@ MonoBehaviour:
   head: {fileID: 2003152391177076853}
   feet: {fileID: 1053153110}
   floatingMovementFactor: 0.002
-  weapon: {fileID: 7160117199827436611}
+--- !u!114 &2370706801361435080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7346026782969594585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 6057384634932262020}
 --- !u!114 &823876015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,7 +455,7 @@ MonoBehaviour:
   interactHelp: {fileID: 0}
   turretInteractionManager: {fileID: 0}
   playerController: {fileID: 7346026782969594584}
-  weaponController: {fileID: 7160117199827436611}
+  weaponController: {fileID: 6057384634932262020}
 --- !u!1001 &424099642910997638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1037,16 +1050,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
---- !u!114 &7160117199827436611 stripped
+--- !u!114 &6057384634932262020 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1709864984, guid: 959f8748cece27b44a73341ac73a7c14,
+  m_CorrespondingSourceObject: {fileID: 3985122253342804191, guid: 959f8748cece27b44a73341ac73a7c14,
     type: 3}
   m_PrefabInstance: {fileID: 7160117199192685659}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8547777344491776280 stripped

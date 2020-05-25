@@ -36,7 +36,7 @@ public class Turret : Hittable
     [Header("Parts")]
     [Tooltip("Bullet start point")]
     [SerializeField] Transform firePoint;
-    [SerializeField] WeaponController weaponController;
+    [SerializeField] Gun weaponController;
 
     TurretRotator turretRotator; //rotator comnponent
     TurretTargetEnemy turretTargetEnemy;
@@ -151,7 +151,7 @@ public class Turret : Hittable
         return accuracy;
     }
 
-    public WeaponController WeaponController
+    public Gun WeaponController
     {
         get
         {
@@ -188,7 +188,7 @@ public class Turret : Hittable
         }
         if (shootingBullets)
         {
-            weaponController = gameObject.GetComponentInChildren<WeaponController>();
+            weaponController = gameObject.GetComponentInChildren<Gun>();
             if (weaponController == null)
             {
                 Debug.LogWarning("missing turret rotator component");

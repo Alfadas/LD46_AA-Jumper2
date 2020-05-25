@@ -5,7 +5,7 @@ using UnityEngine;
 public class ExitController : MonoBehaviour
 {
     [SerializeField] PlayerController player;
-    [SerializeField] WeaponController weaponController;
+    [SerializeField] Weapon weaponController;
     [SerializeField] GameObject exitPanel;
     [SerializeField] TurretInteractionManager turretInteractionManager;
     [SerializeField] BuildingManager buildingManager;

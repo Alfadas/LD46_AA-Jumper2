@@ -10,7 +10,7 @@ public class TutorialManager : MonoBehaviour
     [Tooltip("PlayerController on Player")]
     [SerializeField] PlayerController player;
     [Tooltip("WeaponController on player weapon")]
-    [SerializeField] WeaponController weaponController;
+    [SerializeField] Weapon weaponController;
     [Tooltip("exitController for cancel management")]
     [SerializeField] ExitController exitController;
     [Tooltip("Tutorial info panel")]

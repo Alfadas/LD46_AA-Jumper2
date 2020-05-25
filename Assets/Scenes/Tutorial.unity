@@ -3422,18 +3422,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1651193274 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-    type: 3}
-  m_PrefabInstance: {fileID: 7160117200666287731}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b236a465e633d4792530b2d3e313dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1699441324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,7 +3763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1285185914}
-  weaponController: {fileID: 1651193274}
+  weaponController: {fileID: 7160117200666287733}
   exitPanel: {fileID: 936108445}
   turretInteractionManager: {fileID: 1495496023}
   buildingManager: {fileID: 7160117200666287732}
@@ -4108,7 +4096,7 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponController
       value: 
-      objectReference: {fileID: 1651193274}
+      objectReference: {fileID: 7160117200666287733}
     - target: {fileID: 3660404339667859094, guid: c48a58bb6fec8e34c97890ffd8910168,
         type: 3}
       propertyPath: exitController
@@ -4326,6 +4314,11 @@ PrefabInstance:
       propertyPath: interactHelp
       value: 
       objectReference: {fileID: 1592625863}
+    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
+        type: 3}
+      propertyPath: weaponController
+      value: 
+      objectReference: {fileID: 7160117200666287733}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: text
@@ -4423,5 +4416,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a57a30b754d641747ada3dccdd35b7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7160117200666287733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
+    type: 3}
+  m_PrefabInstance: {fileID: 7160117200666287731}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

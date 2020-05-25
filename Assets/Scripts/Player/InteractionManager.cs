@@ -8,7 +8,7 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] TurretInteractionManager turretInteractionManager;
     [SerializeField] PlayerController playerController;
     [Tooltip("Controller of the player Weapon")]
-    [SerializeField] WeaponController weaponController;
+    [SerializeField] Weapon weaponController;
     BuildingManager buildingManager; //attatched BuildingManager
     private void Awake()
     {

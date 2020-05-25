@@ -176,6 +176,11 @@ PrefabInstance:
       propertyPath: turretImage
       value: 
       objectReference: {fileID: 2800000, guid: 1bcdf979065688d4ba77be49c0c34b4d, type: 3}
+    - target: {fileID: 908130657494930374, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: weaponController
+      value: 
+      objectReference: {fileID: 732372346800909766}
     - target: {fileID: 908130657494930375, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -262,8 +267,46 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 2.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 3907702288452539037, guid: 1594782658ba06c47b6beb674173656a,
+        type: 3}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: spread
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: roundsPerMinute
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: magazineCapacity
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: muzzleVelocity
+      value: 175
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 779438cfea0515144bfee8944fa63e96, type: 3}
+--- !u!114 &732372346800909766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+    type: 3}
+  m_PrefabInstance: {fileID: 8788018382569194120}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cff6510c066344382494965cae8175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2834926215571010897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6819292573101635545, guid: 779438cfea0515144bfee8944fa63e96,
