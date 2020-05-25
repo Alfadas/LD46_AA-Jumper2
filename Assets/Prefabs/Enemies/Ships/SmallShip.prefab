@@ -96,7 +96,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4616447375742834775
+--- !u!114 &4103138066520289279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,12 +105,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3270501208682029197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd1d94b9ec11c148a03ba4c53ba0c5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fd8d072ee3fca647b8d3727f579c1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 2500
   damageMulti: 1
   isEnemy: 1
+  essential: 1
+  explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
+    type: 3}
+  explosionSize: 10
 --- !u!1 &4616447376057133032
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,9 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2661cbd5e178240ad507cc50b6a678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  damageMulti: 1
-  isEnemy: 1
   maxSpeed: 8
   killPoint: -500
   metal: 10
