@@ -2148,9 +2148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2661cbd5e178240ad507cc50b6a678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  damageMulti: 1
-  isEnemy: 1
   maxSpeed: 0
   killPoint: -500
   metal: 0
@@ -2658,12 +2655,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1417586259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd1d94b9ec11c148a03ba4c53ba0c5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fd8d072ee3fca647b8d3727f579c1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
   damageMulti: 1
   isEnemy: 1
+  essential: 1
+  explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
+    type: 3}
+  explosionSize: 1
 --- !u!65 &1417586262
 BoxCollider:
   m_ObjectHideFlags: 0
