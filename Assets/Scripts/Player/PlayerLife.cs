@@ -24,12 +24,12 @@ public class PlayerLife : Hittable
     private void Respawn()
     {
         transform.position = respawnPoint.position;
+        health = maxHealth;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; // reset velocity to stop pre respawn movement
     }
 
-    public override void DestroyHittable()
+    protected override void DestroyHittable()
     {
-        base.DestroyHittable();
         Respawn();
     }
 }

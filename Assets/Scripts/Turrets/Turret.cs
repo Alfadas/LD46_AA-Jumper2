@@ -269,9 +269,8 @@ public class Turret : Hittable
         }
     }
 
-    public override void DestroyHittable()
+    protected override void DestroyHittable()
     {
-        base.DestroyHittable();
         Object.Destroy(gameObject);
     }
 }

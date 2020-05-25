@@ -8,9 +8,8 @@ public class Base : Hittable
     [Tooltip("GameOverHandler ref to handle lose")]
     [SerializeField] GameOverHandler gameOverHandler;
 
-    public override void DestroyHittable()
+    protected override void DestroyHittable()
     {
-        base.DestroyHittable();
         //lose game
         gameOverHandler.EndGame();
     }

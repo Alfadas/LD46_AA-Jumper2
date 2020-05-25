@@ -6,8 +6,9 @@ public class Hittable : MonoBehaviour
     [SerializeField] protected int maxHealth = 100;
     [SerializeField] protected float damageMulti = 1;
     [SerializeField] protected bool isEnemy = true;
+
     protected int health; //currentHealth
-    bool destroyed = false; //bool to secure one time destruction
+    protected bool destroyed = false; //bool to secure one time destruction
 
     public bool IsEnemy
     {
@@ -26,18 +27,18 @@ public class Hittable : MonoBehaviour
         health -= (Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
         if(health <= 0)
         {
-            DestroyHittable();
+            TryDestroyHittable();
         }
     }
-    public virtual void DestroyHittable()
+    public virtual void TryDestroyHittable()
     {
-        if (!destroyed)
-        {
-            destroyed = true;
-        }
-        else
-        {
-            return;
-        }
+        if (destroyed) return;
+        destroyed = true;
+        DestroyHittable();
+    }
+
+    protected virtual void DestroyHittable()
+    {
+        health = 0;
     }
 }
