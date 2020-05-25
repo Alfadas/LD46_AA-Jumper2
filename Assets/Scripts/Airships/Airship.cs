@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Airship : Hittable
+public class Airship : MonoBehaviour
 {
     [Tooltip("Maximum m/s")]
     [SerializeField] int maxSpeed = 1;
@@ -13,6 +13,7 @@ public class Airship : Hittable
     [SerializeField] MetalManager metallManager; 
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList;
+    bool destroyed = false; //bool to secure one time destruction
 
     float maxSpeedModifier = 1f;
 
@@ -42,10 +43,8 @@ public class Airship : Hittable
         }
     }
 
-    protected override void Start()
+    void Start()
     {
-        base.Start();
-        //set speed to max
         Speed = maxSpeed;
     }
 
@@ -84,9 +83,10 @@ public class Airship : Hittable
         Object.Destroy(gameObject, 0.1f);
     }
 
-    public override void DestroyHittable()
+    public void DestroyAirship()
     {
-        base.DestroyHittable();
+        if (destroyed) return;
+        destroyed = true;
         //give kill reward
         metallManager.AddMetalAndScore(metal);
         enemyList.RemoveEnemy(this);

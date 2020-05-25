@@ -2,17 +2,17 @@
 
 public class AirshipHitCollector : Hittable
 {
-    protected Airship airship; //airship this is attached to
+    protected AirshipPart airshipPart; //airship this is attached to
 
     protected override void Start()
     {
         base.Start();
-        airship = GetComponentInParent<Airship>(); //get attached airship
+        airshipPart = GetComponentInParent<AirshipPart>(); //get attached airship
     }
 
     public override void GetDamage(int damage) //Methode if this Part is damaged
     {
         base.GetDamage(damage);
-        airship.GetDamage(Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
+        airshipPart.GetDamage(Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
     }
 }

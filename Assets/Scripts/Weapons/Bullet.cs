@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
 				int impactDamage = Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage * DamageMod);
 
 				// Apply Damage
-				AirshipHitCollector target = hit.collider.GetComponent<AirshipHitCollector>();
+				Hittable target = hit.collider.GetComponent<Hittable>();
 				if(target != null)
 				{
 					target.GetDamage(impactDamage);
