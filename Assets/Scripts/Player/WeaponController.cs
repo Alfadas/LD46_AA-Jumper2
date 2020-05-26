@@ -7,6 +7,15 @@ public class WeaponController : MonoBehaviour
 {
 	[SerializeField] private Weapon weapon = null;
 
+	private Text magazineIndicator = null;
+	private Text firemodeIndicator = null;
+
+	private void Start()
+	{
+		magazineIndicator = GameObject.Find("MagazineIndicator").GetComponentInChildren<Text>();
+		firemodeIndicator = GameObject.Find("FiremodeIndicator").GetComponentInChildren<Text>();
+	}
+
 	private void Update()
 	{
 		if(weapon != null)
@@ -35,6 +44,15 @@ public class WeaponController : MonoBehaviour
 			{
 				weapon.switchFireMode();
 			}
-		}	
+		}
+
+		if(magazineIndicator != null)
+		{
+			weapon.updateMagazineReadout(magazineIndicator);
+		}
+		if(firemodeIndicator != null)
+		{
+			weapon.updateFiremodeReadout(firemodeIndicator);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public class Weapon : MonoBehaviour
 	}
 
 	public virtual void switchFireMode(int firemode = -1)
+	{
+	}
+
+	public virtual void updateMagazineReadout(Text magazineIndicator)
+	{
+	}
+
+	public virtual void updateFiremodeReadout(Text firemodeIndicator)
 	{
 	}
 }
