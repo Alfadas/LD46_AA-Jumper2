@@ -60,7 +60,7 @@ public class Bullet : MonoBehaviour
 
 				// Play Hit Sound
 				AudioSource audioSource = hit.collider.GetComponent<AudioSource>();
-				if(audioSource != null)
+				if(audioSource != null && hitSounds != null && hitSounds.Length > 0)
 				{
 					audioSource.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
 				}
@@ -80,7 +80,7 @@ public class Bullet : MonoBehaviour
 	{
 		destroyed = true;
 
-		if(fragmentationDamage > 0.0f)
+		if(fragmentationDamage > 0.0f && fragmentPrefab != null)
 		{
 			int fragmentCount = Mathf.Max(Mathf.FloorToInt(fragmentationDamage * fragmentCountModifier), 1);
 			for(int i = 0; i < fragmentCount; ++i)
