@@ -26,8 +26,6 @@ public class Gun : Weapon
 	[Tooltip("Available Burst Counts, the first Element is the default Firemode, 0 means full-auto")]
 	[SerializeField] private int[] fireModes = { 0, 3, 1 };
 	[SerializeField] private GameObject bulletPrefab = null;
-	[SerializeField] private Text magazineIndicator = null;
-	[SerializeField] private Text firemodeIndicator = null;
 	[SerializeField] private AudioClip fireSound = null;
 	private Vector3 hipPosition = Vector3.zero;
 	private Quaternion originalRotation = Quaternion.identity;
@@ -242,25 +240,6 @@ public class Gun : Weapon
 			safety = false;
 			disengageSafety = false;
 		}
-		
-		// Update Bullet Counter
-		if(magazineIndicator != null)
-		{
-			if(reloadStarted < 0)
-			{
-				magazineIndicator.text = shotCount + "/" + (MagazineCapacity * MagazineCapacityMod);
-				magazineIndicator.alignment = TextAnchor.LowerRight;
-			}
-			else
-			{
-				string text = "Reload";
-				int lettercount = (int)(((Time.time - reloadStarted) / (ReloadTime * ReloadTimeMod)) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
-				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));											// Subtract virtual Letter
-
-				magazineIndicator.text = text;
-				magazineIndicator.alignment = TextAnchor.LowerLeft;
-			}
-		}
 	}
 
 	// TODO: Remove and replace by actual Animation
@@ -303,7 +282,31 @@ public class Gun : Weapon
 		{
 			this.fireMode = (this.fireMode + 1) % fireModes.Length;
 		}
+	}
 
+	public override void updateMagazineReadout(Text magazineIndicator)
+	{
+		if(magazineIndicator != null)
+		{
+			if(reloadStarted < 0)
+			{
+				magazineIndicator.text = shotCount + "/" + (MagazineCapacity * MagazineCapacityMod);
+				magazineIndicator.alignment = TextAnchor.LowerRight;
+			}
+			else
+			{
+				string text = "Reload";
+				int lettercount = (int)(((Time.time - reloadStarted) / (ReloadTime * ReloadTimeMod)) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));											// Subtract virtual Letter
+
+				magazineIndicator.text = text;
+				magazineIndicator.alignment = TextAnchor.LowerLeft;
+			}
+		}
+	}
+
+	public override void updateFiremodeReadout(Text firemodeIndicator)
+	{
 		if(firemodeIndicator != null)
 		{
 			if(fireModes[this.fireMode] == 0)
