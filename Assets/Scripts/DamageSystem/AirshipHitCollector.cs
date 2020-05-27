@@ -15,4 +15,9 @@ public class AirshipHitCollector : Hittable
         base.GetDamage(damage);
         airshipPart.GetDamage(Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
     }
+
+    protected override void DestroyHittable()
+    {
+        damageMulti = 1;
+    }
 }
