@@ -60,8 +60,8 @@ public class SimpleRigidbody : MonoBehaviour
 		}
 	}
 
-	public void applyForce(Vector3 force)
+	public void applyImpulse(Vector3 impulse)
 	{
-		Velocity += force / mass;
+		Velocity += impulse / mass;
 	}
 }

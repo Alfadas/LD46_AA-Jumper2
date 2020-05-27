@@ -229,7 +229,7 @@ MonoBehaviour:
   roundsPerMinute: 550
   magazineCapacity: 32
   reloadTime: 2
-  muzzleVelocity: 120
+  muzzleVelocity: 340
   aimPosition: {x: -0.04, y: 0.2, z: 0.4}
   muzzle: {fileID: 3579016340314717250}
   fireModes: 000000000300000001000000
