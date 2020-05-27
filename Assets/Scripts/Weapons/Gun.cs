@@ -210,9 +210,12 @@ public class Gun : Weapon
 			++shotsFired;
 
 			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
+			// TODO: Stop buffering the Deviation?
 			Vector3 deviation = (Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f;
-			bullet.GetComponent<Rigidbody>().AddForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod, ForceMode.VelocityChange);
+			// TODO: Change to Force, apply Recoil to player, connect physical Recoil with Weapon Rotation, calculate Velocity from Barrel Length, Propellant Strength and Bullet Weight
+			bullet.GetComponent<SimpleRigidbody>().Velocity = (bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod;
+			//bullet.GetComponent<SimpleRigidbody>().applyForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod);
+			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
 
 			transform.localRotation *= Quaternion.AngleAxis(VerticalRecoil * RecoilMod * Random.Range(0.5f, 1.0f), Vector3.left);
 			transform.localRotation *= Quaternion.AngleAxis(HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f), Vector3.up);

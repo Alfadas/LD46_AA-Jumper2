@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	[SerializeField] private float maxFlightTime = 6.0f;
-	[SerializeField] private float scanAheadDistance = 10.0f;
 	[SerializeField] private int damage = 10;
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
@@ -37,19 +35,21 @@ public class Bullet : MonoBehaviour
 
 	private void Update()
 	{
-		if(Time.time - bulletFired >= maxFlightTime)
+		if(!destroyed)
 		{
-			DestroyBullet();
-		}
-
-		if(!destroyed && (transform.position - lastPosition).magnitude > scanAheadDistance)
-		{
+			Vector3 travelledSegment = transform.position - lastPosition;
 			RaycastHit hit;
-			if(Physics.Raycast(lastPosition, transform.forward, out hit, scanAheadDistance) && !hit.collider.isTrigger)
+			// TODO: Check for Tag here, too
+			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude) && !hit.collider.isTrigger)
 			{
+				// Retrieve Rigidbody
+				SimpleRigidbody rigidbody = gameObject.GetComponent<SimpleRigidbody>();
+
 				// Calculate Damage
-				Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-				int impactDamage = Mathf.CeilToInt(rigidbody.mass * rigidbody.velocity.magnitude * damage * DamageMod);
+				int impactDamage = Mathf.CeilToInt(rigidbody.Mass * rigidbody.Velocity.magnitude * damage * DamageMod);
+
+				// Delete Rigidbody
+				Object.Destroy(rigidbody);
 
 				// Apply Damage
 				Hittable target = hit.collider.GetComponent<Hittable>();
@@ -69,26 +69,30 @@ public class Bullet : MonoBehaviour
 				transform.position = hit.point;
 
 				// Destroy Bullets and spawn Fragments at Impact Point
-				DestroyBullet(impactDamage);
+				DestroyBullet(impactDamage, -travelledSegment.normalized);
 			}
 
 			lastPosition = transform.position;
 		}
 	}
 
-	private void DestroyBullet(float fragmentationDamage = 0.0f)
+	private void DestroyBullet(float fragmentationDamage = 0.0f, Vector3? fragmentationDirection = null)
 	{
 		destroyed = true;
 
 		if(fragmentationDamage > 0.0f && fragmentPrefab != null)
 		{
+			if(fragmentationDirection == null)
+			{
+				fragmentationDirection = -transform.forward;
+			}
+
 			int fragmentCount = Mathf.Max(Mathf.FloorToInt(fragmentationDamage * fragmentCountModifier), 1);
 			for(int i = 0; i < fragmentCount; ++i)
 			{
 				// Spawn Fragment
 				GameObject fragment = Object.Instantiate(fragmentPrefab, transform.position, transform.rotation);
-				// Give Fragment a random Velocity in general Back-Direction of the Bullet
-				fragment.GetComponent<Fragment>().Velocity = -transform.forward + Random.insideUnitSphere * fragmentSpeed;
+				fragment.GetComponent<SimpleRigidbody>().Velocity = (((Vector3) fragmentationDirection) + Random.insideUnitSphere) * fragmentSpeed;
 			}
 		}
 
