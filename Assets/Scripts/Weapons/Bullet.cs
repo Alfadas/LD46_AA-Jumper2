@@ -7,10 +7,13 @@ public class Bullet : MonoBehaviour
 	[SerializeField] private int damage = 10;
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
+	[SerializeField] private LineRenderer tracer = null;
+	[SerializeField] private float tracerDuration = 0.4f;
 	[SerializeField] private GameObject fragmentPrefab = null;
 	[SerializeField] private AudioClip[] hitSounds = null;
 	private float bulletFired = 0.0f;
 	private Vector3 lastPosition = Vector3.zero;
+	private Vector3 lastTravelledSegment = Vector3.zero;
 	private bool destroyed = false;
 
 	public int Damage
@@ -31,16 +34,23 @@ public class Bullet : MonoBehaviour
 	{
 		bulletFired = Time.time;
 		lastPosition = transform.position;
+
+		if(tracer != null)
+		{
+			tracer.SetPosition(0, transform.position);
+			tracer.SetPosition(1, transform.position);
+			StartCoroutine(removeTracer());
+		}
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
 		if(!destroyed)
 		{
-			Vector3 travelledSegment = transform.position - lastPosition;
+			lastTravelledSegment = transform.position - lastPosition;
 			RaycastHit hit;
 			// TODO: Check for Tag here, too
-			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude) && !hit.collider.isTrigger)
+			if(Physics.Raycast(lastPosition, lastTravelledSegment, out hit, lastTravelledSegment.magnitude) && !hit.collider.isTrigger)
 			{
 				// Retrieve Rigidbody
 				SimpleRigidbody rigidbody = gameObject.GetComponent<SimpleRigidbody>();
@@ -69,7 +79,12 @@ public class Bullet : MonoBehaviour
 				transform.position = hit.point;
 
 				// Destroy Bullets and spawn Fragments at Impact Point
-				DestroyBullet(impactDamage, -travelledSegment.normalized);
+				DestroyBullet(impactDamage, -lastTravelledSegment.normalized);
+			}
+
+			if(tracer != null)
+			{
+				tracer.SetPosition(1, transform.position);
 			}
 
 			lastPosition = transform.position;
@@ -97,5 +112,20 @@ public class Bullet : MonoBehaviour
 		}
 
 		Object.Destroy(gameObject, 0.2f);
+	}
+
+	private IEnumerator removeTracer()
+	{
+		while(!destroyed)
+		{
+			yield return new WaitForSeconds(tracerDuration);
+			tracer.SetPosition(0, tracer.GetPosition(0) + lastTravelledSegment);
+		}
+
+		if(destroyed)
+		{
+			tracer.SetPosition(0, Vector3.zero);
+			tracer.SetPosition(1, Vector3.zero);
+		}
 	}
 }
