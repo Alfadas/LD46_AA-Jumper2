@@ -8,12 +8,13 @@ public class Bullet : MonoBehaviour
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
 	[SerializeField] private LineRenderer tracer = null;
-	[SerializeField] private float tracerDuration = 0.4f;
+	[SerializeField] private float tracerLength = 20.0f;
 	[SerializeField] private GameObject fragmentPrefab = null;
 	[SerializeField] private AudioClip[] hitSounds = null;
 	private float bulletFired = 0.0f;
 	private Vector3 lastPosition = Vector3.zero;
 	private Vector3 lastTravelledSegment = Vector3.zero;
+	private SimpleRigidbody rigidbody = null;
 	private bool destroyed = false;
 
 	public int Damage
@@ -37,9 +38,10 @@ public class Bullet : MonoBehaviour
 
 		if(tracer != null)
 		{
+			rigidbody = gameObject.GetComponent<SimpleRigidbody>();
+
 			tracer.SetPosition(0, transform.position);
 			tracer.SetPosition(1, transform.position);
-			StartCoroutine(removeTracer());
 		}
 	}
 
@@ -82,12 +84,16 @@ public class Bullet : MonoBehaviour
 				DestroyBullet(impactDamage, -lastTravelledSegment.normalized);
 			}
 
-			if(tracer != null)
-			{
-				tracer.SetPosition(1, transform.position);
-			}
-
 			lastPosition = transform.position;
+		}
+	}
+
+	private void Update()
+	{
+		if(tracer != null && (Time.time - bulletFired) > 0.02f)		// Small Delay to prevent Tracers being visible in the Weapon and to conceal, that they are way too big for the Weapon
+		{
+			tracer.SetPosition(0, transform.position);
+			tracer.SetPosition(1, transform.position - (-rigidbody.Velocity * tracerLength * Time.deltaTime));
 		}
 	}
 
@@ -107,25 +113,10 @@ public class Bullet : MonoBehaviour
 			{
 				// Spawn Fragment
 				GameObject fragment = Object.Instantiate(fragmentPrefab, transform.position, transform.rotation);
-				fragment.GetComponent<SimpleRigidbody>().Velocity = (((Vector3) fragmentationDirection) + Random.insideUnitSphere) * fragmentSpeed;
+				fragment.GetComponent<SimpleRigidbody>().Velocity = (((Vector3)fragmentationDirection) + Random.insideUnitSphere) * fragmentSpeed;
 			}
 		}
 
 		Object.Destroy(gameObject, 0.2f);
-	}
-
-	private IEnumerator removeTracer()
-	{
-		while(!destroyed)
-		{
-			yield return new WaitForSeconds(tracerDuration);
-			tracer.SetPosition(0, tracer.GetPosition(0) + lastTravelledSegment);
-		}
-
-		if(destroyed)
-		{
-			tracer.SetPosition(0, Vector3.zero);
-			tracer.SetPosition(1, Vector3.zero);
-		}
 	}
 }
