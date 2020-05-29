@@ -48,7 +48,7 @@ public class SimpleRigidbody : MonoBehaviour
 		}
 		else
 		{
-			Object.Destroy(gameObject, 0.2f);
+			Object.Destroy(gameObject, 0.02f);
 		}
 	}
 

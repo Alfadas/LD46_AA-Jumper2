@@ -113,10 +113,10 @@ public class Bullet : MonoBehaviour
 			{
 				// Spawn Fragment
 				GameObject fragment = Object.Instantiate(fragmentPrefab, transform.position, transform.rotation);
-				fragment.GetComponent<SimpleRigidbody>().Velocity = (((Vector3)fragmentationDirection) + Random.insideUnitSphere) * fragmentSpeed;
+				fragment.GetComponent<SimpleRigidbody>().Velocity = (fragmentationDirection.Value + Random.insideUnitSphere) * fragmentSpeed;
 			}
 		}
 
-		Object.Destroy(gameObject, 0.2f);
+		Object.Destroy(gameObject, 0.02f);
 	}
 }
