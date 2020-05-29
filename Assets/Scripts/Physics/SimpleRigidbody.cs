@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class SimpleRigidbody : MonoBehaviour
+public class SimpleRigidbody : MonoBehaviour, IPoolObject
 {
 	[SerializeField] private float mass = 1.0f;
 	[SerializeField] private float gravity = 9.81f;
@@ -27,8 +27,14 @@ public class SimpleRigidbody : MonoBehaviour
 		}
 	}
 	public Vector3 Velocity { get; set; } = Vector3.zero;
+	public IPoolManager PoolManager { get; set; } = null;
 
 	private void Start()
+	{
+		init();
+	}
+
+	public void init()
 	{
 		spawnTime = Time.time;
 	}
@@ -48,7 +54,16 @@ public class SimpleRigidbody : MonoBehaviour
 		}
 		else
 		{
-			Object.Destroy(gameObject, 0.02f);
+			// Destroy Fragment
+			if(PoolManager != null)
+			{
+				Velocity = Vector3.zero;
+				PoolManager.returnPoolObject(gameObject);
+			}
+			else
+			{
+				GameObject.Destroy(gameObject, 0.02f);
+			}
 		}
 	}
 

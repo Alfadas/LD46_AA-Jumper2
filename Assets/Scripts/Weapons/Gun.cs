@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class Gun : Weapon
+public class Gun : Weapon, IPoolManager
 {
 	[Tooltip("Base Damage of this Weapon")]
 	[SerializeField] private float damage = 1.0f;
@@ -42,6 +42,7 @@ public class Gun : Weapon
 	private int shotsFired = 0;
 	private bool safety = false;
 	private bool disengageSafety = false;
+	private Stack<GameObject> bulletPool = null;
 
 	public float Damage
 	{
@@ -177,6 +178,7 @@ public class Gun : Weapon
 		timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
+		bulletPool = new Stack<GameObject>();
 	}
 
 	private void Update()
@@ -212,11 +214,22 @@ public class Gun : Weapon
 			++shotsFired;
 
 			// Fire Bullet
-			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-			// TODO: Stop buffering the Deviation?
-			Vector3 deviation = (Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f;
+			GameObject bullet;
+			if(bulletPool.Count > 0)
+			{
+				bullet = bulletPool.Pop();
+				bullet.transform.position = muzzle.position;
+				bullet.transform.rotation = transform.rotation;
+				bullet.GetComponent<Bullet>().init();
+				bullet.SetActive(true);
+			}
+			else
+			{
+				bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
+				bullet.GetComponent<Bullet>().PoolManager = this;
+			}
 			// TODO: Change to Force, apply Recoil to player, connect physical Recoil with Weapon Rotation, calculate Velocity from Barrel Length, Propellant Strength and Bullet Weight
-			bullet.GetComponent<SimpleRigidbody>().Velocity = (bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod;
+			bullet.GetComponent<SimpleRigidbody>().Velocity = (bullet.transform.forward + ((Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f)) * MuzzleVelocity * MuzzleVelocityMod;
 			//bullet.GetComponent<SimpleRigidbody>().applyForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod);
 			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
 
@@ -237,7 +250,7 @@ public class Gun : Weapon
 			{
 				audioSource.clip = fireSound;
 				audioSource.Play();
-			}	
+			}
 		}
 
 		// Recenter Weapon
@@ -309,8 +322,8 @@ public class Gun : Weapon
 			else
 			{
 				string text = "Reload";
-				int lettercount = (int)(((Time.time - reloadStarted) / (ReloadTime * ReloadTimeMod)) * (text.Length + 1));	// Add a virtual Letter to let the full Word appear for longer than 1 Frame
-				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));											// Subtract virtual Letter
+				int lettercount = (int)(((Time.time - reloadStarted) / (ReloadTime * ReloadTimeMod)) * (text.Length + 1));  // Add a virtual Letter to let the full Word appear for longer than 1 Frame
+				text = text.Substring(0, Mathf.Clamp(lettercount, 0, text.Length));                                         // Subtract virtual Letter
 
 				magazineIndicator.text = text;
 				magazineIndicator.alignment = TextAnchor.LowerLeft;
@@ -335,5 +348,11 @@ public class Gun : Weapon
 				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
 			}
 		}
+	}
+
+	public void returnPoolObject(GameObject poolObject)
+	{
+		poolObject.SetActive(false);
+		bulletPool.Push(poolObject);
 	}
 }
