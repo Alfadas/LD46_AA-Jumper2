@@ -199,4 +199,8 @@ MonoBehaviour:
   maxHealth: 50
   damageMulti: 1.3
   isEnemy: 1
+  essential: 0
+  explosionVfx: {fileID: 0}
+  explosionSize: 0
+  explosionDamage: 15
   speedReductionPerc: 0.8

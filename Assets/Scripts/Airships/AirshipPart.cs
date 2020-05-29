@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AirshipPart : Hittable
 {
     [SerializeField] bool essential;
     [SerializeField] GameObject explosionVfx;
     [SerializeField] float explosionSize;
+    [SerializeField] int explosionDamage = 15;
+    [SerializeField] int fragmentCount = 25;
     protected Airship airship; //airship this is attached to
 
     protected override void Start()
@@ -20,6 +23,7 @@ public class AirshipPart : Hittable
             GameObject explosion = Instantiate(explosionVfx, transform.position, Quaternion.identity);
             float scale = explosion.transform.localScale.x * explosionSize;
             explosion.transform.localScale = new Vector3(scale, scale, scale);
+            ThrowFragments();
             Object.Destroy(explosion, 2);
         }
         if (essential)
@@ -27,5 +31,20 @@ public class AirshipPart : Hittable
             airship.DestroyAirship();
         }
         Object.Destroy(gameObject);
+    }
+
+    void ThrowFragments()
+    {
+        RaycastHit hit;
+        Vector3 direction = Random.insideUnitSphere;
+        for (int i = 0; i < fragmentCount; i++)
+        {
+            if (Physics.Raycast(transform.position, direction * explosionSize, out hit))
+            {
+                Hittable hittable = hit.collider.gameObject.GetComponent<Hittable>();
+                hittable.GetDamage(explosionDamage);
+            }
+            direction = Random.insideUnitSphere;
+        }
     }
 }
