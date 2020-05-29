@@ -223,8 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   spread: 200
-  verticalRecoil: 1.6
-  horizontalRecoil: 0.8
+  verticalRecoil: 2
+  horizontalRecoil: 2
   recoilResetFactor: 2
   roundsPerMinute: 550
   magazineCapacity: 32

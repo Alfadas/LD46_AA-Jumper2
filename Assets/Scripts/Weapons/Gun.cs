@@ -33,6 +33,8 @@ public class Gun : Weapon
 	private float timePerRound = 1.0f;
 	private float lastShot = 0.0f;
 	private int shotCount = 0;
+	private float verticalAccumulatedRecoil = 0.0f;
+	private float horizontalAccumulatedRecoil = 0.0f;
 	private float reloadStarted = 0.0f;
 	private AudioSource audioSource = null;
 	private bool fire = false;
@@ -204,11 +206,12 @@ public class Gun : Weapon
 		// Fire Weapon
 		if(fire && ReadyToFire)
 		{
+			// Update Counters
 			lastShot = Time.time;
-
 			--shotCount;
 			++shotsFired;
 
+			// Fire Bullet
 			GameObject bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
 			// TODO: Stop buffering the Deviation?
 			Vector3 deviation = (Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f;
@@ -217,14 +220,19 @@ public class Gun : Weapon
 			//bullet.GetComponent<SimpleRigidbody>().applyForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod);
 			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
 
-			transform.localRotation *= Quaternion.AngleAxis(VerticalRecoil * RecoilMod * Random.Range(0.5f, 1.0f), Vector3.left);
-			transform.localRotation *= Quaternion.AngleAxis(HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f), Vector3.up);
+			// Recoil
+			verticalAccumulatedRecoil += VerticalRecoil * RecoilMod * Random.Range(0.0f, 1.0f);
+			horizontalAccumulatedRecoil += HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f);
+			transform.localRotation *= Quaternion.AngleAxis(verticalAccumulatedRecoil, Vector3.left);
+			transform.localRotation *= Quaternion.AngleAxis(horizontalAccumulatedRecoil, Vector3.up);
 
+			// Firemode Limitations
 			if(fireModes[fireMode] != 0 && shotsFired >= fireModes[fireMode])
 			{
 				fire = false;
 			}
 
+			// Fire Sound
 			if(fireSound != null)
 			{
 				audioSource.clip = fireSound;
@@ -233,6 +241,8 @@ public class Gun : Weapon
 		}
 
 		// Recenter Weapon
+		verticalAccumulatedRecoil *= recoilResetFactor * Time.deltaTime;
+		horizontalAccumulatedRecoil *= recoilResetFactor * Time.deltaTime;
 		float recoilAngle = Quaternion.Angle(transform.localRotation, originalRotation);
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
