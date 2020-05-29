@@ -347,6 +347,8 @@ MonoBehaviour:
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 5
+  explosionDamage: 10
+  fragmentCount: 30
 --- !u!1 &6549100506459160950
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +401,8 @@ MonoBehaviour:
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 1
+  explosionDamage: 10
+  fragmentCount: 10
 --- !u!1 &7059454626385133845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1138,16 @@ PrefabInstance:
         type: 3}
       propertyPath: explosionSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
+        type: 3}
+      propertyPath: fragmentCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
+        type: 3}
+      propertyPath: explosionDamage
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
