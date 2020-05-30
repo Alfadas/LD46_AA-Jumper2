@@ -27,6 +27,13 @@ public class AirshipPart : Hittable
             ParticleSystem.MainModule particleSystem = explosion.GetComponent<ParticleSystem>().main; //need to get it first to work
             particleSystem.gravityModifierMultiplier = scale;
 
+            //disable cxolliders on Part and hitCollectors
+            Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
+            foreach(Collider collider in colliders)
+            {
+                collider.enabled = false;
+            }
+
             ThrowFragments();
             Object.Destroy(explosion, 2);
         }
