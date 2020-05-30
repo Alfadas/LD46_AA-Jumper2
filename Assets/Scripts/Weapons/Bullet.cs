@@ -11,10 +11,10 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 	[SerializeField] private float tracerLength = 20.0f;
 	[SerializeField] private GameObject fragmentPrefab = null;
 	[SerializeField] private AudioClip[] hitSounds = null;
-	private float bulletFired = 0.0f;
 	private Vector3 spawnPosition = Vector3.zero;
 	private Vector3 lastPosition = Vector3.zero;
 	private SimpleRigidbody rigidbody = null;
+	private bool drawTracer = false;
 	private bool destroyed = false;
 	private Stack<GameObject> fragmentPool = null;
 
@@ -44,12 +44,12 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 	{
 		rigidbody.init();
 
-		bulletFired = Time.time;
 		spawnPosition = transform.position;
 		lastPosition = transform.position;
 
 		if(tracer != null)
 		{
+			drawTracer = false;
 			tracer.SetPosition(0, transform.position);
 			tracer.SetPosition(1, transform.position);
 		}
@@ -125,15 +125,14 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 			}
 
 			lastPosition = transform.position;
-		}
-	}
 
-	private void Update()
-	{
-		if(tracer != null && transform.position != spawnPosition)     // Small Delay to prevent Tracers from being visible within the Weapon and to conceal that they are actually way too big
-		{
-			tracer.SetPosition(0, transform.position);
-			tracer.SetPosition(1, transform.position - (-rigidbody.Velocity * tracerLength * Time.deltaTime));
+			// Make sure, that Tracer Ends never appear inside or behind the Weapon
+			if(tracer != null && (drawTracer || (transform.position - spawnPosition).sqrMagnitude > (rigidbody.Velocity.sqrMagnitude * (tracerLength * tracerLength) * (Time.deltaTime * Time.deltaTime))))
+			{
+				tracer.SetPosition(0, transform.position);
+				tracer.SetPosition(1, transform.position - (rigidbody.Velocity * tracerLength * Time.deltaTime));
+				drawTracer = true;
+			}
 		}
 	}
 

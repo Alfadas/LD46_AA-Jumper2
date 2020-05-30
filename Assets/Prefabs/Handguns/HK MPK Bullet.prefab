@@ -66,7 +66,7 @@ MonoBehaviour:
   fragmentCountModifier: 0.1
   fragmentSpeed: 2
   tracer: {fileID: -5253833941093612320}
-  tracerLength: 20
+  tracerLength: 2
   fragmentPrefab: {fileID: 3000640768434099919, guid: 3a3422038b41c404285da3357e72579d,
     type: 3}
   hitSounds:
@@ -124,18 +124,18 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.08
-        inSlope: 0.32
-        outSlope: 0.32
+        value: 0.4
+        inSlope: -0.36
+        outSlope: -0.36
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.4
-        inSlope: 0.32
-        outSlope: 0.32
+        value: 0.04
+        inSlope: -0.36
+        outSlope: -0.36
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
