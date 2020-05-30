@@ -23,6 +23,10 @@ public class AirshipPart : Hittable
             GameObject explosion = Instantiate(explosionVfx, transform.position, Quaternion.identity);
             float scale = explosion.transform.localScale.x * explosionSize;
             explosion.transform.localScale = new Vector3(scale, scale, scale);
+            //change gravity to scale appropriately
+            ParticleSystem.MainModule particleSystem = explosion.GetComponent<ParticleSystem>().main; //need to get it first to work
+            particleSystem.gravityModifierMultiplier = scale;
+
             ThrowFragments();
             Object.Destroy(explosion, 2);
         }
