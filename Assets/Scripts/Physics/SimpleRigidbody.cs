@@ -29,7 +29,7 @@ public class SimpleRigidbody : MonoBehaviour, IPoolObject
 	public Vector3 Velocity { get; set; } = Vector3.zero;
 	public IPoolManager PoolManager { get; set; } = null;
 
-	private void Start()
+	private void Awake()
 	{
 		init();
 	}
@@ -37,6 +37,9 @@ public class SimpleRigidbody : MonoBehaviour, IPoolObject
 	public void init()
 	{
 		spawnTime = Time.time;
+		Velocity = Vector3.zero;
+
+		gameObject.SetActive(true);
 	}
 
 	private void FixedUpdate()
@@ -57,7 +60,7 @@ public class SimpleRigidbody : MonoBehaviour, IPoolObject
 			// Destroy Fragment
 			if(PoolManager != null)
 			{
-				Velocity = Vector3.zero;
+				gameObject.SetActive(false);
 				PoolManager.returnPoolObject(gameObject);
 			}
 			else

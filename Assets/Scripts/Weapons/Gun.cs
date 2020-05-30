@@ -221,11 +221,11 @@ public class Gun : Weapon, IPoolManager
 				bullet.transform.position = muzzle.position;
 				bullet.transform.rotation = transform.rotation;
 				bullet.GetComponent<Bullet>().init();
-				bullet.SetActive(true);
 			}
 			else
 			{
 				bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
+				bullet.GetComponent<SimpleRigidbody>().PoolManager = this;
 				bullet.GetComponent<Bullet>().PoolManager = this;
 			}
 			// TODO: Change to Force, apply Recoil to player, connect physical Recoil with Weapon Rotation, calculate Velocity from Barrel Length, Propellant Strength and Bullet Weight
@@ -352,7 +352,6 @@ public class Gun : Weapon, IPoolManager
 
 	public void returnPoolObject(GameObject poolObject)
 	{
-		poolObject.SetActive(false);
 		bulletPool.Push(poolObject);
 	}
 }

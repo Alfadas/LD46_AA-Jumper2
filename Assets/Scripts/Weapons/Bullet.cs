@@ -33,26 +33,28 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 	public float DamageMod { get; set; } = 1.0f;
 	public IPoolManager PoolManager { get; set; } = null;
 
-	private void Start()
+	private void Awake()
 	{
+		rigidbody = gameObject.GetComponent<SimpleRigidbody>();
+		fragmentPool = new Stack<GameObject>();
 		init();
 	}
 
 	public void init()
 	{
+		rigidbody.init();
+
 		bulletFired = Time.time;
 		spawnPosition = transform.position;
 		lastPosition = transform.position;
 
 		if(tracer != null)
 		{
-			rigidbody = gameObject.GetComponent<SimpleRigidbody>();
-
 			tracer.SetPosition(0, transform.position);
 			tracer.SetPosition(1, transform.position);
 		}
 
-		fragmentPool = new Stack<GameObject>();
+		gameObject.SetActive(true);
 	}
 
 	private void FixedUpdate()
@@ -64,9 +66,6 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 			// TODO: Check for Tag here, too
 			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude) && !hit.collider.isTrigger)
 			{
-				// Retrieve Rigidbody
-				SimpleRigidbody rigidbody = gameObject.GetComponent<SimpleRigidbody>();
-
 				// Calculate Damage
 				int impactDamage = Mathf.CeilToInt(rigidbody.Mass * rigidbody.Velocity.magnitude * damage * DamageMod);
 
@@ -102,7 +101,6 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 							fragment.transform.position = transform.position;
 							fragment.transform.rotation = transform.rotation;
 							fragment.GetComponent<SimpleRigidbody>().init();
-							fragment.SetActive(true);
 						}
 						else
 						{
@@ -116,7 +114,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 				// Destroy Bullet
 				if(PoolManager != null)
 				{
-					rigidbody.Velocity = Vector3.zero;
+					gameObject.SetActive(false);
 					PoolManager.returnPoolObject(gameObject);
 				}
 				else
@@ -141,7 +139,6 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 
 	public void returnPoolObject(GameObject poolObject)
 	{
-		poolObject.SetActive(false);
 		fragmentPool.Push(poolObject);
 	}
 }
