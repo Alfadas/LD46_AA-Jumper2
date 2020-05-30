@@ -42,7 +42,10 @@ public class AirshipPart : Hittable
             if (Physics.Raycast(transform.position, direction * explosionSize, out hit))
             {
                 Hittable hittable = hit.collider.gameObject.GetComponent<Hittable>();
-                hittable.GetDamage(explosionDamage);
+                if (hittable)
+                {
+                    hittable.GetDamage(explosionDamage);
+                }
             }
             direction = Random.insideUnitSphere;
         }
