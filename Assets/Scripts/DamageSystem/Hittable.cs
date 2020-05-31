@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Hittable : MonoBehaviour
 {
     [Header("Hittable General")]
     [SerializeField] protected int maxHealth = 100;
+    [SerializeField] protected float preDestructionHealthPerc = 0.25f;
     [SerializeField] protected float damageMulti = 1;
     [SerializeField] protected bool isEnemy = true;
+    [SerializeField] protected int preDestructionDamagePerSec = 5;
 
     protected int health; //currentHealth
+    protected bool preDestroyed = false;
     protected bool destroyed = false; //bool to secure one time destruction
 
     public bool IsEnemy
@@ -27,9 +31,22 @@ public class Hittable : MonoBehaviour
         health -= (Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
         if(health <= 0)
         {
-            TryDestroyHittable();
+            TryPreDestroyHittable();
+            if (health <= -maxHealth * preDestructionHealthPerc)
+            {
+                TryDestroyHittable();
+            }
         }
     }
+
+    public virtual void TryPreDestroyHittable()
+    {
+        if (preDestroyed) return;
+        preDestroyed = true;
+        ApplyDamagePerSecond(preDestructionDamagePerSec);
+        PreDestroyHittable();
+    }
+
     public virtual void TryDestroyHittable()
     {
         if (destroyed) return;
@@ -37,8 +54,22 @@ public class Hittable : MonoBehaviour
         DestroyHittable();
     }
 
+    protected virtual void PreDestroyHittable()
+    {
+        preDestroyed = true;
+    }
+
     protected virtual void DestroyHittable()
     {
-        health = 0;
+        destroyed = true;
+    }
+
+    IEnumerator ApplyDamagePerSecond(int damage)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            GetDamage(damage);
+        }
     }
 }

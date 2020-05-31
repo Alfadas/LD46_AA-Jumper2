@@ -70,7 +70,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 118
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &4970639220354235588
 GameObject:
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1587683349732328521}
   - component: {fileID: 8514089497086910621}
   - component: {fileID: 8019480024864476294}
-  - component: {fileID: 1302529163589920069}
+  - component: {fileID: 1456803679910778416}
   m_Layer: 0
   m_Name: Balloon
   m_TagString: Untagged
@@ -328,7 +328,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 1.5, z: 1}
   m_Center: {x: 0, y: 2.75, z: 5.5}
---- !u!114 &1302529163589920069
+--- !u!114 &1456803679910778416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4970639220354235588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd8d072ee3fca647b8d3727f579c1be, type: 3}
+  m_Script: {fileID: 11500000, guid: 175c31be42ff71a488fb8cf021546afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500

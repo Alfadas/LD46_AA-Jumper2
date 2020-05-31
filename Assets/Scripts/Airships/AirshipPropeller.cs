@@ -9,9 +9,15 @@ public class AirshipPropeller : AirshipPart
         base.Start();
     }
 
+    protected override void PreDestroyHittable()
+    {
+        airship.ChangeMaxSpeedModifier(-speedReductionPerc * 0.5f);
+        base.PreDestroyHittable();
+    }
+
     protected override void DestroyHittable()
     {
-        airship.ChangeMaxSpeedModifier(-speedReductionPerc);
+        airship.ChangeMaxSpeedModifier(-speedReductionPerc * 0.5f);
         base.DestroyHittable();
     }
 }
