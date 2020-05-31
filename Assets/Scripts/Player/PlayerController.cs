@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Collider feet = null;
 	[Tooltip("Float Array of Length 3 with Factors applied to Movement when Character is grounded, touches something or is completely in Air")]
 	[SerializeField] private float floatingMovementFactor = 0.002f;
-	private Rigidbody rigidbody = null;
+	private new Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
 	private List<ContactPoint> contactList = null;
 	private bool grounded = false;

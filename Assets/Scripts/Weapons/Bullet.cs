@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 	[SerializeField] private AudioClip[] hitSounds = null;
 	private Vector3 spawnPosition = Vector3.zero;
 	private Vector3 lastPosition = Vector3.zero;
-	private SimpleRigidbody rigidbody = null;
+	private new SimpleRigidbody rigidbody = null;
 	private bool drawTracer = false;
 	private bool destroyed = false;
 	private Stack<GameObject> fragmentPool = null;
