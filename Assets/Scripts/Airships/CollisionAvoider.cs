@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CollisionAvoider : MonoBehaviour
 {
-    Airship airship; //Airship this is attached to
-    Airship collidingAirship; //Airship the attached Airship would collide with (currently colliding with the Avoider)
+    Airship airship = null; //Airship this is attached to
+    Airship collidingAirship = null; //Airship the attached Airship would collide with (currently colliding with the Avoider)
 
     void Start()
     {

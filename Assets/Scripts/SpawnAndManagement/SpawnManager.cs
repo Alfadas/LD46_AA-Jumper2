@@ -6,10 +6,10 @@ using System.Linq;
 public class SpawnManager : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] MetalManager metalManager;
-    [SerializeField] EnemyList enemyList;
+    [SerializeField] MetalManager metalManager = null;
+    [SerializeField] EnemyList enemyList = null;
     [SerializeField] bool active = true;
-    [SerializeField] int laneHightStepMax;
+    [SerializeField] int laneHightStepMax = 0;
     [Header("SpawnPointChanger")]
     [Tooltip("Absolute x y dif from lane mid")]
     [SerializeField] int laneMidDif = 3;
@@ -23,8 +23,8 @@ public class SpawnManager : MonoBehaviour
     [Header("OverTimeClassChange")]
     [SerializeField] float maxClassBuildupFactor = 0.9f;
     [Header("Ships")]
-    [SerializeField] GameObject[] enemyModels;
-    [SerializeField] int[] cost;
+    [SerializeField] GameObject[] enemyModels = null;
+    [SerializeField] int[] cost = null;
 
     Lane[] laneArray;// Array of all lanes
     bool spawning = false; //secure one time spawn  

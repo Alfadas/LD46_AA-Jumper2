@@ -10,7 +10,7 @@ public class Hittable : MonoBehaviour
     [SerializeField] protected bool isEnemy = true;
     [SerializeField] protected int preDestructionDamagePerSec = 5;
 
-    protected int health; //currentHealth
+    protected int health = 0; //currentHealth
     protected bool preDestroyed = false;
     protected bool destroyed = false; //bool to secure one time destruction
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyList : MonoBehaviour
 {
     [Tooltip("List of all enemies")]
-    [SerializeField] List<Airship> enemies;// serialized for Tutorial, test and debug
+    [SerializeField] List<Airship> enemies = null;// serialized for Tutorial, test and debug
     private void Start()
     {
         enemies = new List<Airship>();

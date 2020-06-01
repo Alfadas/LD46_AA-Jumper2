@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class TurretPanel : MonoBehaviour
 {
-    [SerializeField] Text headText;
-    [SerializeField] Text infoText;
-    [SerializeField] RawImage image;
-    [SerializeField] Button button;
-    [SerializeField] Text buttonText;
-    [SerializeField] Color green;
-    Turret turret;
-    BuildingBase buildingBase;
-    MetalManager metalManager;
-    ExitController exitController;
+    [SerializeField] Text headText = null;
+    [SerializeField] Text infoText = null;
+    [SerializeField] RawImage image = null;
+    [SerializeField] Button button = null;
+    [SerializeField] Text buttonText = null;
+    [SerializeField] Color green = Color.green;
+    Turret turret = null;
+    BuildingBase buildingBase = null;
+    MetalManager metalManager = null;
+    ExitController exitController = null;
 
     private void Awake()
     {

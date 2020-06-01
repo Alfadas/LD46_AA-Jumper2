@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
-    LineRenderer lineRenderer;
-    [SerializeField] Transform firePoint;
-    [SerializeField] Transform playerCamera;
-    [SerializeField] Transform player;
-    [SerializeField] int maxDistance;
-    [SerializeField] GameObject hook;
+    [Tooltip("Attatchment point to player")]
+    [SerializeField] Transform firePoint = null;
+    [Tooltip("Main camera")]
+    [SerializeField] Transform playerCamera = null;
+    [Tooltip("Transform of the player")]
+    [SerializeField] Transform player = null;
+    [Tooltip("Max distance for the hook to hit")]
+    [SerializeField] int maxDistance = 100;
+    [Tooltip("Hook prefab")]
+    [SerializeField] GameObject hook = null;
     [Header("JointData")]
     [Tooltip("Max grapplePoint- Player distance multi to distance on contact")]
     [SerializeField] float jointDistanceMaxMulti = 0.8f;
@@ -18,8 +22,9 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] float jointSpringStrength = 4.5f;
     [SerializeField] float jointDamperStrength = 7f;
     [SerializeField] float jointMassScale = 4.5f;
-    SpringJoint joint;
-    GameObject currentHook;
+    LineRenderer lineRenderer = null; //attached line renderer
+    SpringJoint joint = null; // current joint
+    GameObject currentHook = null; // current hook
 
     private void Awake()
     {

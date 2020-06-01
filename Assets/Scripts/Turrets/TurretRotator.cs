@@ -4,12 +4,12 @@ public class TurretRotator : MonoBehaviour
 {
     [Header("Rotation parts")]
     [Tooltip("Part to rotate on y-axis (parent of gun)")]
-    [SerializeField] Transform turretBase;
+    [SerializeField] Transform turretBase = null;
     [Tooltip("Part to rotate on local x-axis")]
-    [SerializeField] Transform turretGuns;
+    [SerializeField] Transform turretGuns = null;
 
-    Quaternion qRotation;
-    Turret turret;
+    Quaternion qRotation = Quaternion.identity;
+    Turret turret = null;
     public Vector3 TurretGun
     {
         get

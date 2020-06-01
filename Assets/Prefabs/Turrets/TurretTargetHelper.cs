@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurretTargetHelper : MonoBehaviour
 {
     readonly Vector3 gravity = new Vector3(0, 10f, 0);
-    Turret turret;
+    Turret turret = null;
     private void Start()
     {
         turret = gameObject.GetComponent<Turret>();

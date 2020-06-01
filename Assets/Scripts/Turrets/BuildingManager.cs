@@ -3,7 +3,7 @@
 public class BuildingManager : MonoBehaviour
 {
     [Tooltip("Building Menu Panel")]
-    [SerializeField] BuildingPanelBuilder buildingUi;
+    [SerializeField] BuildingPanelBuilder buildingUi = null;
 
     public bool GetUiStatus() //return status of the building ui
     {

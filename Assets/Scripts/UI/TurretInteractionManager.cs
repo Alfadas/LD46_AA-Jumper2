@@ -3,15 +3,15 @@
 public class TurretInteractionManager : MonoBehaviour
 {
     [Tooltip("Selection Menu")]
-    [SerializeField] GameObject buttonPanel;
+    [SerializeField] GameObject buttonPanel = null;
     [Tooltip("TurretPanel for information")]
-    [SerializeField] TurretPanel turretInfo;
+    [SerializeField] TurretPanel turretInfo = null;
     [Tooltip("MetalManager on GameManager")]
-    [SerializeField] MetalManager metalManager;
+    [SerializeField] MetalManager metalManager = null;
     [Tooltip("Percantage of metal cost that is returned on sell")]
-    [SerializeField] float returnPerc;
-    Turret currentTurret;
-    InteractionManager currentInteractionManager;
+    [SerializeField] float returnPerc = 0.5f;
+    Turret currentTurret = null;
+    InteractionManager currentInteractionManager = null;
 
     public bool GetUiStatus()
     {

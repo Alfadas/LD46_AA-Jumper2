@@ -4,9 +4,9 @@ using UnityEngine;
 public class Lane : MonoBehaviour
 {
     [Tooltip("Minimal distance, the ship needs to travel, until lane is free again")]
-    [SerializeField] int minDistance;
-    [SerializeField] int laneHightStep;
-    Airship newAirship;
+    [SerializeField] int minDistance = 50;
+    [SerializeField] int laneHightStep = 0;
+    Airship newAirship = null;
 
     public bool HasAirship
     {

@@ -7,15 +7,15 @@ public class Turret : Hittable
 
     [Header("General")]
     [Tooltip("Displayed name")]
-    [SerializeField] string turretName;
+    [SerializeField] string turretName = "";
     [Tooltip("Image of the turret")]
-    [SerializeField] Texture turretImage;
+    [SerializeField] Texture turretImage = null;
     [Tooltip("Purchase metal cost")]
-    [SerializeField] int cost;
+    [SerializeField] int cost = 50;
     [Tooltip("Size in m")]
-    [SerializeField] int size;
+    [SerializeField] int size = 1;
     [Tooltip("Turret max rotation speed")]
-    [SerializeField] int turnSpeed;
+    [SerializeField] int turnSpeed = 1;
     [Tooltip("If turret can rotate, needs TurretRotator")]
     [SerializeField] bool rotatable = true;
     [Tooltip("If turret aims at Enemys with TurretTargetEnemy")]
@@ -27,20 +27,20 @@ public class Turret : Hittable
 
     [Header("Shooting")]
     [Tooltip("Only displayed damage per second, no real damage property")]
-    [SerializeField] int damage;
+    [SerializeField] int damage = 1;
     [Tooltip("Max auto target range")]
-    [SerializeField] int range;
+    [SerializeField] int range = 100;
     [Tooltip("Spread multiplicator if turret fires automaticaly")] 
     [SerializeField] int autoSpreadMulti = 4;
 
     [Header("Parts")]
     [Tooltip("Bullet start point")]
-    [SerializeField] Transform firePoint;
-    [SerializeField] Gun weaponController;
+    [SerializeField] Transform firePoint = null;
+    [SerializeField] Gun weaponController = null;
 
     TurretRotator turretRotator; //rotator comnponent
-    TurretTargetEnemy turretTargetEnemy;
-    TurretTargetHelper targetHelper;
+    TurretTargetEnemy turretTargetEnemy = null;
+    TurretTargetHelper targetHelper = null;
 
     public bool TargetHidden { get; set; } = false;
     public Airship Target { get; set; }

@@ -4,19 +4,19 @@ using UnityEngine.UI;
 public class GameOverHandler : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] Text scoreText;
+    [SerializeField] Text scoreText = null;
     [Tooltip("Canvas")]
-    [SerializeField] GameObject loseScreen;
+    [SerializeField] GameObject loseScreen = null;
     [Tooltip("Canvas")]
-    [SerializeField] GameObject mainCanvas;
+    [SerializeField] GameObject mainCanvas = null;
     [Header("Manager")]
-    [SerializeField] SpawnManager spawnManager;
-    [SerializeField] EnemyList enemyList;
-    [SerializeField] MetalManager metalManager;
+    [SerializeField] SpawnManager spawnManager = null;
+    [SerializeField] EnemyList enemyList = null;
+    [SerializeField] MetalManager metalManager = null;
     [Header("Player")]
-    [SerializeField] PlayerController playerController;
-    [SerializeField] Weapon weaponController;
-    [SerializeField] ExitController exitController;
+    [SerializeField] PlayerController playerController = null;
+    [SerializeField] Weapon weaponController = null;
+    [SerializeField] ExitController exitController = null;
 
     public void EndGame()
     {

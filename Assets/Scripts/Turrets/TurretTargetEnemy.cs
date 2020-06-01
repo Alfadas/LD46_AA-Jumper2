@@ -6,8 +6,8 @@ public class TurretTargetEnemy : MonoBehaviour
 {
     const int changeTargetIfHiddenTime = 3;
 
-    Turret turret;
-    EnemyList enemyList;
+    Turret turret = null;
+    EnemyList enemyList = null;
 
     private void Start()
     {

@@ -5,7 +5,8 @@ public class BombBay : AirshipPart
 {
     [Header("Bombs")]
     [Tooltip("Prefab of the bomb to drop")]
-    [SerializeField] Bomb bombPrefab;
+    [SerializeField] Bomb bombPrefab = null;
+    [Tooltip("Count of boombs to drop")]
     [SerializeField] int bombCount = 2;
     [Header("Drop point")]
     [Tooltip("Z Point for bomb drop")]
@@ -13,7 +14,7 @@ public class BombBay : AirshipPart
     [Tooltip("-Y distance to ship")]
     [SerializeField] int bombSpawnDistance = 2;
     bool droped = false; //bool to secure one time drop
-    Transform[] dropPoints;
+    Transform[] dropPoints = null; //array of drop Points attached to the part
      
     protected override void Start()
     {

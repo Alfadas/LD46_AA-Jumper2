@@ -8,44 +8,44 @@ public class TutorialManager : MonoBehaviour
 {
     [Header("General")]
     [Tooltip("PlayerController on Player")]
-    [SerializeField] PlayerController player;
+    [SerializeField] PlayerController player = null;
     [Tooltip("WeaponController on player weapon")]
-    [SerializeField] Weapon weaponController;
+    [SerializeField] Weapon weaponController = null;
     [Tooltip("exitController for cancel management")]
-    [SerializeField] ExitController exitController;
+    [SerializeField] ExitController exitController = null;
     [Tooltip("Tutorial info panel")]
-    [SerializeField] GameObject infoPanel;
+    [SerializeField] GameObject infoPanel = null;
     [Tooltip("Tutorial info text object")]
-    [SerializeField] Text infoText;
+    [SerializeField] Text infoText = null;
     [Header("Intro")]
     [Tooltip("Displayed text, '/n' for new line")]
-    [SerializeField] string introText;
+    [SerializeField] string introText = "";
     [Header("Weapon Info")]
     [Tooltip("Info display position")]
-    [SerializeField] int zTriggerWeapon;
+    [SerializeField] int zTriggerWeapon = 0;
     [Tooltip("Displayed text, '/n' for new line")]
-    [SerializeField] string weaponInfo;
+    [SerializeField] string weaponInfo = "";
     [Header("Enemy Info")]
     [Tooltip("Info display position")]
-    [SerializeField] int zTriggerEnemies;
+    [SerializeField] int zTriggerEnemies = 0;
     [Tooltip("Displayed text, '/n' for new line")]
-    [SerializeField] string enemyInfo;
+    [SerializeField] string enemyInfo = "";
     [Tooltip("Airship to kill")]
-    [SerializeField] Airship airship;
+    [SerializeField] Airship airship = null;
     [Tooltip("Blocker to delete after airship kill")]
-    [SerializeField] GameObject blocker;
+    [SerializeField] GameObject blocker = null;
     [Header("Turret Info")]
     [Tooltip("Info display position")]
-    [SerializeField] int zTriggerTurrets;
+    [SerializeField] int zTriggerTurrets = 0;
     [Tooltip("Displayed text, '/n' for new line")]
-    [SerializeField] string turretInfo;
+    [SerializeField] string turretInfo = "";
     [Tooltip("BuildingBase for turret ro be build on")]
-    [SerializeField] BuildingBase buildingBase;
+    [SerializeField] BuildingBase buildingBase = null;
     [Header("End")]
     [Tooltip("Tutorial info to menu button")]
-    [SerializeField] GameObject toMenuButton;
+    [SerializeField] GameObject toMenuButton = null;
     [Tooltip("Displayed text, '/n' for new line")]
-    [SerializeField] string endInfo;
+    [SerializeField] string endInfo = "";
 
     void Start()
     {

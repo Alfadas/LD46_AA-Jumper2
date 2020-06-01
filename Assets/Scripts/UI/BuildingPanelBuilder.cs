@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class BuildingPanelBuilder : MonoBehaviour
 {
-    [SerializeField] Turret[] turrets;
-    [SerializeField] RectTransform turretPanel;
+    [SerializeField] Turret[] turrets = null;
+    [SerializeField] RectTransform turretPanel = null;
     [SerializeField] int turretPanelWidth = 200;
     List<TurretPanel> turretPanels = new List<TurretPanel>();
 

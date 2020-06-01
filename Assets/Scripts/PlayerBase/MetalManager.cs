@@ -6,9 +6,9 @@ public class MetalManager : MonoBehaviour
 {
     [Header("UI Objects")]
     [Tooltip("UI Text Object for the score")]
-    [SerializeField] Text scoreText;
+    [SerializeField] Text scoreText = null;
     [Tooltip("UI Text Object for metal")]
-    [SerializeField] Text metalText;
+    [SerializeField] Text metalText = null;
     [Header("Metal gain")]
     [Tooltip("Metal count at the beginning of the game")]
     [SerializeField] int startingMetal = 20;

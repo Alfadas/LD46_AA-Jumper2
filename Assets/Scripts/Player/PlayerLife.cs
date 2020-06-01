@@ -2,7 +2,7 @@
 
 public class PlayerLife : Hittable
 {
-    [SerializeField] Transform respawnPoint;
+    [SerializeField] Transform respawnPoint = null;
     [Header("Movement boundaries")]
     [SerializeField] int zMax = 300;
     [SerializeField] int zMin = -300;

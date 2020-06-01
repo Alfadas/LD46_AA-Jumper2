@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class Base : Hittable
 {
     [Tooltip("Text Ui object to display base health")]
-    [SerializeField] Text baseHealthText;
+    [SerializeField] Text baseHealthText = null;
     [Tooltip("GameOverHandler ref to handle lose")]
-    [SerializeField] GameOverHandler gameOverHandler;
+    [SerializeField] GameOverHandler gameOverHandler = null;
 
     protected override void DestroyHittable()
     {

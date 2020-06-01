@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ExitController : MonoBehaviour
 {
-    [SerializeField] PlayerController player;
-    [SerializeField] Weapon weaponController;
-    [SerializeField] GameObject exitPanel;
-    [SerializeField] TurretInteractionManager turretInteractionManager;
-    [SerializeField] BuildingManager buildingManager;
+    [SerializeField] PlayerController player = null;
+    [SerializeField] Weapon weaponController = null;
+    [SerializeField] GameObject exitPanel = null;
+    [SerializeField] TurretInteractionManager turretInteractionManager = null;
+    [SerializeField] BuildingManager buildingManager = null;
     bool blocked = false;
 
     void Update()

@@ -3,13 +3,13 @@
 public class InteractionManager : MonoBehaviour
 {
     [Tooltip("Panel to sigalize interactivity")]
-    [SerializeField] GameObject interactHelp;
+    [SerializeField] GameObject interactHelp = null;
     [Tooltip("UI Manager for turret interactions")]
-    [SerializeField] TurretInteractionManager turretInteractionManager;
-    [SerializeField] PlayerController playerController;
+    [SerializeField] TurretInteractionManager turretInteractionManager = null;
+    [SerializeField] PlayerController playerController = null;
     [Tooltip("Controller of the player Weapon")]
-    [SerializeField] Weapon weaponController;
-    BuildingManager buildingManager; //attatched BuildingManager
+    [SerializeField] Weapon weaponController = null;
+    BuildingManager buildingManager = null; //attatched BuildingManager
     private void Awake()
     {
         buildingManager = gameObject.GetComponent<BuildingManager>();

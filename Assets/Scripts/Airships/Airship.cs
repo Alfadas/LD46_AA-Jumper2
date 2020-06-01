@@ -10,9 +10,9 @@ public class Airship : MonoBehaviour
     [SerializeField] int metal = 5;
     [Header("Tutorial Refs")]
     [Tooltip("MetalManager ref to add kill reward")]
-    [SerializeField] MetalManager metallManager; 
+    [SerializeField] MetalManager metallManager = null; 
     [Tooltip("EnemyList ref to delete ship on destruction")]
-    [SerializeField] EnemyList enemyList;
+    [SerializeField] EnemyList enemyList = null;
     bool destroyed = false; //bool to secure one time destruction
 
     float maxSpeedModifier = 1f;

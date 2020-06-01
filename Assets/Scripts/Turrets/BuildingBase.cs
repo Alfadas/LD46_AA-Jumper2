@@ -2,7 +2,7 @@
 
 public class BuildingBase : MonoBehaviour
 {
-    Turret turret; //turret on the BuildingBase
+    Turret turret = null; //turret on the BuildingBase
 
     public bool IsFilled // returns if the BuildingBase has a turret
     {

@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class AirshipPart : Hittable
 {
-    [SerializeField] bool essential;
-    [SerializeField] GameObject explosionVfx;
-    [SerializeField] float explosionSize;
+    [Tooltip("Destruction also destroyes ariship")]
+    [SerializeField] bool essential = false;
+    [Header("Explosion")]
+    [Tooltip("Explosion Vfx Prefab")]
+    [SerializeField] GameObject explosionVfx = null;
+    [Tooltip("Size in Unity scale the explosion will get scaled to")]
+    [SerializeField] float explosionSize = 1;
+    [Tooltip("Damage per explosion fragment")]
     [SerializeField] int explosionDamage = 15;
+    [Tooltip("Count of fragments generated on exploding")]
     [SerializeField] int fragmentCount = 25;
-    protected Airship airship; //airship this is attached to
+    protected Airship airship = null; //airship this is attached to
 
     protected override void Start()
     {
