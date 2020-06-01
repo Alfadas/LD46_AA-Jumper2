@@ -15,6 +15,11 @@ public class BombBay : AirshipPart
     [SerializeField] int bombSpawnDistance = 2;
     bool droped = false; //bool to secure one time drop
     Transform[] dropPoints = null; //array of drop Points attached to the part
+
+    public void SetDroped(bool droped)
+    {
+        this.droped = droped;
+    }
      
     protected override void Start()
     {
