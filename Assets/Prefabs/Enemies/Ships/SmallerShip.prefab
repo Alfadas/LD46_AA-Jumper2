@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6804888054864107467}
   - {fileID: 7481064361118632927}
   - {fileID: 5441434877708757150}
-  - {fileID: 1888121619367355101}
+  - {fileID: 2605591561874976194}
   - {fileID: 5410617466257685806}
   - {fileID: 2151239642120670730}
   m_Father: {fileID: 0}
@@ -341,12 +341,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
+  preDestructionHealthPerc: 0.25
   damageMulti: 1
   isEnemy: 1
+  preDestructionDamagePerSec: 5
   essential: 1
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
-  explosionSize: 5
+  explosionSize: 6
   explosionDamage: 10
   fragmentCount: 30
 --- !u!1 &6549100506459160950
@@ -358,7 +360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7481064361118632927}
-  - component: {fileID: 1346206573742317314}
+  - component: {fileID: 7274311093362574426}
   m_Layer: 0
   m_Name: Cabin
   m_TagString: Untagged
@@ -382,7 +384,7 @@ Transform:
   m_Father: {fileID: 4368452007946506376}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1346206573742317314
+--- !u!114 &7274311093362574426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -391,18 +393,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6549100506459160950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fd8d072ee3fca647b8d3727f579c1be, type: 3}
+  m_Script: {fileID: 11500000, guid: adee6b2649897b54a8bbe0e91f779197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
+  preDestructionHealthPerc: 0.1
   damageMulti: 1
   isEnemy: 1
+  preDestructionDamagePerSec: 5
   essential: 0
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 1
   explosionDamage: 10
   fragmentCount: 10
+  bombBayHolder: {fileID: 9196529945721526717}
 --- !u!1 &7059454626385133845
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,8 +577,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damageMulti: 0.6
+  preDestructionHealthPerc: 0.25
+  damageMulti: 0.5
   isEnemy: 1
+  preDestructionDamagePerSec: 5
 --- !u!1 &7809220113049586539
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,8 +736,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damageMulti: 1.5
+  preDestructionHealthPerc: 0.25
+  damageMulti: 0.9
   isEnemy: 1
+  preDestructionDamagePerSec: 5
+--- !u!1 &9196529945721526717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2605591561874976194}
+  m_Layer: 0
+  m_Name: BombBayHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2605591561874976194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196529945721526717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1888121619367355101}
+  m_Father: {fileID: 4368452007946506376}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9217938897014574827
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +930,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 4368452007946506376}
+    m_TransformParent: {fileID: 2605591561874976194}
     m_Modifications:
     - target: {fileID: 350345479935353345, guid: 6556e67fee026ab4780f152c56070efb,
         type: 3}
@@ -930,7 +970,7 @@ PrefabInstance:
     - target: {fileID: 350345479935353345, guid: 6556e67fee026ab4780f152c56070efb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 350345479935353345, guid: 6556e67fee026ab4780f152c56070efb,
         type: 3}
@@ -951,6 +991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BombBay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291560353602924366, guid: 6556e67fee026ab4780f152c56070efb,
+        type: 3}
+      propertyPath: damageMulti
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6556e67fee026ab4780f152c56070efb, type: 3}
@@ -1148,6 +1193,16 @@ PrefabInstance:
         type: 3}
       propertyPath: explosionDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
+        type: 3}
+      propertyPath: damageMulti
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
