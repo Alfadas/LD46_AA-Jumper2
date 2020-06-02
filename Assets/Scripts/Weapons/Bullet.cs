@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 {
+	[Tooltip("List of Layers this Bullet can collide with")]
+	[SerializeField] private LayerMask targetMask = new LayerMask();
 	[SerializeField] private int damage = 10;
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
@@ -64,7 +66,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 			Vector3 travelledSegment = transform.position - lastPosition;
 			RaycastHit hit;
 			// TODO: Check for Tag here, too
-			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude) && !hit.collider.isTrigger)
+			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude, targetMask) && !hit.collider.isTrigger)
 			{
 				// Calculate Damage
 				int impactDamage = Mathf.CeilToInt(rigidbody.Mass * rigidbody.Velocity.magnitude * damage * DamageMod);

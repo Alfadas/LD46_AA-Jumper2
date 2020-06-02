@@ -62,6 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d6d36fa95bcf4a4d98922f21a91bab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 1
   damage: 12
   fragmentCountModifier: 0.1
   fragmentSpeed: 10
