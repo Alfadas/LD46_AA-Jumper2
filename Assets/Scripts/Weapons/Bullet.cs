@@ -66,7 +66,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 			Vector3 travelledSegment = transform.position - lastPosition;
 			RaycastHit hit;
 			// TODO: Check for Tag here, too
-			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude, targetMask) && !hit.collider.isTrigger)
+			if(Physics.Raycast(lastPosition, travelledSegment, out hit, travelledSegment.magnitude, targetMask))
 			{
 				// Calculate Damage
 				int impactDamage = Mathf.CeilToInt(rigidbody.Mass * rigidbody.Velocity.magnitude * damage * DamageMod);

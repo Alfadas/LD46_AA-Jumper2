@@ -862,6 +862,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollisionWarnSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 4038975762487275510, guid: 5d3ef66f39f09484c9606ec032c99973,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5568720079717692227, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
       propertyPath: m_LocalPosition.x
