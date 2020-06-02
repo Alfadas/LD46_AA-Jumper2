@@ -577,7 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  preDestructionHealthPerc: 0.25
+  preDestructionHealthPerc: 0
   damageMulti: 0.5
   isEnemy: 1
   preDestructionDamagePerSec: 5
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  preDestructionHealthPerc: 0.25
+  preDestructionHealthPerc: 0
   damageMulti: 0.9
   isEnemy: 1
   preDestructionDamagePerSec: 5
