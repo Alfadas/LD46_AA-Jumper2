@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  preDestructionHealthPerc: 0.3
+  preDestructionHealthPerc: 0.25
   damageMulti: 1
   isEnemy: 1
   preDestructionDamagePerSec: 5
