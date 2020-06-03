@@ -580,7 +580,7 @@ MonoBehaviour:
   preDestructionHealthPerc: 0
   damageMulti: 0.5
   isEnemy: 1
-  preDestructionDamagePerSec: 5
+  preDestructionDamagePerSec: 0
 --- !u!1 &7809220113049586539
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   preDestructionHealthPerc: 0
   damageMulti: 0.9
   isEnemy: 1
-  preDestructionDamagePerSec: 5
+  preDestructionDamagePerSec: 0
 --- !u!1 &9196529945721526717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1002,27 @@ PrefabInstance:
       propertyPath: damageMulti
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 7291560353602924366, guid: 6556e67fee026ab4780f152c56070efb,
+        type: 3}
+      propertyPath: explosionSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291560353602924366, guid: 6556e67fee026ab4780f152c56070efb,
+        type: 3}
+      propertyPath: explosionVfx
+      value: 
+      objectReference: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
+        type: 3}
+    - target: {fileID: 7291560353602924366, guid: 6556e67fee026ab4780f152c56070efb,
+        type: 3}
+      propertyPath: explosionDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291560353602924366, guid: 6556e67fee026ab4780f152c56070efb,
+        type: 3}
+      propertyPath: fragmentCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6556e67fee026ab4780f152c56070efb, type: 3}
 --- !u!4 &1888121619367355101 stripped
@@ -1178,37 +1199,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4368452007946506376}
     m_Modifications:
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: explosionVfx
-      value: 
-      objectReference: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
-        type: 3}
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: explosionSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: fragmentCount
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: explosionDamage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: maxHealth
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 97001845287142299, guid: b94b94322b44c2f4ca90c40f2846a91c,
-        type: 3}
-      propertyPath: damageMulti
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
       propertyPath: m_Name
