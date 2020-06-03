@@ -197,10 +197,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  damageMulti: 1.3
+  preDestructionHealthPerc: 0.25
+  damageMulti: 0.2
   isEnemy: 1
+  preDestructionDamagePerSec: 5
   essential: 0
-  explosionVfx: {fileID: 0}
-  explosionSize: 0
-  explosionDamage: 15
+  explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
+    type: 3}
+  explosionSize: 1
+  explosionDamage: 10
+  fragmentCount: 20
   speedReductionPerc: 0.8
