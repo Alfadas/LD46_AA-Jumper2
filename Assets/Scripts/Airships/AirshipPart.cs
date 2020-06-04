@@ -56,7 +56,7 @@ public class AirshipPart : Hittable
         Vector3 direction = Random.insideUnitSphere;
         for (int i = 0; i < fragmentCount; i++)
         {
-            if (Physics.Raycast(transform.position, direction * explosionSize, out hit))
+            if (Physics.Raycast(transform.position, direction, out hit, explosionSize))
             {
                 Hittable hittable = hit.collider.gameObject.GetComponent<Hittable>();
                 if (hittable)
