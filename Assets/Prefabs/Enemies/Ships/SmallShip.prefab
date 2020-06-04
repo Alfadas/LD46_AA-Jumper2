@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7962428221104912241}
   - component: {fileID: 6509819685385045081}
   m_Layer: 0
-  m_Name: CabineWallCollector
+  m_Name: CabinWallCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 765592696167245456}
   - component: {fileID: 2050960817206885398}
   m_Layer: 0
-  m_Name: CabineWindowCollector
+  m_Name: CabinWindowCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 8811027981784682165}
   - component: {fileID: 3937481791723202333}
   m_Layer: 0
-  m_Name: CabinePart
+  m_Name: CabinPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
