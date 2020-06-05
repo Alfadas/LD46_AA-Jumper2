@@ -4,6 +4,8 @@ public class Airship : MonoBehaviour
 {
     [Tooltip("Maximum m/s")]
     [SerializeField] int maxSpeed = 1;
+    [SerializeField] bool useForce = false;
+    [SerializeField] int force = 5;
     [Tooltip("Z Point to automaticly dissolve the ship at the end of the lane")]
     [SerializeField] int killPoint = -500;
     [Tooltip("Metal/Score rewarded for killing the ship")]
@@ -14,6 +16,8 @@ public class Airship : MonoBehaviour
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList = null;
     bool destroyed = false; //bool to secure one time destruction
+
+    Rigidbody airshipRigidbody = null;
 
     float maxSpeedModifier = 1f;
 
@@ -46,6 +50,7 @@ public class Airship : MonoBehaviour
     void Start()
     {
         Speed = maxSpeed;
+        airshipRigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -65,7 +70,15 @@ public class Airship : MonoBehaviour
 
     void Move()
     {
-        transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
+        if (useForce)
+        {
+            Debug.Log(airshipRigidbody.velocity);
+            airshipRigidbody.AddRelativeForce(Vector3.back * force * Time.deltaTime * 100);
+        }
+        else
+        {
+            transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
+        }
     }
 
     public void ChangeMaxSpeedModifier(float addition) // Add
