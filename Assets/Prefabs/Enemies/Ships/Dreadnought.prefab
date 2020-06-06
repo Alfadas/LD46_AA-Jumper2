@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   useForce: 1
-  force: 26000
+  force: 20000
   killPoint: -500
   metal: 25
   metallManager: {fileID: 0}
