@@ -72,7 +72,6 @@ public class Airship : MonoBehaviour
     {
         if (useForce)
         {
-            Debug.Log(airshipRigidbody.velocity);
             airshipRigidbody.AddRelativeForce(Vector3.back * force * Time.deltaTime * 100);
         }
         else
