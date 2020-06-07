@@ -46,6 +46,7 @@ public class CollisionAvoider : MonoBehaviour
         {
             //set as new colliding and change speed
             collidingAirship = newCollidingAirship;
+            collidingAirship.AddCollisionAvoider(this);
             Break(collidingAirship);
         }
     }
