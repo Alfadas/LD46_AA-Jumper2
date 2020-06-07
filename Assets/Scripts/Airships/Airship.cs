@@ -23,6 +23,8 @@ public class Airship : MonoBehaviour
 
     float maxSpeedModifier = 1f;
     float forceModifiyer = 1f;
+    float forceReduction = 1f;
+    int maxForce = 0;
 
     public float ForceModifyer
     {
@@ -53,19 +55,11 @@ public class Airship : MonoBehaviour
         }
     }
 
-    public int MaxSpeed // get for max speed
-    {
-        get
-        {
-            return maxSpeed;
-        }
-    }
-
     public int MaxSpeedModified // get for max speed
     {
         get
         {
-            return Mathf.CeilToInt(maxSpeed * maxSpeedModifier);
+            return Mathf.CeilToInt(maxSpeed * forceReduction);
         }
     }
 
@@ -79,6 +73,18 @@ public class Airship : MonoBehaviour
         airshipRigidbody.mass += value;
     }
 
+    public void AddForce(int value)
+    {
+        force += value;
+        maxForce += value;
+    }
+
+    public void RemoveForce(int value)
+    {
+        force -= value;
+        forceReduction = force / maxForce;
+    }
+
     public void BreakFollowing(Airship newCollidingAirship)
     {
         foreach(CollisionAvoider collisionAvoider in collisionAvoiders)
@@ -89,6 +95,7 @@ public class Airship : MonoBehaviour
 
     void Awake()
     {
+        maxForce = force;
         Speed = maxSpeed;
         airshipRigidbody = GetComponent<Rigidbody>();
     }

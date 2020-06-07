@@ -208,4 +208,4 @@ MonoBehaviour:
   explosionSize: 1
   explosionDamage: 10
   fragmentCount: 20
-  speedReductionPerc: 0.8
+  force: 3700

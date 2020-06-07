@@ -125,4 +125,4 @@ MonoBehaviour:
   explosionSize: 2
   explosionDamage: 15
   fragmentCount: 20
-  speedReductionPerc: 0.2
+  force: 4500

@@ -17,9 +17,8 @@ public class CollisionAvoider : MonoBehaviour
         yield return new WaitUntil(() => speedBalanced == true);
         while (collidingAirship != null)
         {
-
             //ToDo: break if the colliding airship has to break
-            airship.ForceModifyer = collidingAirship.Velocity.z / -airship.MaxSpeed;
+            airship.ForceModifyer = collidingAirship.Velocity.z / -airship.MaxSpeedModified;
             yield return new WaitForSeconds(2);
         }
         airship.ForceModifyer = 1;
