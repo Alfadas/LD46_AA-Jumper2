@@ -5,7 +5,6 @@ public class Airship : MonoBehaviour
 {
     [Tooltip("Maximum m/s")]
     [SerializeField] int maxSpeed = 1;
-    [SerializeField] bool useForce = false;
     [SerializeField] int force = 5;
     [Tooltip("Z Point to automaticly dissolve the ship at the end of the lane")]
     [SerializeField] int killPoint = -500;
@@ -21,7 +20,6 @@ public class Airship : MonoBehaviour
     Rigidbody airshipRigidbody = null;
     List<CollisionAvoider> collisionAvoiders = new List<CollisionAvoider>(); // list of collision Avoiders blocked by this Airship
 
-    float maxSpeedModifier = 1f;
     float forceModifiyer = 1f;
     float forceReduction = 1f;
     int maxForce = 0;
@@ -44,8 +42,6 @@ public class Airship : MonoBehaviour
             }
         }
     }
-
-    public int Speed { get; set; } // current speed
 
     public Vector3 Velocity //speed as Vector 3
     {
@@ -87,16 +83,15 @@ public class Airship : MonoBehaviour
 
     public void BreakFollowing(Airship newCollidingAirship)
     {
-        foreach(CollisionAvoider collisionAvoider in collisionAvoiders)
+        foreach (CollisionAvoider collisionAvoider in collisionAvoiders)
         {
             collisionAvoider.Break(newCollidingAirship);
-        } 
+        }
     }
 
     void Awake()
     {
         maxForce = force;
-        Speed = maxSpeed;
         airshipRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -117,24 +112,8 @@ public class Airship : MonoBehaviour
 
     void Move()
     {
-        if (useForce)
-        {
-            //Debug.Log(name + " " + airshipRigidbody.velocity);
-            airshipRigidbody.AddRelativeForce(Vector3.back * force * ForceModifyer * Time.deltaTime * 100);
-        }
-        else
-        {
-            transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
-        }
-    }
-
-    public void ChangeMaxSpeedModifier(float addition) // Add
-    {
-        maxSpeedModifier += addition;
-        if (Speed > MaxSpeedModified) //update speed
-        {
-            Speed = MaxSpeedModified;
-        }
+        //Debug.Log(name + " " + airshipRigidbody.velocity);
+        airshipRigidbody.AddRelativeForce(Vector3.back * force * ForceModifyer * Time.deltaTime * 100);
     }
 
     public void Dissolve() //destroy object without kill reward
