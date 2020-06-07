@@ -833,9 +833,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2661cbd5e178240ad507cc50b6a678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 8
+  maxSpeed: 9
   useForce: 1
-  force: 11400
+  force: 400
   killPoint: -50000
   metal: 10
   metallManager: {fileID: 0}
