@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Airship : MonoBehaviour
 {
@@ -12,14 +13,35 @@ public class Airship : MonoBehaviour
     [SerializeField] int metal = 5;
     [Header("Tutorial Refs")]
     [Tooltip("MetalManager ref to add kill reward")]
-    [SerializeField] MetalManager metallManager = null; 
+    [SerializeField] MetalManager metallManager = null;
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList = null;
     bool destroyed = false; //bool to secure one time destruction
 
     Rigidbody airshipRigidbody = null;
+    List<CollisionAvoider> collisionAvoiders = new List<CollisionAvoider>(); // list of collision Avoiders blocked by this Airship
 
     float maxSpeedModifier = 1f;
+    float forceModifiyer = 1f;
+
+    public float ForceModifyer
+    {
+        get
+        {
+            return forceModifiyer;
+        }
+        set
+        {
+            if (value >= 1)
+            {
+                forceModifiyer = 1;
+            }
+            else
+            {
+                forceModifiyer = value;
+            }
+        }
+    }
 
     public int Speed { get; set; } // current speed
 
@@ -27,7 +49,7 @@ public class Airship : MonoBehaviour
     {
         get
         {
-            return new Vector3(0, 0, -Speed);
+            return airshipRigidbody.velocity;
         }
     }
 
@@ -45,6 +67,19 @@ public class Airship : MonoBehaviour
         {
             return Mathf.CeilToInt(maxSpeed * maxSpeedModifier);
         }
+    }
+
+    public void AddCollisionAvoider(CollisionAvoider collisionAvoider)
+    {
+        collisionAvoiders.Add(collisionAvoider);
+    }
+
+    public void BreakFollowing(Airship newCollidingAirship)
+    {
+        foreach(CollisionAvoider collisionAvoider in collisionAvoiders)
+        {
+            collisionAvoider.Break(newCollidingAirship);
+        } 
     }
 
     void Start()
@@ -72,7 +107,8 @@ public class Airship : MonoBehaviour
     {
         if (useForce)
         {
-            airshipRigidbody.AddRelativeForce(Vector3.back * force * Time.deltaTime * 100);
+            //Debug.Log(name + " " + airshipRigidbody.velocity);
+            airshipRigidbody.AddRelativeForce(Vector3.back * force * ForceModifyer * Time.deltaTime * 100);
         }
         else
         {

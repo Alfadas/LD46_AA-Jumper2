@@ -1064,6 +1064,7 @@ MonoBehaviour:
   metal: 25
   metallManager: {fileID: 0}
   enemyList: {fileID: 0}
+  forceModifiyer: 1
 --- !u!54 &1144660087
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1522,12 +1523,17 @@ PrefabInstance:
     - target: {fileID: 3454202416455948319, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
       propertyPath: m_Size.x
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3454202416455948319, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
       propertyPath: m_Size.y
-      value: 23
+      value: 20.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454202416455948319, guid: 5d3ef66f39f09484c9606ec032c99973,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4038975762487275510, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
@@ -1552,7 +1558,7 @@ PrefabInstance:
     - target: {fileID: 5568720079717692227, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.5
+      value: -44.99
       objectReference: {fileID: 0}
     - target: {fileID: 5568720079717692227, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}

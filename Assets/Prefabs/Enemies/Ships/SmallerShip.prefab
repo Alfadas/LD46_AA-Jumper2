@@ -58,6 +58,7 @@ MonoBehaviour:
   metal: 3
   metallManager: {fileID: 0}
   enemyList: {fileID: 0}
+  forceModifiyer: 1
 --- !u!54 &4368452007946506377
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -882,7 +883,7 @@ PrefabInstance:
     - target: {fileID: 5568720079717692227, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.22
+      value: -18.7
       objectReference: {fileID: 0}
     - target: {fileID: 5568720079717692227, guid: 5d3ef66f39f09484c9606ec032c99973,
         type: 3}
