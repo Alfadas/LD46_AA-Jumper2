@@ -5,6 +5,8 @@ public class AirshipPart : Hittable
 {
     [Tooltip("Destruction also destroyes ariship")]
     [SerializeField] bool essential = false;
+    [Tooltip("Mass of the whole part")]
+    [SerializeField] int partMass = 100;
     [Header("Explosion")]
     [Tooltip("Explosion Vfx Prefab")]
     [SerializeField] GameObject explosionVfx = null;
@@ -20,6 +22,7 @@ public class AirshipPart : Hittable
     {
         base.Start();
         airship = GetComponentInParent<Airship>(); //get attached airship
+        airship.AddMass(partMass);
     }
 
     protected override void DestroyHittable()

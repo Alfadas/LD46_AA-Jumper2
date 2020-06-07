@@ -74,6 +74,11 @@ public class Airship : MonoBehaviour
         collisionAvoiders.Add(collisionAvoider);
     }
 
+    public void AddMass(int value)
+    {
+        airshipRigidbody.mass += value;
+    }
+
     public void BreakFollowing(Airship newCollidingAirship)
     {
         foreach(CollisionAvoider collisionAvoider in collisionAvoiders)
@@ -82,7 +87,7 @@ public class Airship : MonoBehaviour
         } 
     }
 
-    void Start()
+    void Awake()
     {
         Speed = maxSpeed;
         airshipRigidbody = GetComponent<Rigidbody>();
