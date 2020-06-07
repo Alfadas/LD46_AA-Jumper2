@@ -833,8 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2661cbd5e178240ad507cc50b6a678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 9
-  useForce: 1
+  maxSpeed: 8
   force: 400
   killPoint: -50000
   metal: 10
@@ -951,7 +950,7 @@ MonoBehaviour:
   isEnemy: 1
   preDestructionDamagePerSec: 5
   essential: 1
-  partMass: 1000
+  partMass: 1200
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 8

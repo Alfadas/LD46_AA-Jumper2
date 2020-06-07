@@ -164,7 +164,7 @@ MonoBehaviour:
   isEnemy: 1
   preDestructionDamagePerSec: 10
   essential: 0
-  partMass: 900
+  partMass: 1100
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 1
