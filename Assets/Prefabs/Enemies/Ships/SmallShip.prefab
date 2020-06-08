@@ -1588,7 +1588,7 @@ PrefabInstance:
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
       propertyPath: m_Name
-      value: PropellerHittable (1)
+      value: SmallEnginePart (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3121220615738986559, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
@@ -1663,7 +1663,7 @@ PrefabInstance:
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
       propertyPath: m_Name
-      value: PropellerHittable
+      value: SmallEnginePart
       objectReference: {fileID: 0}
     - target: {fileID: 3121220615738986559, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
@@ -1813,7 +1813,7 @@ PrefabInstance:
     - target: {fileID: 1751434684371922790, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
       propertyPath: m_Name
-      value: PropellerHittable (2)
+      value: SmallEnginePart (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3121220615738986559, guid: b94b94322b44c2f4ca90c40f2846a91c,
         type: 3}
