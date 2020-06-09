@@ -26,6 +26,14 @@ public class GrapplingHook : MonoBehaviour
     SpringJoint joint = null; // current joint
     GameObject currentHook = null; // current hook
 
+    public bool Hooked
+    {
+        get
+        {
+            return joint != null;
+        }
+    }
+
     private void Awake()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
