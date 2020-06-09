@@ -112,7 +112,7 @@ public class Airship : MonoBehaviour
 
     void Move()
     {
-        Debug.Log(name + " " + airshipRigidbody.velocity);
+        //Debug.Log(name + " " + airshipRigidbody.velocity);
         airshipRigidbody.AddRelativeForce(Vector3.back * force * ForceModifyer * Time.deltaTime * 100);
     }
 
