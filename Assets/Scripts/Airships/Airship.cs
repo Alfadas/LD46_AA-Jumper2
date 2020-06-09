@@ -1,37 +1,53 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Airship : MonoBehaviour
 {
     [Tooltip("Maximum m/s")]
     [SerializeField] int maxSpeed = 1;
+    [SerializeField] int force = 5;
     [Tooltip("Z Point to automaticly dissolve the ship at the end of the lane")]
     [SerializeField] int killPoint = -500;
     [Tooltip("Metal/Score rewarded for killing the ship")]
     [SerializeField] int metal = 5;
     [Header("Tutorial Refs")]
     [Tooltip("MetalManager ref to add kill reward")]
-    [SerializeField] MetalManager metallManager = null; 
+    [SerializeField] MetalManager metallManager = null;
     [Tooltip("EnemyList ref to delete ship on destruction")]
     [SerializeField] EnemyList enemyList = null;
     bool destroyed = false; //bool to secure one time destruction
 
-    float maxSpeedModifier = 1f;
+    Rigidbody airshipRigidbody = null;
+    List<CollisionAvoider> collisionAvoiders = new List<CollisionAvoider>(); // list of collision Avoiders blocked by this Airship
 
-    public int Speed { get; set; } // current speed
+    float forceModifiyer = 1f;
+    float forceReduction = 1f;
+    int maxForce = 0;
+
+    public float ForceModifyer
+    {
+        get
+        {
+            return forceModifiyer;
+        }
+        set
+        {
+            if (value >= 1)
+            {
+                forceModifiyer = 1;
+            }
+            else
+            {
+                forceModifiyer = value;
+            }
+        }
+    }
 
     public Vector3 Velocity //speed as Vector 3
     {
         get
         {
-            return new Vector3(0, 0, -Speed);
-        }
-    }
-
-    public int MaxSpeed // get for max speed
-    {
-        get
-        {
-            return maxSpeed;
+            return airshipRigidbody.velocity;
         }
     }
 
@@ -39,13 +55,45 @@ public class Airship : MonoBehaviour
     {
         get
         {
-            return Mathf.CeilToInt(maxSpeed * maxSpeedModifier);
+            return Mathf.CeilToInt(maxSpeed * forceReduction);
         }
     }
 
-    void Start()
+    public void AddCollisionAvoider(CollisionAvoider collisionAvoider)
     {
-        Speed = maxSpeed;
+        collisionAvoiders.Add(collisionAvoider);
+    }
+
+    public void AddMass(int value)
+    {
+        airshipRigidbody.mass += value;
+    }
+
+    public void AddForce(int value)
+    {
+        force += value;
+        maxForce += value;
+    }
+
+    public void RemoveForce(int value)
+    {
+        force -= value;
+        forceReduction = force / maxForce;
+    }
+
+    public void BreakFollowing(Airship newCollidingAirship)
+    {
+        if (newCollidingAirship == this) return;
+        foreach (CollisionAvoider collisionAvoider in collisionAvoiders)
+        {
+            collisionAvoider.Break(newCollidingAirship);
+        }
+    }
+
+    void Awake()
+    {
+        maxForce = force;
+        airshipRigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -65,16 +113,8 @@ public class Airship : MonoBehaviour
 
     void Move()
     {
-        transform.position = transform.position + (Velocity * Time.deltaTime); //move along speedvector, *deltaTime for framerate independence
-    }
-
-    public void ChangeMaxSpeedModifier(float addition) // Add
-    {
-        maxSpeedModifier += addition;
-        if (Speed > MaxSpeedModified) //update speed
-        {
-            Speed = MaxSpeedModified;
-        }
+        //Debug.Log(name + " " + airshipRigidbody.velocity);
+        airshipRigidbody.AddRelativeForce(Vector3.back * force * ForceModifyer * Time.deltaTime * 100);
     }
 
     public void Dissolve() //destroy object without kill reward

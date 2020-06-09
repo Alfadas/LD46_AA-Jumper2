@@ -5,38 +5,37 @@ public class CollisionAvoider : MonoBehaviour
 {
     Airship airship = null; //Airship this is attached to
     Airship collidingAirship = null; //Airship the attached Airship would collide with (currently colliding with the Avoider)
+    bool speedBalanced = false;
 
     void Start()
     {
         airship = GetComponentInParent<Airship>(); // get attached airship
-        StartCoroutine(CheckSpeed());
     }
 
     IEnumerator CheckSpeed() //check for speed changes every 2 seconds
     {
-        while (true)
+        yield return new WaitUntil(() => speedBalanced == true);
+        while (collidingAirship != null)
         {
-            if (collidingAirship != null) // if there is a colliding airship
-            {
-                CorrectSpeed();
-            }
-            else 
-            {
-                airship.Speed = airship.MaxSpeedModified; //set speed back to max of attached
-            }
+            //ToDo: break if the colliding airship has to break
+            airship.ForceModifyer = collidingAirship.Velocity.z / -airship.MaxSpeedModified;
             yield return new WaitForSeconds(2);
         }
+        airship.ForceModifyer = 1;
     }
 
-    private void CorrectSpeed() // allign speed with colliding or, if colliding is faster than max speed, reset to max speed
+    IEnumerator BalanceSpeed(Airship referenceShip)
     {
-        if (collidingAirship.Speed <= airship.MaxSpeedModified)
+        while (!speedBalanced)
         {
-            airship.Speed = collidingAirship.Speed;
-        }
-        else
-        {
-            airship.Speed = airship.MaxSpeedModified;
+            if (referenceShip.Velocity.z <= airship.Velocity.z)
+            {
+                speedBalanced = true;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
         }
     }
 
@@ -47,7 +46,17 @@ public class CollisionAvoider : MonoBehaviour
         {
             //set as new colliding and change speed
             collidingAirship = newCollidingAirship;
-            CorrectSpeed();
+            collidingAirship.AddCollisionAvoider(this);
+            Break(collidingAirship);
         }
+    }
+
+    public void Break(Airship referenceShip)
+    {
+        airship.BreakFollowing(referenceShip);
+        airship.ForceModifyer = -1f;
+        StopAllCoroutines();
+        StartCoroutine(CheckSpeed());
+        StartCoroutine(BalanceSpeed(referenceShip));
     }
 }

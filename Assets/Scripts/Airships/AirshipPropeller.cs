@@ -2,22 +2,25 @@
 
 public class AirshipPropeller : AirshipPart
 {
-    [Tooltip("percent of Max speed, reduced, if the propeller is destroyed")]
-    [Range(0,1)][SerializeField] float speedReductionPerc = 0.5f;
+    [Header("Engine")]
+    [Tooltip("force applied by the engine")]
+    [SerializeField] int force = 3000;
+
     protected override void Start()
     {
         base.Start();
+        airship.AddForce(force);
     }
 
     protected override void PreDestroyHittable()
     {
-        airship.ChangeMaxSpeedModifier(-speedReductionPerc * 0.5f);
+        airship.RemoveForce(Mathf.FloorToInt(force * 0.5f));
         base.PreDestroyHittable();
     }
 
     protected override void DestroyHittable()
     {
-        airship.ChangeMaxSpeedModifier(-speedReductionPerc * 0.5f);
+        airship.RemoveForce(Mathf.CeilToInt(force * 0.5f));
         base.DestroyHittable();
     }
 }
