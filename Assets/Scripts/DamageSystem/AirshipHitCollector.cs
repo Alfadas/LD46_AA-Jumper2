@@ -20,4 +20,10 @@ public class AirshipHitCollector : Hittable
     {
         damageMulti = 1;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        AirshipCollisionHandler.HandleCollisionEnter(this, collision.gameObject);
+    }
+
 }

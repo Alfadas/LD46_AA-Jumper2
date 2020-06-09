@@ -70,4 +70,9 @@ public class AirshipPart : Hittable
             direction = Random.insideUnitSphere;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        AirshipCollisionHandler.HandleCollisionEnter(this, collision.gameObject);
+    }
 }

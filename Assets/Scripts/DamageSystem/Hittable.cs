@@ -14,6 +14,8 @@ public class Hittable : MonoBehaviour
     protected bool preDestroyed = false;
     protected bool destroyed = false; //bool to secure one time destruction
 
+    public int MaxHealth => maxHealth;
+
     public bool IsEnemy
     {
         get
