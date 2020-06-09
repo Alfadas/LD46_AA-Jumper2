@@ -83,6 +83,7 @@ public class Airship : MonoBehaviour
 
     public void BreakFollowing(Airship newCollidingAirship)
     {
+        if (newCollidingAirship == this) return;
         foreach (CollisionAvoider collisionAvoider in collisionAvoiders)
         {
             collisionAvoider.Break(newCollidingAirship);
