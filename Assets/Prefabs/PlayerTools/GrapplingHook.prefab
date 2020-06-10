@@ -148,9 +148,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4532747613844803761}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.17800045, y: -0.11100018, z: 0.24600144}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4532747613165241644}
   - {fileID: 4532747613218888350}
@@ -201,7 +201,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.08
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -266,15 +266,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2371b7e180414834ba1e9bc3d6ee767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grappleableLayer:
-    serializedVersion: 2
-    m_Bits: 1
   firePoint: {fileID: 4532747613218888350}
   playerCamera: {fileID: 0}
   player: {fileID: 0}
   maxDistance: 100
-  jointDistanceMaxMulti: 0.5
-  jointDistanceMinMulti: 0.25
-  jointSpringStrength: 4.5
-  jointDamperStrength: 7
-  jointMassScale: 4.5
+  hook: {fileID: 1295290477964077269, guid: 659177c5fe1d8d142a7ac4ecb6ce5697, type: 3}
+  jointDistanceMaxMulti: 0.9
+  jointDistanceMinMulti: 0.2
+  jointSpringStrength: 6
+  jointDamperStrength: 1
+  jointMassScale: 27
