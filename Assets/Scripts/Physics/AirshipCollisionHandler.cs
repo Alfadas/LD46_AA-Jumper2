@@ -21,8 +21,6 @@ static class AirshipCollisionHandler
             damage = collidingHittable.MaxHealth * 2;
         }
 
-        Debug.Log(collidingHittable.name + " " + damage);
-
         collidingHittable.GetDamage(damage);
     }
 }
