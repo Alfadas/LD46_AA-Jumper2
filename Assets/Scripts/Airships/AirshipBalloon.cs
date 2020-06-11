@@ -11,7 +11,7 @@ public class AirshipBalloon : AirshipPart
 
     protected override void PreDestroyHittable()
     {
-        Rigidbody mainRigidbody = gameObject.GetComponentInParent<Rigidbody>();
+        Rigidbody mainRigidbody = airship.gameObject.GetComponentInParent<Rigidbody>();
         mainRigidbody.useGravity = true;
         base.PreDestroyHittable();
     }

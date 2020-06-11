@@ -18,6 +18,7 @@ public class AirshipHitCollector : Hittable
 
     protected override void DestroyHittable()
     {
+        base.DestroyHittable();
         damageMulti = 1;
     }
 
