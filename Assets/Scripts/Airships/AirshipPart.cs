@@ -27,6 +27,7 @@ public class AirshipPart : Hittable
 
     protected override void DestroyHittable()
     {
+        base.DestroyHittable();
         if(explosionVfx && explosionSize > 0)
         {
             GameObject explosion = Instantiate(explosionVfx, transform.position, Quaternion.identity);
@@ -69,5 +70,10 @@ public class AirshipPart : Hittable
             }
             direction = Random.insideUnitSphere;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        AirshipCollisionHandler.HandleCollisionEnter(this, collision.gameObject);
     }
 }

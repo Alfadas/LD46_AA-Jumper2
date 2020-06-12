@@ -18,6 +18,13 @@ public class AirshipHitCollector : Hittable
 
     protected override void DestroyHittable()
     {
+        base.DestroyHittable();
         damageMulti = 1;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        AirshipCollisionHandler.HandleCollisionEnter(this, collision.gameObject);
+    }
+
 }
