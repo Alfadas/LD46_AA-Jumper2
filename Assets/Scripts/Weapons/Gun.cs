@@ -174,6 +174,15 @@ public class Gun : Weapon, IPoolManager
 
 	private void Start()
 	{
+		// TODO: Remove
+		// TODO: Use Impulse for Everything
+		// P = m * v
+		// E = 0.5f * m * (v * v)
+		// float energy = 475.0f;
+		// float weight = 0.0074f;
+		// float velocity = Mathf.Sqrt((energy / weight) * 2.0f);
+		// Debug.Log(velocity);
+
 		originalRotation = transform.localRotation;
 		timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		hipPosition = transform.localPosition;

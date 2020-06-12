@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float jumpStrength = 40.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
 	[SerializeField] private float jumpTime = 0.2f;
-	[SerializeField] private GameObject head = null;
-	[SerializeField] private Collider feet = null;
-	[Tooltip("Float Array of Length 3 with Factors applied to Movement when Character is grounded, touches something or is completely in Air")]
+	[Tooltip("Movement Speed Modifier when the Player is neither grounded nor grappled")]
 	[SerializeField] private float floatingMovementFactor = 0.002f;
+	[Tooltip("Movement Speed Modifier when the Player is grappled, but not grounded")]
+	[SerializeField] private float grappledMovementFactor = 0.5f;
+	[SerializeField] private GameObject head = null;
+	[SerializeField] private GrapplingHook grapplingHook = null;
+	[SerializeField] private Collider feet = null;
 	private new Rigidbody rigidbody = null;
 	private Vector3 movement = Vector3.zero;
 	private List<ContactPoint> contactList = null;
@@ -87,7 +90,8 @@ public class PlayerController : MonoBehaviour
 			movement *= sprintFactor;
 		}
 		// Apply Movement
-		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), grounded ? 1.0f : floatingMovementFactor);
+		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), grounded ?
+			1.0f : ((grapplingHook != null && grapplingHook.Hooked) ? grappledMovementFactor : floatingMovementFactor));
 
 		// Jumping
 		if(Input.GetButton("Jump"))
