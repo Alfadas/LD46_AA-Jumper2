@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6816638077579894218}
   - component: {fileID: 6560733630562965187}
   - component: {fileID: 5859464207383156190}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: BalloonHittable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
