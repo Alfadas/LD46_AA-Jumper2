@@ -4,8 +4,11 @@ static class AirshipCollisionHandler
 {
     public static void HandleCollisionEnter(Hittable collidingHittable, GameObject otherCollidingObject)
     {
+        if (otherCollidingObject.gameObject.TryGetComponent<PlayerLife>(out _)) return;
+
         Airship collidingAirship = collidingHittable.gameObject.GetComponentInParent<Airship>();
         Airship otherCollidingAirship = otherCollidingObject.gameObject.GetComponentInParent<Airship>();
+
         if (collidingAirship && otherCollidingAirship && collidingAirship == otherCollidingAirship) return; // Airship, don´t hit yourself
 
         Vector3 relativeVelocity = Vector3.zero;
