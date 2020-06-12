@@ -807,7 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 8
   force: 400
-  killPoint: -50000
+  killPoint: -500
   metal: 10
   metallManager: {fileID: 0}
   enemyList: {fileID: 0}
