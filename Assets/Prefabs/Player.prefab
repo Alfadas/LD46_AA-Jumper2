@@ -245,7 +245,8 @@ MonoBehaviour:
   jumpTime: 0.2
   head: {fileID: 2003152391177076853}
   feet: {fileID: 1488633140897424211}
-  floatingMovementFactor: 0.002
+  floatingMovementFactor: 0.004
+  grappledMovementFactor: 0.5
 --- !u!114 &2370706801361435080
 MonoBehaviour:
   m_ObjectHideFlags: 0
