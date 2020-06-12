@@ -7558,10 +7558,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  preDestructionHealthPerc: 0.25
-  damageMulti: 1
+  preDestructionHealthPerc: 0
+  damageMulti: 0.02
   isEnemy: 0
-  preDestructionDamagePerSec: 5
+  preDestructionDamagePerSec: 0
   baseHealthText: {fileID: 1331772559}
   gameOverHandler: {fileID: 1887868137}
 --- !u!65 &1827586455

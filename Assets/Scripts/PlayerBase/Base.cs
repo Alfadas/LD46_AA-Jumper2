@@ -14,6 +14,15 @@ public class Base : Hittable
         gameOverHandler.EndGame();
     }
 
+    public override void GetDamage(int damage)
+    {
+        health -= (Mathf.FloorToInt(damage * damageMulti)); // airship gets damage * damage multi
+        if (health <= 0)
+        {
+            TryDestroyHittable();
+        }
+    }
+
     private void Update()
     {
         baseHealthText.text = "Base: " + health;
