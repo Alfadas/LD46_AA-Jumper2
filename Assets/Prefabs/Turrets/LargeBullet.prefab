@@ -69,7 +69,7 @@ MonoBehaviour:
   fragmentCountModifier: 0.1
   fragmentSpeed: 10
   tracer: {fileID: -5253833941093612320}
-  tracerLength: 20
+  tracerLength: 1
   fragmentPrefab: {fileID: 3000640768434099919, guid: 3a3422038b41c404285da3357e72579d,
     type: 3}
   hitSounds: []
