@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float maxLookUp = 270.0f;
 	[SerializeField] private float rotationSpeed = 400.0f;
 	[SerializeField] private float movementSpeed = 20.0f;
-	[Tooltip("Factor by which Sprinting is faster than walking")]
+	[Tooltip("Factor by which Sprinting is faster than Walking")]
 	[SerializeField] private float sprintFactor = 2.0f;
 	[SerializeField] private float jumpStrength = 40.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private GrapplingHook grapplingHook = null;
 	[SerializeField] private Collider feet = null;
 	private new Rigidbody rigidbody = null;
-	private Vector3 movement = Vector3.zero;
 	private List<ContactPoint> contactList = null;
 	private bool grounded = false;
 	private float lastJump = 0.0f;
@@ -78,20 +77,45 @@ public class PlayerController : MonoBehaviour
 			Cursor.lockState = CursorLockMode.None;
 		}
 
-		// Movement
-		movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
-		if(movement.sqrMagnitude > 1)
+		// Calculate Movement
+		Vector3 direction = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
+		if(direction != Vector3.zero || grounded)
 		{
-			movement = Vector3.Normalize(movement);
+			// Cap Direction Length to 1
+			if(direction.sqrMagnitude > 1.0f)
+			{
+				direction.Normalize();
+			}
+			float speed = movementSpeed;
+			// Sprint Bonus
+			if(Input.GetButton("Sprint") && Vector3.Angle(transform.forward, direction) <= 45.0f)
+			{
+				speed *= sprintFactor;
+			}
+			// Ground and Grappling Bonus
+			if(!grounded)
+			{
+				if(grapplingHook != null && grapplingHook.Hooked)
+				{
+					speed *= grappledMovementFactor;
+				}
+				else
+				{
+					speed *= floatingMovementFactor;
+				}
+			}
+			// Avoid unwanted Deceleration
+			// TODO: Could get problematic for wanted slowdown like slow effects or when stopping to sprint
+			float sqrRigidbodySpeed = rigidbody.velocity.sqrMagnitude;
+			/*if(sqrRigidbodySpeed > (speed * speed) && Vector3.Angle(rigidbody.velocity, direction) <= 45.0f)
+			{
+				speed = Mathf.Sqrt(sqrRigidbodySpeed);
+			}*/
+			// Apply Movement
+			// Debug.Log(direction + " " + speed + " " + rigidbody.velocity);
+			Vector3 velocityChange = ((direction * speed) - rigidbody.velocity) * Time.deltaTime;
+			rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
 		}
-		movement *= movementSpeed * Time.deltaTime;
-		if(Input.GetButton("Sprint") && Vector3.Angle(transform.forward, movement) <= 45.0f)
-		{
-			movement *= sprintFactor;
-		}
-		// Apply Movement
-		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), grounded ?
-			1.0f : ((grapplingHook != null && grapplingHook.Hooked) ? grappledMovementFactor : floatingMovementFactor));
 
 		// Jumping
 		if(Input.GetButton("Jump"))
@@ -107,7 +131,7 @@ public class PlayerController : MonoBehaviour
 				if(jumpCharge < jumpTime)
 				{
 					jumpCharge += Time.deltaTime;
-					rigidbody.AddForce(Vector3.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
+					rigidbody.AddForce(transform.up * jumpStrength * Time.deltaTime, ForceMode.Impulse);
 				}
 			}
 		}
@@ -123,6 +147,8 @@ public class PlayerController : MonoBehaviour
 		if(!grounded)
 		{
 			int contactCount = collision.GetContacts(contactList);
+			Rigidbody otherRigidbody = null;
+			float maxMass = 0.0f;
 			for(int i = 0; i < contactCount; ++i)
 			{
 				if(!contactList[i].otherCollider.gameObject.Equals(gameObject))
@@ -130,7 +156,12 @@ public class PlayerController : MonoBehaviour
 					if(contactList[i].thisCollider.Equals(feet))
 					{
 						grounded = true;
-						break;
+						if((otherRigidbody = contactList[i].otherCollider.attachedRigidbody) != null && otherRigidbody.mass > maxMass)
+						{
+							maxMass = otherRigidbody.mass;
+							// TODO: Implement Rigidbody Parenting for Velocity Fun
+							//transform.SetParent(contactList[i].otherCollider.transform);
+						}
 					}
 				}
 			}
@@ -140,6 +171,10 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionExit(Collision collision)
 	{
 		grounded = false;
+		if(collision.transform == transform.parent)
+		{
+			//transform.SetParent(null);
+		}
 	}
 
 	public void setMouseVisible(bool mouseVisible)

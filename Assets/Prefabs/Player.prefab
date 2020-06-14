@@ -239,12 +239,12 @@ MonoBehaviour:
   maxLookDown: 70
   maxLookUp: 270
   rotationSpeed: 200
-  movementSpeed: 1100
-  sprintFactor: 1.5
-  jumpStrength: 6800
+  movementSpeed: 15
+  sprintFactor: 2
+  jumpStrength: 5500
   jumpTime: 0.2
-  floatingMovementFactor: 0.004
-  grappledMovementFactor: 0.5
+  floatingMovementFactor: 0.2
+  grappledMovementFactor: 0.4
   head: {fileID: 2003152391177076853}
   grapplingHook: {fileID: 1426039868}
   feet: {fileID: 1488633140897424211}
