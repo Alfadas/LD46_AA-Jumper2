@@ -26,6 +26,11 @@ public class PlayerLife : Hittable
         transform.position = respawnPoint.position;
         health = maxHealth;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; // reset velocity to stop pre respawn movement
+        GrapplingHook grapplingHook = GetComponent<GrapplingHook>();
+        if (grapplingHook)
+        {
+            grapplingHook.StopGrapple();
+        }
     }
 
     protected override void DestroyHittable()

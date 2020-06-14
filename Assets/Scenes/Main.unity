@@ -7835,7 +7835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1008984185}
   metalText: {fileID: 1331772557}
-  startingMetal: 1000
+  startingMetal: 50
   gainIntervall: 10
   metalGain: 1
 --- !u!114 &1887868135

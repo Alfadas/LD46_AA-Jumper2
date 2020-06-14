@@ -84,7 +84,7 @@ public class GrapplingHook : MonoBehaviour
         }
     }
 
-    void StopGrapple()
+    public void StopGrapple()
     {
         lineRenderer.positionCount = 0;
         Destroy(currentHook);
