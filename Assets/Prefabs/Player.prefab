@@ -244,7 +244,7 @@ MonoBehaviour:
   jumpStrength: 6800
   jumpTime: 0.2
   floatingMovementFactor: 0.004
-  grappledMovementFactor: 0.5
+  grappledMovementFactor: 0.004
   head: {fileID: 2003152391177076853}
   grapplingHook: {fileID: 1426039868}
   feet: {fileID: 1488633140897424211}
