@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float maxLookUp = 270.0f;
 	[SerializeField] private float rotationSpeed = 400.0f;
 	[SerializeField] private float movementSpeed = 20.0f;
-	[Tooltip("Factor by which Sprinting is faster than walking")]
+    [Tooltip("Factor by which Sprinting is faster than walking")]
 	[SerializeField] private float sprintFactor = 2.0f;
 	[SerializeField] private float jumpStrength = 40.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
@@ -78,23 +78,36 @@ public class PlayerController : MonoBehaviour
 			Cursor.lockState = CursorLockMode.None;
 		}
 
-		// Movement
-		movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
-		if(movement.sqrMagnitude > 1)
-		{
-			movement = Vector3.Normalize(movement);
-		}
-		movement *= movementSpeed * Time.deltaTime;
-		if(Input.GetButton("Sprint") && Vector3.Angle(transform.forward, movement) <= 45.0f)
-		{
-			movement *= sprintFactor;
-		}
-		// Apply Movement
-		rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, new Vector3(movement.x, rigidbody.velocity.y, movement.z), grounded ?
-			1.0f : ((grapplingHook != null && grapplingHook.Hooked) ? grappledMovementFactor : floatingMovementFactor));
 
-		// Jumping
-		if(Input.GetButton("Jump"))
+        if (grounded)
+        {
+            movement = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
+            if (movement.sqrMagnitude > 1)
+            {
+                movement = Vector3.Normalize(movement);
+            }
+            movement *= movementSpeed;
+            if (Input.GetButton("Sprint") && Vector3.Angle(transform.forward, movement) <= 45.0f)
+            {
+                movement *= sprintFactor;
+            }
+
+            Debug.Log("current: " + movement);
+            Debug.Log("target: " + movement);
+
+            // Apply a force that attempts to reach our target velocity
+            Vector3 velocity = rigidbody.velocity;
+            Vector3 velocityChange = (movement - velocity);
+            velocityChange.y = 0;
+            velocityChange *= Time.deltaTime *10;
+            Debug.Log("change: " + velocityChange);
+            rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+        }
+        
+
+
+        // Jumping
+        if (Input.GetButton("Jump"))
 		{
 			if((Time.time - lastJump) >= jumpTime && grounded)
 			{
