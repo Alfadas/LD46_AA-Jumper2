@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 	[Tooltip("Maximum look up Angle, Front is 0/360 Degrees, straight up 270/360 Degrees")]
 	[SerializeField] private float maxLookUp = 270.0f;
 	[SerializeField] private float rotationSpeed = 400.0f;
-	[SerializeField] private float movementSpeed = 20.0f;
+	[SerializeField] private float movementSpeed = 10.0f;
+	[SerializeField] private float movementAcceleration = 20.0f;
 	[Tooltip("Factor by which Sprinting is faster than Walking")]
 	[SerializeField] private float sprintFactor = 2.0f;
 	[SerializeField] private float jumpStrength = 40.0f;
@@ -19,10 +20,13 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float floatingMovementFactor = 0.002f;
 	[Tooltip("Movement Speed Modifier when the Player is grappled, but not grounded")]
 	[SerializeField] private float grappledMovementFactor = 0.5f;
+	[Tooltip("The maximum Acceleration, that can be applied by standing on another moving Rigidbody")]
+	[SerializeField] private float tractionAcceleration = 20.0f;
 	[SerializeField] private GameObject head = null;
 	[SerializeField] private GrapplingHook grapplingHook = null;
 	[SerializeField] private Collider feet = null;
 	private new Rigidbody rigidbody = null;
+	private Rigidbody parentRigidbody = null;
 	private List<ContactPoint> contactList = null;
 	private bool grounded = false;
 	private float lastJump = 0.0f;
@@ -33,9 +37,23 @@ public class PlayerController : MonoBehaviour
 	{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
 		contactList = new List<ContactPoint>(64);
+
+		Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
+		foreach(Collider collider1 in colliders)
+		{
+			foreach(Collider collider2 in colliders)
+			{
+				if(collider1 != collider2)
+				{
+					Physics.IgnoreCollision(collider1, collider2);
+				}
+			}
+		}
 	}
 
-	private void Update()
+	// Remember: Instantanious Input like GetKeyDown is processed by the first Update() after Key-Press, so it could be missed in FixedUpdate().
+	//		Therefore only use GetAxis() and GetButton() in FixedUpdate() and buffer everything else in an Update() Call. 
+	private void FixedUpdate()
 	{
 		if(!mouseVisible)
 		{
@@ -79,43 +97,56 @@ public class PlayerController : MonoBehaviour
 
 		// Calculate Movement
 		Vector3 direction = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical"));
-		if(direction != Vector3.zero || grounded)
+		Vector3 tractionVelocityChange = Vector3.zero;
+		Vector3 movementVelocityChange = Vector3.zero;
+		if(direction != Vector3.zero || (grounded && parentRigidbody == null))
 		{
 			// Cap Direction Length to 1
 			if(direction.sqrMagnitude > 1.0f)
 			{
 				direction.Normalize();
 			}
+
+			// Calculate Speed
 			float speed = movementSpeed;
 			// Sprint Bonus
 			if(Input.GetButton("Sprint") && Vector3.Angle(transform.forward, direction) <= 45.0f)
 			{
 				speed *= sprintFactor;
 			}
+			// Avoid unwanted Deceleration
+			// TODO: Could get problematic if slow Effects should trigger in Motion
+			float sqrRigidbodySpeed = rigidbody.velocity.sqrMagnitude;
+			if(sqrRigidbodySpeed > (speed * speed) && Vector3.Angle(rigidbody.velocity, direction) <= 45.0f)
+			{
+				speed = Mathf.Sqrt(sqrRigidbodySpeed);
+			}
+
+			// Calculate Acceleration
+			float acceleration = movementAcceleration;
 			// Ground and Grappling Bonus
 			if(!grounded)
 			{
 				if(grapplingHook != null && grapplingHook.Hooked)
 				{
-					speed *= grappledMovementFactor;
+					acceleration *= grappledMovementFactor;
 				}
 				else
 				{
-					speed *= floatingMovementFactor;
+					acceleration *= floatingMovementFactor;
 				}
 			}
-			// Avoid unwanted Deceleration
-			// TODO: Could get problematic for wanted slowdown like slow effects or when stopping to sprint
-			float sqrRigidbodySpeed = rigidbody.velocity.sqrMagnitude;
-			/*if(sqrRigidbodySpeed > (speed * speed) && Vector3.Angle(rigidbody.velocity, direction) <= 45.0f)
-			{
-				speed = Mathf.Sqrt(sqrRigidbodySpeed);
-			}*/
-			// Apply Movement
-			// Debug.Log(direction + " " + speed + " " + rigidbody.velocity);
-			Vector3 velocityChange = ((direction * speed) - rigidbody.velocity) * Time.deltaTime;
-			rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+
+			// Calculate Acceleration
+			movementVelocityChange = calculateAcceleration(((direction * speed) - rigidbody.velocity), acceleration);
 		}
+		// Calculate Traction
+		if(parentRigidbody != null)
+		{
+			tractionVelocityChange = calculateAcceleration(parentRigidbody.velocity - rigidbody.velocity, tractionAcceleration);
+		}
+		//Apply Movement
+		rigidbody.AddForce(movementVelocityChange + tractionVelocityChange, ForceMode.VelocityChange);
 
 		// Jumping
 		if(Input.GetButton("Jump"))
@@ -147,21 +178,15 @@ public class PlayerController : MonoBehaviour
 		if(!grounded)
 		{
 			int contactCount = collision.GetContacts(contactList);
-			Rigidbody otherRigidbody = null;
 			float maxMass = 0.0f;
 			for(int i = 0; i < contactCount; ++i)
 			{
-				if(!contactList[i].otherCollider.gameObject.Equals(gameObject))
+				if(contactList[i].thisCollider.Equals(feet))
 				{
-					if(contactList[i].thisCollider.Equals(feet))
+					grounded = true;
+					if((parentRigidbody = contactList[i].otherCollider.attachedRigidbody) != null && parentRigidbody.mass > maxMass)
 					{
-						grounded = true;
-						if((otherRigidbody = contactList[i].otherCollider.attachedRigidbody) != null && otherRigidbody.mass > maxMass)
-						{
-							maxMass = otherRigidbody.mass;
-							// TODO: Implement Rigidbody Parenting for Velocity Fun
-							//transform.SetParent(contactList[i].otherCollider.transform);
-						}
+						maxMass = parentRigidbody.mass;
 					}
 				}
 			}
@@ -171,12 +196,24 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionExit(Collision collision)
 	{
 		grounded = false;
-		if(collision.transform == transform.parent)
+		if(collision.rigidbody == parentRigidbody)
 		{
-			//transform.SetParent(null);
+			parentRigidbody = null;
 		}
 	}
 
+	private Vector3 calculateAcceleration(Vector3 targetVelocity, float acceleration)
+	{
+		float changeSqrMagnitude = targetVelocity.sqrMagnitude;
+		if(changeSqrMagnitude > Mathf.Pow(acceleration * Time.deltaTime, 2.0f))
+		{
+			targetVelocity = targetVelocity.normalized * acceleration * Time.deltaTime;
+		}
+
+		return targetVelocity;
+	}
+
+	// TODO: Change to Property
 	public void setMouseVisible(bool mouseVisible)
 	{
 		this.mouseVisible = mouseVisible;

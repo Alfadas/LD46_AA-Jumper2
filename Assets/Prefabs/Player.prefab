@@ -86,7 +86,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737720366950979977}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1839dcc410125a64dad289535aacb15e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 16
@@ -100,7 +100,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737720366950979977}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1839dcc410125a64dad289535aacb15e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -239,12 +239,14 @@ MonoBehaviour:
   maxLookDown: 70
   maxLookUp: 270
   rotationSpeed: 200
-  movementSpeed: 15
-  sprintFactor: 2
+  movementSpeed: 10
+  movementAcceleration: 20
+  sprintFactor: 1.5
   jumpStrength: 5500
   jumpTime: 0.2
   floatingMovementFactor: 0.2
   grappledMovementFactor: 0.4
+  tractionAcceleration: 10
   head: {fileID: 2003152391177076853}
   grapplingHook: {fileID: 1426039868}
   feet: {fileID: 1488633140897424211}
