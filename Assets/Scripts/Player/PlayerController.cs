@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
 	private float jumpCharge = 0.0f;
 	private float feetDisplacement = 0.0f;
 	private float topDisplacement = 0.0f;
+	private float stepTime = 0.0f;
+	private Vector3 stepForward = Vector3.zero;
+	private float stepDelay = 0.2f;
 	private bool mouseVisible = false;
 
 	private void Start()
@@ -155,6 +158,17 @@ public class PlayerController : MonoBehaviour
 		//Apply Movement
 		rigidbody.AddForce(movementVelocityChange + tractionVelocityChange, ForceMode.VelocityChange);
 
+		// Step forward to finish automatic Step up from previous Frame
+		if(stepTime > 0.0f && Time.time >= stepTime)
+		{
+			rigidbody.AddForce(stepForward, ForceMode.VelocityChange);
+			stepTime = 0.0f;
+		}
+		if(stepTime <= 0 && stepTime > -stepDelay)
+		{
+			stepTime -= Time.deltaTime;					// Measure Time since last Step
+		}
+
 		// Jumping
 		if(Input.GetButton("Jump"))
 		{
@@ -182,29 +196,17 @@ public class PlayerController : MonoBehaviour
 	// Step up if Step is low enough
 	private void OnCollisionEnter(Collision collision)
 	{
-		int contactCount = collision.GetContacts(contactList);
-		for(int i = 0; i < contactCount; ++i)
-		{
-			if(contactList[i].point.y > (transform.position.y + feetDisplacement + 0.02f))                                                                              // Is it actually an upward Step?
-			{
-				Vector3 stepStart = new Vector3(transform.position.x, (transform.position.y + feetDisplacement + maximumStepHeight), transform.position.z);
-				Vector3 stepTarget = new Vector3(contactList[i].point.x, (transform.position.y + feetDisplacement + maximumStepHeight), contactList[i].point.z);
-				Vector3 stepDirection = stepTarget - stepStart;
-				if(!Physics.Raycast(stepStart, stepDirection, stepDirection.magnitude + 0.02f))                                                                         // Is the Path for the Step clear and the Step itself not too high?
-				{
-					RaycastHit hit;
-					if(Physics.Raycast(stepTarget, Vector3.down, out hit, maximumStepHeight))                                                                           // How high is the Step exactly?
-					{							
-						rigidbody.AddForce((stepDirection.normalized + Vector3.up) * ((stepTarget.y - hit.point.y) * 1.2f), ForceMode.VelocityChange);					// 20% Bonus Step Height to avoid getting stuck because stepHeight == Collider Height
-					}
-				}
-			}
-		}
+		stepUp(collision);
 	}
 
 	// Only get grounded, when you stay longer than 1 Frame on a Collider
 	private void OnCollisionStay(Collision collision)
 	{
+		if(Input.GetAxis("Horizontal") != 0.0f ||  Input.GetAxis("Vertical") != 0.0f)
+		{
+			stepUp(collision);
+		}
+
 		if(!grounded)
 		{
 			int contactCount = collision.GetContacts(contactList);
@@ -241,6 +243,37 @@ public class PlayerController : MonoBehaviour
 		}
 
 		return targetVelocity;
+	}
+
+	private void stepUp(Collision collision)
+	{
+		if(stepTime < -stepDelay)																																		// Previous Step must be complete
+		{
+			int contactCount = collision.GetContacts(contactList);
+			for(int i = 0; i < contactCount; ++i)
+			{
+				if(contactList[i].point.y > (transform.position.y + feetDisplacement + 0.02f))                                                                          // Is it actually an upward Step?
+				{
+					Vector3 stepStart = new Vector3(transform.position.x, (transform.position.y + feetDisplacement + maximumStepHeight), transform.position.z);
+					Vector3 stepTarget = new Vector3(contactList[i].point.x, (transform.position.y + feetDisplacement + maximumStepHeight), contactList[i].point.z);
+					Vector3 stepDirection = stepTarget - stepStart;
+					if(rigidbody.velocity == Vector3.zero || Vector3.Angle(rigidbody.velocity, stepDirection) <= 90.0f)													// Is the Step actually in the Way of the Player?
+					{
+						if(!Physics.Raycast(stepStart, stepDirection, stepDirection.magnitude + 0.02f))                                                                 // Is the Path for the Step clear and the Step itself not too high?
+						{
+							RaycastHit hit;
+							if(contactList[i].otherCollider.Raycast(new Ray(stepTarget, Vector3.down), out hit, maximumStepHeight))                                     // How high is the Step exactly?
+							{
+								float stepHeight = hit.point.y - (transform.position.y + feetDisplacement);
+								rigidbody.velocity = ((Vector3.up * (2.0f + (stepHeight * 4.0f))) + (-stepDirection.normalized));                                       // Reset Velocity and apply Height dependent upward Force
+								stepTime = Time.time + stepHeight * 0.4f;																								// Height dependent Delay for stepping forward
+								stepForward = stepDirection.normalized * (2.0f + (stepHeight * 2.0f));                                                                  // Height dependent Step forward Direction
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	// TODO: Change to Property
