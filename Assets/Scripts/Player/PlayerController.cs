@@ -13,9 +13,10 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float movementAcceleration = 20.0f;
 	[Tooltip("Factor by which Sprinting is faster than Walking")]
 	[SerializeField] private float sprintFactor = 2.0f;
-	[SerializeField] private float jumpStrength = 40.0f;
+	[SerializeField] private float jumpStrength = 2000.0f;
 	[Tooltip("Minimum Time between 2 Jump Attempts")]
 	[SerializeField] private float jumpTime = 0.2f;
+	[SerializeField] private float maximumStepHeight = 0.4f;
 	[Tooltip("Movement Speed Modifier when the Player is neither grounded nor grappled")]
 	[SerializeField] private float floatingMovementFactor = 0.002f;
 	[Tooltip("Movement Speed Modifier when the Player is grappled, but not grounded")]
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float tractionAcceleration = 20.0f;
 	[SerializeField] private GameObject head = null;
 	[SerializeField] private GrapplingHook grapplingHook = null;
+	[Tooltip("A Collider at the Position of the Players Feet, used to check whether the Player is grounded")]
 	[SerializeField] private Collider feet = null;
 	private new Rigidbody rigidbody = null;
 	private Rigidbody parentRigidbody = null;
@@ -31,22 +33,27 @@ public class PlayerController : MonoBehaviour
 	private bool grounded = false;
 	private float lastJump = 0.0f;
 	private float jumpCharge = 0.0f;
+	private float feetDisplacement = 0.0f;
+	private float topDisplacement = 0.0f;
 	private bool mouseVisible = false;
 
 	private void Start()
 	{
 		rigidbody = gameObject.GetComponent<Rigidbody>();
 		contactList = new List<ContactPoint>(64);
+		feetDisplacement = feet.bounds.min.y - transform.position.y;
 
 		Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
-		foreach(Collider collider1 in colliders)
+		for(int i = 0; i < colliders.Length; ++i)
 		{
-			foreach(Collider collider2 in colliders)
+			for(int j = i + 1; j < colliders.Length; ++j)
 			{
-				if(collider1 != collider2)
-				{
-					Physics.IgnoreCollision(collider1, collider2);
-				}
+				Physics.IgnoreCollision(colliders[i], colliders[j]);
+			}
+
+			if((colliders[i].bounds.max.y - transform.position.y) > topDisplacement)
+			{
+				topDisplacement = colliders[i].bounds.max.y - transform.position.y;
 			}
 		}
 	}
@@ -169,6 +176,29 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			jumpCharge = jumpTime;
+		}
+	}
+
+	// Step up if Step is low enough
+	private void OnCollisionEnter(Collision collision)
+	{
+		int contactCount = collision.GetContacts(contactList);
+		for(int i = 0; i < contactCount; ++i)
+		{
+			if(contactList[i].point.y > (transform.position.y + feetDisplacement + 0.02f))                                                                              // Is it actually an upward Step?
+			{
+				Vector3 stepStart = new Vector3(transform.position.x, (transform.position.y + feetDisplacement + maximumStepHeight), transform.position.z);
+				Vector3 stepTarget = new Vector3(contactList[i].point.x, (transform.position.y + feetDisplacement + maximumStepHeight), contactList[i].point.z);
+				Vector3 stepDirection = stepTarget - stepStart;
+				if(!Physics.Raycast(stepStart, stepDirection, stepDirection.magnitude + 0.02f))                                                                         // Is the Path for the Step clear and the Step itself not too high?
+				{
+					RaycastHit hit;
+					if(Physics.Raycast(stepTarget, Vector3.down, out hit, maximumStepHeight))                                                                           // How high is the Step exactly?
+					{							
+						rigidbody.AddForce((stepDirection.normalized + Vector3.up) * ((stepTarget.y - hit.point.y) * 1.2f), ForceMode.VelocityChange);					// 20% Bonus Step Height to avoid getting stuck because stepHeight == Collider Height
+					}
+				}
+			}
 		}
 	}
 

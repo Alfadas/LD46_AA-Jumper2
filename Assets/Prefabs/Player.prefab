@@ -244,6 +244,7 @@ MonoBehaviour:
   sprintFactor: 1.5
   jumpStrength: 5500
   jumpTime: 0.2
+  maximumStepHeight: 0.4
   floatingMovementFactor: 0.2
   grappledMovementFactor: 0.4
   tractionAcceleration: 10
