@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 8641292615727026856}
   - component: {fileID: 1066978250846174808}
   m_Layer: 0
-  m_Name: default
+  m_Name: HK_MPKMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
