@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class Gun : Weapon, IPoolManager
+public class Gun : Weapon
 {
 	[Tooltip("Base Damage of this Weapon")]
 	[SerializeField] private float damage = 1.0f;
@@ -19,7 +19,8 @@ public class Gun : Weapon, IPoolManager
 	[SerializeField] private int roundsPerMinute = 600;
 	[SerializeField] private int magazineCapacity = 1;
 	[SerializeField] private float reloadTime = 2.0f;
-	[SerializeField] private float muzzleVelocity = 40.0f;
+	[Tooltip("A Modifier which is applied at the Muzzle Energy of each Bullet and should mainly depend on Barrel Length and Action Type")]
+	[SerializeField] private float muzzleEnergyModifier = 1.0f;
 	[SerializeField] private Vector3 aimPosition = Vector3.zero;
 	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
 	[SerializeField] private Transform muzzle = null;
@@ -37,12 +38,13 @@ public class Gun : Weapon, IPoolManager
 	private float horizontalAccumulatedRecoil = 0.0f;
 	private float reloadStarted = 0.0f;
 	private AudioSource audioSource = null;
+	private new Rigidbody rigidbody = null;
 	private bool fire = false;
 	private int fireMode = 0;
 	private int shotsFired = 0;
 	private bool safety = false;
 	private bool disengageSafety = false;
-	private Stack<GameObject> bulletPool = null;
+	private PoolManager bulletPoolManager = null;
 
 	public float Damage
 	{
@@ -122,15 +124,15 @@ public class Gun : Weapon, IPoolManager
 			reloadTime = value;
 		}
 	}
-	public float MuzzleVelocity
+	public float MuzzleEnergyModifier
 	{
 		get
 		{
-			return muzzleVelocity;
+			return muzzleEnergyModifier;
 		}
 		private set
 		{
-			muzzleVelocity = value;
+			muzzleEnergyModifier = value;
 		}
 	}
 	public float DamageMod { get; set; } = 1.0f;
@@ -150,7 +152,7 @@ public class Gun : Weapon, IPoolManager
 	}
 	public float MagazineCapacityMod { get; set; } = 1.0f;
 	public float ReloadTimeMod { get; set; } = 1.0f;
-	public float MuzzleVelocityMod { get; set; } = 1.0f;
+	public float MuzzleEnergyModifierMod { get; set; } = 1.0f;
 	public bool ReadyToFire { get; private set; } = false;
 	public override bool Safety
 	{
@@ -174,23 +176,15 @@ public class Gun : Weapon, IPoolManager
 
 	private void Start()
 	{
-		// TODO: Remove
-		// TODO: Use Impulse for Everything
-		// P = m * v
-		// E = 0.5f * m * (v * v)
-		// float energy = 475.0f;
-		// float weight = 0.0074f;
-		// float velocity = Mathf.Sqrt((energy / weight) * 2.0f);
-		// Debug.Log(velocity);
-
 		originalRotation = transform.localRotation;
 		timePerRound = 1.0f / ((RoundsPerMinute * RoundsPerMinuteMod) / 60.0f);
 		hipPosition = transform.localPosition;
 		audioSource = gameObject.GetComponent<AudioSource>();
-		bulletPool = new Stack<GameObject>();
+		rigidbody = transform.root.gameObject.GetComponentInChildren<Rigidbody>();
+		bulletPoolManager = new PoolManager();
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
 		// Auto Reload
 		if(shotCount <= 0 && reloadStarted < 0)
@@ -223,28 +217,18 @@ public class Gun : Weapon, IPoolManager
 			++shotsFired;
 
 			// Fire Bullet
-			GameObject bullet;
-			if(bulletPool.Count > 0)
-			{
-				bullet = bulletPool.Pop();
-				bullet.transform.position = muzzle.position;
-				bullet.transform.rotation = transform.rotation;
-				bullet.GetComponent<Bullet>().init();
-			}
-			else
-			{
-				bullet = GameObject.Instantiate(bulletPrefab, muzzle.position, transform.rotation);
-				bullet.GetComponent<SimpleRigidbody>().PoolManager = this;
-				bullet.GetComponent<Bullet>().PoolManager = this;
-			}
-			// TODO: Change to Force, apply Recoil to player, connect physical Recoil with Weapon Rotation, calculate Velocity from Barrel Length, Propellant Strength and Bullet Weight
-			bullet.GetComponent<SimpleRigidbody>().Velocity = (bullet.transform.forward + ((Random.insideUnitSphere * Spread * SpreadMod) / 10000.0f)) * MuzzleVelocity * MuzzleVelocityMod;
-			//bullet.GetComponent<SimpleRigidbody>().applyForce((bullet.transform.forward + deviation) * MuzzleVelocity * MuzzleVelocityMod);
-			bullet.GetComponent<Bullet>().DamageMod = Damage * DamageMod;
+			Bullet bullet = (Bullet) bulletPoolManager.getPoolObject(bulletPrefab, muzzle.position, transform.rotation, typeof(Bullet));
+			Vector3 recoilImpulse = bullet.fireBullet(rigidbody != null ? rigidbody.velocity : Vector3.zero, Spread * SpreadMod, MuzzleEnergyModifier * MuzzleEnergyModifierMod);
+			bullet.DamageMod = Damage * DamageMod;
 
 			// Recoil
-			verticalAccumulatedRecoil += VerticalRecoil * RecoilMod * Random.Range(0.0f, 1.0f);
-			horizontalAccumulatedRecoil += HorizontalRecoil * RecoilMod * Random.Range(-1.0f, 1.0f);
+			if(rigidbody != null)
+			{
+				rigidbody.AddForce(recoilImpulse, ForceMode.Impulse);
+			}
+			float recoilStrength = recoilImpulse.magnitude;
+			verticalAccumulatedRecoil += VerticalRecoil * RecoilMod * recoilStrength * Random.Range(0.0f, 1.0f);
+			horizontalAccumulatedRecoil += HorizontalRecoil * RecoilMod * recoilStrength * Random.Range(-1.0f, 1.0f);
 			transform.localRotation *= Quaternion.AngleAxis(verticalAccumulatedRecoil, Vector3.left);
 			transform.localRotation *= Quaternion.AngleAxis(horizontalAccumulatedRecoil, Vector3.up);
 
@@ -263,8 +247,8 @@ public class Gun : Weapon, IPoolManager
 		}
 
 		// Recenter Weapon
-		verticalAccumulatedRecoil *= recoilResetFactor * Time.deltaTime;
-		horizontalAccumulatedRecoil *= recoilResetFactor * Time.deltaTime;
+		verticalAccumulatedRecoil -= verticalAccumulatedRecoil * (recoilResetFactor * Time.deltaTime);
+		horizontalAccumulatedRecoil -= horizontalAccumulatedRecoil * (recoilResetFactor * Time.deltaTime);
 		float recoilAngle = Quaternion.Angle(transform.localRotation, originalRotation);
 		transform.localRotation = Quaternion.RotateTowards(transform.localRotation, originalRotation, recoilAngle * recoilResetFactor * Time.deltaTime);
 
@@ -357,10 +341,5 @@ public class Gun : Weapon, IPoolManager
 				firemodeIndicator.text = fireModes[this.fireMode] + "-Burst";
 			}
 		}
-	}
-
-	public void returnPoolObject(GameObject poolObject)
-	{
-		bulletPool.Push(poolObject);
 	}
 }

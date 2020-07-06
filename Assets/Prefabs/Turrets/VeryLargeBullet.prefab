@@ -66,6 +66,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   damage: 400
+  muzzleEnergy: 3
   fragmentCountModifier: 0.1
   fragmentSpeed: 10
   tracer: {fileID: -5253833941093612320}

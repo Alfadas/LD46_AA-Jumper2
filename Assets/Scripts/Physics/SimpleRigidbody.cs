@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class SimpleRigidbody : MonoBehaviour, IPoolObject
+public class SimpleRigidbody : PoolObject
 {
 	[SerializeField] private float mass = 1.0f;
 	[SerializeField] private float gravity = 9.81f;
@@ -27,14 +27,13 @@ public class SimpleRigidbody : MonoBehaviour, IPoolObject
 		}
 	}
 	public Vector3 Velocity { get; set; } = Vector3.zero;
-	public IPoolManager PoolManager { get; set; } = null;
 
 	private void Awake()
 	{
 		init();
 	}
 
-	public void init()
+	public override void init()
 	{
 		spawnTime = Time.time;
 		Velocity = Vector3.zero;
@@ -61,7 +60,7 @@ public class SimpleRigidbody : MonoBehaviour, IPoolObject
 			if(PoolManager != null)
 			{
 				gameObject.SetActive(false);
-				PoolManager.returnPoolObject(gameObject);
+				PoolManager.returnPoolObject(this);
 			}
 			else
 			{

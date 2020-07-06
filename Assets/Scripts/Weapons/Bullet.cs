@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
+public class Bullet : PoolObject
 {
 	[Tooltip("List of Layers this Bullet can collide with")]
 	[SerializeField] private LayerMask targetMask = new LayerMask();
+	[Tooltip("The Damage Multiplier of this Bullet, actual Damage is calculated by multiplying this with the current Impulse of the Bullet at the Time of Impact")]
 	[SerializeField] private int damage = 10;
+	[Tooltip("The Muzzle Energy of this Bullet, which is used to calculate the Muzzle Velocity by multiplying it by the Muzzle Energy Modifier of the Gun and dividing it by the Bullet Mass")]
+	[SerializeField] private float muzzleEnergy = 1.0f;
 	[SerializeField] private float fragmentCountModifier = 1.0f;
 	[SerializeField] private float fragmentSpeed = 4.0f;
 	[SerializeField] private LineRenderer tracer = null;
@@ -18,7 +21,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 	private new SimpleRigidbody rigidbody = null;
 	private bool drawTracer = false;
 	private bool destroyed = false;
-	private Stack<GameObject> fragmentPool = null;
+	private PoolManager fragmentPoolManager = null;
 
 	public int Damage
 	{
@@ -33,16 +36,15 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 		}
 	}
 	public float DamageMod { get; set; } = 1.0f;
-	public IPoolManager PoolManager { get; set; } = null;
 
 	private void Awake()
 	{
 		rigidbody = gameObject.GetComponent<SimpleRigidbody>();
-		fragmentPool = new Stack<GameObject>();
+		fragmentPoolManager = new PoolManager ();
 		init();
 	}
 
-	public void init()
+	public override void init()
 	{
 		rigidbody.init();
 
@@ -95,21 +97,8 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 					int fragmentCount = Mathf.Max(Mathf.FloorToInt(impactDamage * fragmentCountModifier), 1);
 					for(int i = 0; i < fragmentCount; ++i)
 					{
-						// Spawn Fragment
-						GameObject fragment;
-						if(fragmentPool.Count > 0)
-						{
-							fragment = fragmentPool.Pop();
-							fragment.transform.position = transform.position;
-							fragment.transform.rotation = transform.rotation;
-							fragment.GetComponent<SimpleRigidbody>().init();
-						}
-						else
-						{
-							fragment = GameObject.Instantiate(fragmentPrefab, transform.position, transform.rotation);
-							fragment.GetComponent<SimpleRigidbody>().PoolManager = this;
-						}
-						fragment.GetComponent<SimpleRigidbody>().Velocity = (travelledSegment + Random.insideUnitSphere) * fragmentSpeed;
+						// Spawn Fragment and set Speed
+						((SimpleRigidbody) fragmentPoolManager.getPoolObject(fragmentPrefab, transform.position, transform.rotation, typeof(SimpleRigidbody))).Velocity = (travelledSegment + Random.insideUnitSphere) * fragmentSpeed;
 					}
 				}
 
@@ -117,7 +106,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 				if(PoolManager != null)
 				{
 					gameObject.SetActive(false);
-					PoolManager.returnPoolObject(gameObject);
+					PoolManager.returnPoolObject(this);
 				}
 				else
 				{
@@ -138,8 +127,14 @@ public class Bullet : MonoBehaviour, IPoolObject, IPoolManager
 		}
 	}
 
-	public void returnPoolObject(GameObject poolObject)
+	public Vector3 fireBullet(Vector3 gunVelocity, float spread, float muzzleEnergyModifier)
 	{
-		fragmentPool.Push(poolObject);
+		// Calculate and apply Bullet Impulse
+		Vector3 muzzleImpulse = (transform.forward + ((Random.insideUnitSphere * spread) / 10000.0f)).normalized * (muzzleEnergy * muzzleEnergyModifier);
+		rigidbody.applyImpulse(muzzleImpulse);
+		rigidbody.Velocity += gunVelocity;
+
+		// Return Recoil
+		return -muzzleImpulse;
 	}
 }

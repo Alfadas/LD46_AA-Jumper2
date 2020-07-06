@@ -18,8 +18,8 @@ public class TurretTargetHelper : MonoBehaviour
     public Vector3 CalcTargetLeadPoint()
     {
         Vector3 targetRelativePosition = turret.Target.transform.position - turret.TurretAimCenter;
-        float t = FirstOrderInterceptTime(turret.WeaponController.MuzzleVelocity, targetRelativePosition, turret.Target.Velocity);
-        float timeGravity = FirstOrderInterceptTime(turret.WeaponController.MuzzleVelocity, targetRelativePosition, gravity);
+        float t = FirstOrderInterceptTime(turret.WeaponController.MuzzleEnergyModifier, targetRelativePosition, turret.Target.Velocity);
+        float timeGravity = FirstOrderInterceptTime(turret.WeaponController.MuzzleEnergyModifier, targetRelativePosition, gravity);
         Vector3 targetLead = turret.Target.transform.position + turret.Target.Velocity * t + 0.5f * gravity * Mathf.Pow(timeGravity, 2);
         Vector3 dir = targetLead - turret.TurretAimCenter;
         return dir;
