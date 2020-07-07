@@ -21,12 +21,19 @@ public class Gun : Weapon
 	[SerializeField] private float reloadTime = 2.0f;
 	[Tooltip("A Modifier which is applied at the Muzzle Energy of each Bullet and should mainly depend on Barrel Length and Action Type")]
 	[SerializeField] private float muzzleEnergyModifier = 1.0f;
+	[Tooltip("The initial Velocity of ejected Casings")]
+	[SerializeField] private Vector3 casingVelocity = Vector3.right;
+	[Tooltip("Determines how erratic Casings are ejected, a Value of 0.0 means, that every casing is ejected with the same Velocity")]
+	[SerializeField] private float casingDeviation = 2.0f;
 	[SerializeField] private Vector3 aimPosition = Vector3.zero;
 	[Tooltip("A GameObject which has its Center at the Muzzle Point of the Weapon to determine where Bullets will be spawned")]
 	[SerializeField] private Transform muzzle = null;
+	[Tooltip("A GameObject which has its Center at the Ejection Port of the Weapon to determine where ejected Casings will be spawned")]
+	[SerializeField] private Transform ejectionPort = null;
 	[Tooltip("Available Burst Counts, the first Element is the default Firemode, 0 means full-auto")]
 	[SerializeField] private int[] fireModes = { 0, 3, 1 };
 	[SerializeField] private GameObject bulletPrefab = null;
+	[SerializeField] private GameObject casingPrefab = null;
 	[SerializeField] private AudioClip fireSound = null;
 	private Vector3 hipPosition = Vector3.zero;
 	private Quaternion originalRotation = Quaternion.identity;
@@ -45,6 +52,7 @@ public class Gun : Weapon
 	private bool safety = false;
 	private bool disengageSafety = false;
 	private PoolManager bulletPoolManager = null;
+	private PoolManager casingPoolManager = null;
 
 	public float Damage
 	{
@@ -182,6 +190,7 @@ public class Gun : Weapon
 		audioSource = gameObject.GetComponent<AudioSource>();
 		rigidbody = transform.root.gameObject.GetComponentInChildren<Rigidbody>();
 		bulletPoolManager = new PoolManager();
+		casingPoolManager = new PoolManager();
 	}
 
 	private void FixedUpdate()
@@ -217,7 +226,7 @@ public class Gun : Weapon
 			++shotsFired;
 
 			// Fire Bullet
-			Bullet bullet = (Bullet) bulletPoolManager.getPoolObject(bulletPrefab, muzzle.position, transform.rotation, typeof(Bullet));
+			Bullet bullet = (Bullet) bulletPoolManager.getPoolObject(bulletPrefab, muzzle.position, muzzle.rotation, typeof(Bullet));
 			Vector3 recoilImpulse = bullet.fireBullet(rigidbody != null ? rigidbody.velocity : Vector3.zero, Spread * SpreadMod, MuzzleEnergyModifier * MuzzleEnergyModifierMod);
 			bullet.DamageMod = Damage * DamageMod;
 
@@ -231,6 +240,17 @@ public class Gun : Weapon
 			horizontalAccumulatedRecoil += HorizontalRecoil * RecoilMod * recoilStrength * Random.Range(-1.0f, 1.0f);
 			transform.localRotation *= Quaternion.AngleAxis(verticalAccumulatedRecoil, Vector3.left);
 			transform.localRotation *= Quaternion.AngleAxis(horizontalAccumulatedRecoil, Vector3.up);
+
+			// Eject Casing
+			if(ejectionPort != null && casingPrefab != null)
+			{
+				SimpleRigidbody casing = (SimpleRigidbody) casingPoolManager.getPoolObject(casingPrefab, ejectionPort.position, ejectionPort.rotation, typeof(SimpleRigidbody));
+				casing.Velocity = ejectionPort.rotation * (casingVelocity + (Random.insideUnitSphere * casingDeviation));
+				if(rigidbody != null)
+				{
+					casing.Velocity += rigidbody.velocity;
+				}
+			}
 
 			// Firemode Limitations
 			if(fireModes[fireMode] != 0 && shotsFired >= fireModes[fireMode])
