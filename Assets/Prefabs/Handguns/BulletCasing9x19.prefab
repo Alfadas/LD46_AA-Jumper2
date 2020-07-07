@@ -110,8 +110,8 @@ MonoBehaviour:
   mass: 0.004
   gravity: 9.81
   drag: 0.02
-  bounciness: 0.5
-  lifetime: 4
+  bounciness: 0.6
+  lifetime: 10
 --- !u!54 &7423782594069742615
 Rigidbody:
   m_ObjectHideFlags: 0
