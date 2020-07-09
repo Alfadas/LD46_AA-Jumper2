@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 
@@ -85,6 +86,13 @@ public class SimpleRigidbody : PoolObject
 
 	public void applyImpulse(Vector3 impulse)
 	{
-		Velocity += impulse / mass;
+		if(mass > 0.0f)
+		{
+			Velocity += impulse / mass;
+		}
+		else
+		{
+			Debug.LogError("Trying to apply an Impulse on a SimpleRigidbody without Mass!");
+		}
 	}
 }
