@@ -2149,6 +2149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 0
+  force: 5
   killPoint: -500
   metal: 0
   metallManager: {fileID: 1894727891}
@@ -2590,6 +2591,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4368452007946506377, guid: dca531fba31947b4b81687151f746b3e,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 4368452007946506378, guid: dca531fba31947b4b81687151f746b3e,
         type: 3}
       propertyPath: maxSpeed
@@ -2609,6 +2615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmallerShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028868899812293434, guid: dca531fba31947b4b81687151f746b3e,
+        type: 3}
+      propertyPath: force
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca531fba31947b4b81687151f746b3e, type: 3}
@@ -2659,12 +2670,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  preDestructionHealthPerc: 0.25
   damageMulti: 1
   isEnemy: 1
+  preDestructionDamagePerSec: 5
   essential: 1
+  partMass: 100
   explosionVfx: {fileID: 6210003275459049842, guid: c71320366b1434146b90a9879dac5af7,
     type: 3}
   explosionSize: 1
+  explosionDamage: 15
+  fragmentCount: 25
 --- !u!65 &1417586262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2889,8 +2905,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  preDestructionHealthPerc: 0.25
   damageMulti: 1
   isEnemy: 1
+  preDestructionDamagePerSec: 5
   baseHealthText: {fileID: 503474354}
   gameOverHandler: {fileID: 0}
 --- !u!65 &1494423233
