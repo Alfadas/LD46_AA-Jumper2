@@ -327,7 +327,13 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 6748685144120150169, guid: d5b4a965ad8f3b545b57cc645471d73b,
+      objectReference: {fileID: -769667021549271138, guid: d5b4a965ad8f3b545b57cc645471d73b,
+        type: 3}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7233165075245324377, guid: d5b4a965ad8f3b545b57cc645471d73b,
         type: 3}
     m_RemovedComponents:
     - {fileID: 3691417069591621979, guid: 779438cfea0515144bfee8944fa63e96, type: 3}

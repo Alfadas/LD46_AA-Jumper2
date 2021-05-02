@@ -994,6 +994,18 @@ PrefabInstance:
       propertyPath: aimPosition.z
       value: 0.31
       objectReference: {fileID: 0}
+    - target: {fileID: 3985122253342804191, guid: 959f8748cece27b44a73341ac73a7c14,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: -769667021549271138, guid: 90c9401a743b45a48bf949a144fc1969,
+        type: 3}
+    - target: {fileID: 3985122253342804191, guid: 959f8748cece27b44a73341ac73a7c14,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7233165075245324377, guid: 90c9401a743b45a48bf949a144fc1969,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 959f8748cece27b44a73341ac73a7c14, type: 3}
 --- !u!114 &6057384634932262020 stripped

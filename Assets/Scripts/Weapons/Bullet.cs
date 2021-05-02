@@ -37,6 +37,14 @@ public class Bullet : PoolObject
 	}
 	public float DamageMod { get; set; } = 1.0f;
 
+    public float MuzzleEnergy
+    {
+        get
+        {
+            return muzzleEnergy;
+        }
+    }
+
 	private void Awake()
 	{
 		rigidbody = gameObject.GetComponent<SimpleRigidbody>();

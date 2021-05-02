@@ -32,8 +32,9 @@ public class Gun : Weapon
 	[SerializeField] private Transform ejectionPort = null;
 	[Tooltip("Available Burst Counts, the first Element is the default Firemode, 0 means full-auto")]
 	[SerializeField] private int[] fireModes = { 0, 3, 1 };
-	[SerializeField] private GameObject bulletPrefab = null;
-	[SerializeField] private GameObject casingPrefab = null;
+	[SerializeField] private SimpleRigidbody bulletPrefab = null;
+    [SerializeField] private Bullet bullet = null; // workaround for MuzzleSpeed, told me to do so, blame yourself
+    [SerializeField] private GameObject casingPrefab = null;
 	[SerializeField] private AudioClip fireSound = null;
 	private Vector3 hipPosition = Vector3.zero;
 	private Quaternion originalRotation = Quaternion.identity;
@@ -181,6 +182,13 @@ public class Gun : Weapon
 			}
 		}
 	}
+    public float MuzzleSpeed
+    {
+        get
+        {
+            return muzzleEnergyModifier * bullet.MuzzleEnergy / bulletPrefab.Mass;
+        }
+    }
 
 	private void Start()
 	{
@@ -226,7 +234,7 @@ public class Gun : Weapon
 			++shotsFired;
 
 			// Fire Bullet
-			Bullet bullet = (Bullet) bulletPoolManager.getPoolObject(bulletPrefab, muzzle.position, muzzle.rotation, typeof(Bullet));
+			Bullet bullet = (Bullet) bulletPoolManager.getPoolObject(bulletPrefab.gameObject, muzzle.position, muzzle.rotation, typeof(Bullet));
 			Vector3 recoilImpulse = bullet.fireBullet(rigidbody != null ? rigidbody.velocity : Vector3.zero, Spread * SpreadMod, MuzzleEnergyModifier * MuzzleEnergyModifierMod);
 			bullet.DamageMod = Damage * DamageMod;
 

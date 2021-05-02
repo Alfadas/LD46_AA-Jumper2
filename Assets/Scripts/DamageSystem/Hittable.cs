@@ -31,6 +31,7 @@ public class Hittable : MonoBehaviour
     public virtual void GetDamage(int damage) //Methode if this Part is damaged
     {
         health -= (Mathf.CeilToInt(damage * damageMulti)); // airship gets damage * damage multi
+        Debug.Log(this.GetType() + "got dmg:" + Mathf.CeilToInt(damage * damageMulti));
         if(health <= 0)
         {
             TryPreDestroyHittable();

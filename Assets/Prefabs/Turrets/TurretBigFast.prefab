@@ -271,7 +271,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletPrefab
       value: 
-      objectReference: {fileID: 6748685144120150169, guid: 155ab5c1fa6246c48b46183d87db6d2c,
+      objectReference: {fileID: -769667021549271138, guid: 155ab5c1fa6246c48b46183d87db6d2c,
         type: 3}
     - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
         type: 3}
@@ -293,6 +293,12 @@ PrefabInstance:
       propertyPath: muzzleVelocity
       value: 175
       objectReference: {fileID: 0}
+    - target: {fileID: 8348751135451967310, guid: 779438cfea0515144bfee8944fa63e96,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 7233165075245324377, guid: 155ab5c1fa6246c48b46183d87db6d2c,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 779438cfea0515144bfee8944fa63e96, type: 3}
 --- !u!114 &732372346800909766 stripped

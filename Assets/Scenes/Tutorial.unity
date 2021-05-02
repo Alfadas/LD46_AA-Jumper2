@@ -510,30 +510,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: affa171ac3fa97b49a1f2fdbeea45287, type: 3}
---- !u!114 &52167656 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7651783963394660976, guid: affa171ac3fa97b49a1f2fdbeea45287,
-    type: 3}
-  m_PrefabInstance: {fileID: 52167655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &52167657 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6219487144290184404, guid: affa171ac3fa97b49a1f2fdbeea45287,
-    type: 3}
-  m_PrefabInstance: {fileID: 52167655}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &55079147 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4368452007946506378, guid: dca531fba31947b4b81687151f746b3e,
@@ -4333,46 +4309,11 @@ PrefabInstance:
       propertyPath: interactHelp
       value: 
       objectReference: {fileID: 1592625863}
-    - target: {fileID: 2016584773282131633, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: weaponController
-      value: 
-      objectReference: {fileID: 7160117200666287733}
-    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: magazineIndicator
-      value: 
-      objectReference: {fileID: 52167657}
-    - target: {fileID: 6057384634932262020, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: firemodeIndicator
-      value: 
-      objectReference: {fileID: 52167656}
-    - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: text
-      value: 
-      objectReference: {fileID: 1592625863}
     - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: buildingUi
       value: 
       objectReference: {fileID: 1537158087}
-    - target: {fileID: 6144483880592042561, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: interactHelp
-      value: 
-      objectReference: {fileID: 1592625863}
-    - target: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: magazineIndicator
-      value: 
-      objectReference: {fileID: 52167657}
-    - target: {fileID: 7160117199827436611, guid: b99c72aaa27e6c34b962dd6a5a551171,
-        type: 3}
-      propertyPath: firemodeIndicator
-      value: 
-      objectReference: {fileID: 52167656}
     - target: {fileID: 7346026782969594583, guid: b99c72aaa27e6c34b962dd6a5a551171,
         type: 3}
       propertyPath: m_LocalPosition.x
