@@ -37,4 +37,11 @@ public class PlayerLife : Hittable
     {
         Respawn();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 10) // 10 = forcefield Layer
+        {
+            Respawn();
+        }
+    }
 }

@@ -12,6 +12,8 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] Transform player = null;
     [Tooltip("Max distance for the hook to hit")]
     [SerializeField] int maxDistance = 100;
+    [Tooltip("Layers where the hook connecting, not the layers for the ray to hit")]
+    [SerializeField] LayerMask hookableLayers;
     [Tooltip("Hook prefab")]
     [SerializeField] GameObject hook = null;
     [Header("JointData")]
@@ -65,6 +67,7 @@ public class GrapplingHook : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxDistance))
         {
+            if (hookableLayers != (hookableLayers | (1 << hit.collider.gameObject.layer))) return;
             currentHook = Instantiate(hook, hit.point, Quaternion.identity, hit.collider.transform);
 
             joint = player.gameObject.AddComponent<SpringJoint>();
