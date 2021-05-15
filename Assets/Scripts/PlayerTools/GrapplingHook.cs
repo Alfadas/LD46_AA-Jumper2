@@ -16,17 +16,16 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] LayerMask hookableLayers;
     [Tooltip("Hook prefab")]
     [SerializeField] GameObject hook = null;
-    [Header("JointData")]
-    [Tooltip("Max grapplePoint- Player distance multi to distance on contact")]
-    [SerializeField] float jointDistanceMaxMulti = 0.8f;
-    [Tooltip("Min grapplePoint- Player distance multi to distance on contact")]
-    [SerializeField] float jointDistanceMinMulti = 0.25f;
-    [SerializeField] float jointSpringStrength = 4.5f;
-    [SerializeField] float jointDamperStrength = 7f;
-    [SerializeField] float jointMassScale = 4.5f;
+    [Tooltip("Width of the line")]
+    [SerializeField] float ropeWidth = 0.1f;
+
     LineRenderer lineRenderer = null; //attached line renderer
     SpringJoint joint = null; // current joint
     GameObject currentHook = null; // current hook
+    float loadMass = 10;
+
+    //A list with all rope sections
+    public List<Vector3> allRopeSections = new List<Vector3>();
 
     public bool Hooked
     {
@@ -43,7 +42,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void LateUpdate()
     {
-        UpdateConnection();
+        //UpdateConnection();
     }
 
     private void Update()
@@ -60,6 +59,10 @@ public class GrapplingHook : MonoBehaviour
             }
             
         }
+        if (joint)
+        {
+            UpdateRope();
+        }
     }
 
     private void StartGrapple()
@@ -68,37 +71,93 @@ public class GrapplingHook : MonoBehaviour
         if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, maxDistance))
         {
             if (hookableLayers != (hookableLayers | (1 << hit.collider.gameObject.layer))) return;
+            lineRenderer.enabled = true;
             currentHook = Instantiate(hook, hit.point, Quaternion.identity, hit.collider.transform);
+            Debug.Log(currentHook.transform.position + " || " + firePoint.position + " Distance: " +Vector3.Distance(currentHook.transform.position, firePoint.position));
 
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
+
             joint.connectedAnchor = currentHook.transform.position;
-
-            float distanceFromPoint = Vector3.Distance(player.position, currentHook.transform.position);
-
-            joint.maxDistance = distanceFromPoint * jointDistanceMaxMulti;
-            joint.minDistance = distanceFromPoint * jointDistanceMinMulti;
-
-            joint.spring = jointSpringStrength;
-            joint.damper = jointDamperStrength;
-            joint.massScale = jointMassScale;
-
-            lineRenderer.positionCount = 2;
+           // joint.anchor = firePoint.position;
+            loadMass = player.GetComponent<Rigidbody>().mass;
+            float distance = Mathf.Abs(Vector3.Distance(currentHook.transform.position, firePoint.position));
+            UpdateSpring(distance);
+            UpdateRope();
         }
+    }
+
+    //Update the spring constant and the length of the spring
+    private void UpdateSpring(float ropeLength)
+    {
+        //Someone said you could set this to infinity to avoid bounce, but it doesnt work
+        //kRope = float.inf
+
+        //
+        //The mass of the rope
+        //
+        //Density of the wire (stainless steel) kg/m3
+        float density = 7750f;
+        //The radius of the wire
+        float radius = 0.01f;
+
+        float volume = Mathf.PI * radius * radius * ropeLength;
+
+        float ropeMass = volume * density;
+
+        //Add what the rope is carrying
+        ropeMass += loadMass;
+
+
+        //
+        //The spring constant (has to recalculate if the rope length is changing)
+        //
+        //The force from the rope F = rope_mass * g, which is how much the top rope segment will carry
+        float ropeForce = ropeMass * 9.81f;
+
+        //Use the spring equation to calculate F = k * x should balance this force, 
+        //where x is how much the top rope segment should stretch, such as 0.01m
+
+        //Is about 146000
+        float kRope = ropeForce / 0.01f;
+
+        //print(ropeMass);
+
+        //Add the value to the spring
+        joint.spring = kRope * 1.0f;
+        joint.damper = kRope * 0.7f;
+
+        //Update length of the rope
+        joint.maxDistance = ropeLength;
+    }
+
+    //Display the rope with a line renderer
+    private void UpdateRope()
+    {
+        //This is not the actual width, but the width use so we can see the rope
+        if (!joint) return;
+
+        joint.anchor = player.InverseTransformPoint(firePoint.position);
+        joint.connectedAnchor = currentHook.transform.position;
+
+        lineRenderer.startWidth = ropeWidth;
+        lineRenderer.endWidth = ropeWidth;
+
+        Vector3[] positions = new Vector3[2];
+        positions[1] = firePoint.position;
+        positions[0] = currentHook.transform.position;
+
+        //Add the positions to the line renderer
+        lineRenderer.positionCount = positions.Length;
+
+        lineRenderer.SetPositions(positions);
     }
 
     public void StopGrapple()
     {
         lineRenderer.positionCount = 0;
+        lineRenderer.enabled = false;
         Destroy(currentHook);
         Destroy(joint);
-    }
-
-    void UpdateConnection()
-    {
-        if (!joint) return; //if not grappling, don´t draw
-        joint.connectedAnchor = currentHook.transform.position;
-        lineRenderer.SetPosition(0, firePoint.position);
-        lineRenderer.SetPosition(1, joint.connectedAnchor);
     }
 }
